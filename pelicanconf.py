@@ -13,8 +13,9 @@ MAIN_MENU = True
 HOME_HIDE_TAGS = False
 
 MENUITEMS = (
-    # ('Announcements', '/category/announcements'),
-    # ('Blog', '/category/blog'),
+    ('Archives', '/archives.html'),
+    ('Categories', '/categories.html'),
+    ('Tags', '/tags.html'),
 )
 
 PATH = 'content'
