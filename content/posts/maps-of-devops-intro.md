@@ -27,7 +27,7 @@ not expressly interested in seeking it out and have been
 disheartened by the ease with which it is misunderstood.
 
 Traditional introductions to DevOps typically begin with an
-analogy to the Lean manufacturing movement of the 1980's, and
+analogy to the [Lean manufacturing][Lean] movement of the 1980's, and
 I have always found that somewhat
 unsatisfying. This approach has the benefit of rooting
 DevOps in a mature framework, but it runs the risk of
@@ -90,6 +90,7 @@ Kim's diagrammatic representations of The Three Ways of DevOps.
 ## References
 
 [ThreeWays]: https://itrevolution.com/the-three-ways-principles-underpinning-devops/
+[Lean]: https://www.leanproduction.com/
 
 1. Leading the Transformation: Applying Agile and DevOps Principles at Scale, Gary Gruver, Tommy Mouser, Gene Kim (2015), IT Revolution Press (BOOK) - <https://www.amazon.com/Leading-Transformation-Applying-DevOps-Principles/dp/1942788010>
 2. The Three Ways: The Principles Underpinning DevOps, Gene Kim (WEBSITE) - <https://itrevolution.com/the-three-ways-principles-underpinning-devops/>
