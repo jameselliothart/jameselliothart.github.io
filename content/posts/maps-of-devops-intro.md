@@ -3,6 +3,7 @@ date: 10-25-19
 author: James Hart
 category: DevOps
 tags: DevOps, MapsOfMeaning, TheThreeWays
+modified: 10-27-19
 
 ## Motivation
 
@@ -39,7 +40,7 @@ the congruence between these disparate fields suggested to me
 an underlying idea common to both.
 
 As I thought about these ideas, I noticed a similarity between
-the figures used to express [The Three Ways of DevOps][ThreeWays]
+the figures (see below) used to express [The Three Ways of DevOps][ThreeWays]
 <sup>2</sup> and those used to
 describe the phenomenological landscape of human motivation in
 _Maps of Meaning_<sup>3</sup> . Thus the title of this series, _Maps of DevOps_,
@@ -52,18 +53,20 @@ derived from the ideas presented there.
 >There is more wisdom in your body than in your deepest philosophy  
 -Friedrich Nietzsche, _Thus Spoke Zarathustra_
 
-At a high level, my
-goal is to marry Gene Kim's Three Ways of DevOps (expressed succinctly
+One of the main theses of _Maps of Meaning_ is that there is a
+universal story-like structure through which we understand the world.
+Seen at a sufficiently abstract level, all belief systems fit within
+this framework, thus the subtitle _The Architecture of Belief_.
+My goal is to show that Gene Kim's Three Ways of DevOps (expressed succinctly
 in his post on [The Three Ways][ThreeWays] and elaborated in detail in
-_The DevOps Handbook_<sup>4</sup>) with some of the
-ideas underlying the book _Maps of Meaning: The Architecture of
-Belief_. More precisely, I will attempt to show that DevOps can
-naturally be understood within that framework.
+_The DevOps Handbook_<sup>4</sup>) can naturally be understood within
+the _Maps of Meaning_ framework.
 
 I believe this approach makes these principles more
-widely applicable as it emphasizes that DevOps is an idea, a culture,
-a pattern of existence and not a particular set of tools and
-buzzwords.
+widely applicable as it emphasizes that DevOps is a culture -
+a pattern of behavior - and not a particular set of tools and
+buzzwords. Put another way, DevOps is an _idea_ that inhabits an
+organization and the individuals within it.
 
 I hope you will join me on this journey.
 
@@ -71,6 +74,9 @@ I hope you will join me on this journey.
 
 The following are figures from _Maps of Meaning_ juxtaposed with Gene
 Kim's diagrammatic representations of The Three Ways of DevOps.
+The _Maps of Meaning_ figures have bizarre names owing to that book's
+very different subject matter, but we will cover
+that ground in due time.
 
 ### The Domain and Constituent Elements of the Known vs The First Way
 
