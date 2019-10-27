@@ -23,6 +23,10 @@ PATH = 'content'
 TIMEZONE = 'US/Central'
 
 DEFAULT_LANG = 'en'
+DEFAULT_DATE_FORMAT = '%B %d, %Y'
+DATE_FORMATS = {
+    'en': DEFAULT_DATE_FORMAT,
+}
 
 # Feed generation is usually not desired when developing
 FEED_ALL_ATOM = None
@@ -46,7 +50,7 @@ DEFAULT_PAGINATION = 10
 # Uncomment following line if you want document-relative URLs when developing
 #RELATIVE_URLS = True
 
-THEME = '/home/james/pelican-addon-clones/pelican-themes/Flex'
+THEME = './venv/lib/python3.6/site-packages/pelican/themes/Flex'
 # THEME = 'notmyidea'
 
 COPYRIGHT_NAME = AUTHOR
