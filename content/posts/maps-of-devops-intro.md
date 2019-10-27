@@ -75,7 +75,7 @@ Kim's diagrammatic representations of The Three Ways of DevOps.
 ### The Domain and Constituent Elements of the Known vs The First Way
 
 <img src="{static}/images/maps-of-devops-intro/TheKnown.jpg" width="500">
-![The First Way]({static}/images/maps-of-devops-intro/TheFirstWay.jpg)
+![The First Way]({static}/images/maps-of-devops-intro/TheFirstWay.png)
 
 ### The Metamythological Cycle of the Way vs The Second Way
 
