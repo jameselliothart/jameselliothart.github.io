@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>A Hart's Eye View - DevOps</title><link href="https://jameselliothart.github.io/" rel="alternate"></link><link href="https://jameselliothart.github.io/feeds/devops.atom.xml" rel="self"></link><id>https://jameselliothart.github.io/</id><updated>2019-10-25T00:00:00-05:00</updated><entry><title>Maps of DevOps: Introduction</title><link href="https://jameselliothart.github.io/maps-of-devops-introduction.html" rel="alternate"></link><published>2019-10-25T00:00:00-05:00</published><updated>2019-10-25T00:00:00-05:00</updated><author><name>James Hart</name></author><id>tag:jameselliothart.github.io,2019-10-25:/maps-of-devops-introduction.html</id><summary type="html">&lt;h2&gt;Motivation&lt;/h2&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>A Hart's Eye View - DevOps</title><link href="https://jameselliothart.github.io/" rel="alternate"></link><link href="https://jameselliothart.github.io/feeds/devops.atom.xml" rel="self"></link><id>https://jameselliothart.github.io/</id><updated>2019-10-27T00:00:00-05:00</updated><entry><title>Maps of DevOps: Introduction</title><link href="https://jameselliothart.github.io/maps-of-devops-introduction.html" rel="alternate"></link><published>2019-10-25T00:00:00-05:00</published><updated>2019-10-27T00:00:00-05:00</updated><author><name>James Hart</name></author><id>tag:jameselliothart.github.io,2019-10-25:/maps-of-devops-introduction.html</id><summary type="html">&lt;h2&gt;Motivation&lt;/h2&gt;
 &lt;blockquote&gt;
 &lt;p&gt;People don't have ideas. Ideas have people.&lt;br&gt;
 -Carl Jung&lt;/p&gt;
@@ -39,7 +39,7 @@ the ways in which ideas or methods generalize. Thus
 the congruence between these disparate fields suggested to me
 an underlying idea common to both.&lt;/p&gt;
 &lt;p&gt;As I thought about these ideas, I noticed a similarity between
-the figures used to express &lt;a href="https://itrevolution.com/the-three-ways-principles-underpinning-devops/"&gt;The Three Ways of DevOps&lt;/a&gt;
+the figures (see below) used to express &lt;a href="https://itrevolution.com/the-three-ways-principles-underpinning-devops/"&gt;The Three Ways of DevOps&lt;/a&gt;
 &lt;sup&gt;2&lt;/sup&gt; and those used to
 describe the phenomenological landscape of human motivation in
 &lt;em&gt;Maps of Meaning&lt;/em&gt;&lt;sup&gt;3&lt;/sup&gt; . Thus the title of this series, &lt;em&gt;Maps of DevOps&lt;/em&gt;,
@@ -51,24 +51,29 @@ derived from the ideas presented there.&lt;/p&gt;
 &lt;p&gt;There is more wisdom in your body than in your deepest philosophy&lt;br&gt;
 -Friedrich Nietzsche, &lt;em&gt;Thus Spoke Zarathustra&lt;/em&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;p&gt;At a high level, my
-goal is to marry Gene Kim's Three Ways of DevOps (expressed succinctly
+&lt;p&gt;One of the main theses of &lt;em&gt;Maps of Meaning&lt;/em&gt; is that there is a
+universal story-like structure through which we understand the world.
+Seen at a sufficiently abstract level, all belief systems fit within
+this framework, thus the subtitle &lt;em&gt;The Architecture of Belief&lt;/em&gt;.
+My goal is to show that Gene Kim's Three Ways of DevOps (expressed succinctly
 in his post on &lt;a href="https://itrevolution.com/the-three-ways-principles-underpinning-devops/"&gt;The Three Ways&lt;/a&gt; and elaborated in detail in
-&lt;em&gt;The DevOps Handbook&lt;/em&gt;&lt;sup&gt;4&lt;/sup&gt;) with some of the
-ideas underlying the book &lt;em&gt;Maps of Meaning: The Architecture of
-Belief&lt;/em&gt;. More precisely, I will attempt to show that DevOps can
-naturally be understood within that framework.&lt;/p&gt;
+&lt;em&gt;The DevOps Handbook&lt;/em&gt;&lt;sup&gt;4&lt;/sup&gt;) can naturally be understood within
+the &lt;em&gt;Maps of Meaning&lt;/em&gt; framework.&lt;/p&gt;
 &lt;p&gt;I believe this approach makes these principles more
-widely applicable as it emphasizes that DevOps is an idea, a culture,
-a pattern of existence and not a particular set of tools and
-buzzwords.&lt;/p&gt;
+widely applicable as it emphasizes that DevOps is a culture -
+a pattern of behavior - and not a particular set of tools and
+buzzwords. Put another way, DevOps is an &lt;em&gt;idea&lt;/em&gt; that inhabits an
+organization and the individuals within it.&lt;/p&gt;
 &lt;p&gt;I hope you will join me on this journey.&lt;/p&gt;
 &lt;h2&gt;Figures&lt;/h2&gt;
 &lt;p&gt;The following are figures from &lt;em&gt;Maps of Meaning&lt;/em&gt; juxtaposed with Gene
-Kim's diagrammatic representations of The Three Ways of DevOps.&lt;/p&gt;
+Kim's diagrammatic representations of The Three Ways of DevOps.
+The &lt;em&gt;Maps of Meaning&lt;/em&gt; figures have bizarre names owing to that book's
+very different subject matter, but we will cover
+that ground in due time.&lt;/p&gt;
 &lt;h3&gt;The Domain and Constituent Elements of the Known vs The First Way&lt;/h3&gt;
 &lt;p&gt;&lt;img src="https://jameselliothart.github.io/images/maps-of-devops-intro/TheKnown.jpg" width="500"&gt;
-&lt;img alt="The First Way" src="https://jameselliothart.github.io/images/maps-of-devops-intro/TheFirstWay.jpg"&gt;&lt;/p&gt;
+&lt;img alt="The First Way" src="https://jameselliothart.github.io/images/maps-of-devops-intro/TheFirstWay.png"&gt;&lt;/p&gt;
 &lt;h3&gt;The Metamythological Cycle of the Way vs The Second Way&lt;/h3&gt;
 &lt;p&gt;&lt;img src="https://jameselliothart.github.io/images/maps-of-devops-intro/TheCycle.jpg" width="500"&gt;
 &lt;img alt="The First Way" src="https://jameselliothart.github.io/images/maps-of-devops-intro/TheSecondWay.png"&gt;&lt;/p&gt;
