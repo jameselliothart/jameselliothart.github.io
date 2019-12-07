@@ -27,7 +27,7 @@ Thus, [Wikipedia](https://en.wikipedia.org/wiki/DevOps) defines DevOps as such:
 
 >DevOps is a set of practices that combines software development and information-technology operations which aims to shorten the systems development life cycle and provide continuous delivery with high software quality
 
-In other words, DevOps is the attempt to have your cake and eat it too: to delivery software quickly and often while maintaining a high level of system up time.
+In other words, DevOps is the attempt to have the best of both worlds: to delivery software quickly and often while maintaining a high level of system up time.
 Throughout this series, we will explore the ideas which underlie this goal, and in describing the underlying pattern, we hope to reveal a broader applicability of these principles such as always comes when one extracts a general principle from a particular case.
 
 ## Motivation
