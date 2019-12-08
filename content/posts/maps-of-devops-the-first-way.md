@@ -43,8 +43,8 @@ It is now the system which is sending letters and not any individual within it.
 >The function performed by a system is not operationally identical to the function of the same name performed by a person  
 -The Operational Fallacy (long form), John Gall, *Systemantics*
 
-Taking this further, a system operating under these incentives may not be sending letters at all.
-It is entirely reasonable to imagine - as indeed it happens - that the system is in fact producing mounds of folded paper which either does not fit in or is more numerous than the given size or number of envelopes.
+In this light, it is entirely reasonable to imagine - as indeed does happen - that the system is in fact producing mounds of folded paper which either does not fit in or is more numerous than the given size or number of envelopes.
+Thus, a system operating under this structure may not be sending letters at all.
 The motivated reader is encouraged to think of other ways in which the system could be doing something entirely different than its stated purpose.
 
 ## Motivation for Maps
@@ -71,8 +71,9 @@ To represent this, below I have modified **The Domain and Constituent Elements o
 <img src="{static}/images/maps-of-devops-first/WhatIsWhatShouldBeDevOps.jpg" width="500">
 
 That is to say, a technology firm pursues value through the actions of its Development and Operations organizations.
-These organizations in turn have their own maps, all the way down to the level of the individual employees (which of course is the level of analysis at which we started).
-As we have previously noted, these maps may not be in alignment, but seen within the broader perspective of the organization as a whole, this is as undesirable as having your own mind split between two purposes.
+These organizations in turn have their own maps, all the way down to the level of the individual employees (which of course is the level of analysis we started with).
+As we have previously noted, these maps may not be in alignment.
+However, seen within the broader perspective of the organization as a whole, this is as undesirable as the proverbial hunter chasing two rabbits at once.
 
 ## The First Way: Systems Thinking
 
@@ -112,8 +113,11 @@ This is not a time to let perfect be the enemy of good.
 
 ### Tools of the Trade
 
-As our focus is primarily on the principles underpinning DevOps, an in-depth discussion of tooling is beyond the scope of this series.
-However, we would be remiss not at least to mention along the way some of the more ubiquitous tools to provide avenues for further independent investigation.
+This and the following section are targeted specifically to the domain of software development.
+Readers unfamiliar with the software development life cycle may skip the remaining content without worry of missing any key concepts.
+
+That said, an in-depth discussion of tooling is beyond the scope of this series given that our focus is primarily on the principles underpinning DevOps.
+However, we would be remiss not at least to mention along the way some of the more ubiquitous tools to provide the technical reader with avenues for further independent investigation.
 Tools most related to The First Way are Continuous Integration / Continuous Deployment (CI/CD) Pipelines, examples of which are [Azure DevOps](https://azure.microsoft.com/en-us/services/devops/) or [Jenkins](https://jenkins.io/) (and many others).
 
 ### Spotlight: The Deployment Pipeline
