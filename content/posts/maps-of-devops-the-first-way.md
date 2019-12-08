@@ -33,10 +33,19 @@ We can keep the following possible translation in mind throughout:
 Where the "development" and "operations" teams can refer to those organizations within a company, to individual developers and operations engineers, or even to the multiple roles a single person can fill.
 Indeed, how the dynamics change with each of these interpretations is something else to keep in mind.
 
->The function performed by a system is not operationally identical to the function of the same name performed by a person  
--The Operational Fallacy (long form), John Gall, *Systemantics: How Systems Work and Especially How They Fail*
+>People in systems do not do what the system says they are doing  
+-The Functionary's Falsity, John Gall, *Systemantics: How Systems Work and Especially How They Fail*
 
-# TODO
+One person performing all of these tasks could reasonably be said to be sending letters (i.e. delivering valuable applications).
+However, once a system is set up and tasks split between people, there are only paper folders (developers writing code) and envelope sealers (operations team deploying binaries).
+It is now the system which is sending letters and not any individual within it.
+
+>The function performed by a system is not operationally identical to the function of the same name performed by a person  
+-The Operational Fallacy (long form), John Gall, *Systemantics*
+
+Taking this further, a system operating under these incentives may not be sending letters at all.
+It is entirely reasonable to imagine - as indeed it happens - that the system is in fact producing mounds of folded paper which either does not fit in or is more numerous than the given size or number of envelopes.
+The motivated reader is encouraged to think of other ways in which the system could be doing something entirely different than its stated purpose.
 
 ## Motivation for Maps
 
@@ -57,6 +66,7 @@ Contrast this with Unknown (or Unexplored) Territory: you do not know where you 
 
 This leads to our first key insight: A business inhabits the same existential landscape.
 The sequence of behavior has a different content but not a different objective.
+To represent this, below I have modified **The Domain and Constituent Elements of the Known** to show the maps of both development and operations embedded within the larger map of the business.
 
 <img src="{static}/images/maps-of-devops-first/WhatIsWhatShouldBeDevOps.jpg" width="500">
 
