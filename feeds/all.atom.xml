@@ -1,18 +1,143 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>A Hart's Eye View</title><link href="https://jameselliothart.github.io/" rel="alternate"></link><link href="https://jameselliothart.github.io/feeds/all.atom.xml" rel="self"></link><id>https://jameselliothart.github.io/</id><updated>2019-10-27T00:00:00-05:00</updated><entry><title>Maps of DevOps: Introduction</title><link href="https://jameselliothart.github.io/maps-of-devops-introduction.html" rel="alternate"></link><published>2019-10-25T00:00:00-05:00</published><updated>2019-10-27T00:00:00-05:00</updated><author><name>James Hart</name></author><id>tag:jameselliothart.github.io,2019-10-25:/maps-of-devops-introduction.html</id><summary type="html">&lt;h2&gt;Motivation&lt;/h2&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>A Hart's Eye View</title><link href="https://jameselliothart.github.io/" rel="alternate"></link><link href="https://jameselliothart.github.io/feeds/all.atom.xml" rel="self"></link><id>https://jameselliothart.github.io/</id><updated>2019-12-08T00:00:00-06:00</updated><entry><title>Maps of DevOps: The First Way</title><link href="https://jameselliothart.github.io/maps-of-devops-the-first-way.html" rel="alternate"></link><published>2019-12-08T00:00:00-06:00</published><updated>2019-12-08T00:00:00-06:00</updated><author><name>James Hart</name></author><id>tag:jameselliothart.github.io,2019-12-08:/maps-of-devops-the-first-way.html</id><summary type="html">&lt;h2&gt;Welcome&lt;/h2&gt;
+&lt;p&gt;Welcome to the second post in the Maps of DevOps series!
+In this installment, we will explore The First Way: Systems Thinking.&lt;/p&gt;
+&lt;h2&gt;Motivating Scenario: Mailing Letters&lt;/h2&gt;
+&lt;p&gt;In an attempt to avoid the obfuscating effect of technical jargon, we will use a technology-agnostic scenario as the stage within which to …&lt;/p&gt;</summary><content type="html">&lt;h2&gt;Welcome&lt;/h2&gt;
+&lt;p&gt;Welcome to the second post in the Maps of DevOps series!
+In this installment, we will explore The First Way: Systems Thinking.&lt;/p&gt;
+&lt;h2&gt;Motivating Scenario: Mailing Letters&lt;/h2&gt;
+&lt;p&gt;In an attempt to avoid the obfuscating effect of technical jargon, we will use a technology-agnostic scenario as the stage within which to play out our DevOps exploration.
+The scenario, taken from &lt;em&gt;The DevOps Handbook&lt;/em&gt;, is that of mailing letters and will be used throughout the series.
+The tasks involved are as follows:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Fold letter&lt;/li&gt;
+&lt;li&gt;Insert letter into envelope&lt;/li&gt;
+&lt;li&gt;Seal envelope&lt;/li&gt;
+&lt;li&gt;Stamp envelope&lt;/li&gt;
+&lt;li&gt;Mail letter&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;We can keep the following possible translation in mind throughout:&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Item&lt;/th&gt;
+&lt;th&gt;Translation&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;Folder&lt;/td&gt;
+&lt;td&gt;Development Team&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Folded Paper&lt;/td&gt;
+&lt;td&gt;Compiled Code&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Sealer/Stamper&lt;/td&gt;
+&lt;td&gt;Operations Team&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Mailed Letter&lt;/td&gt;
+&lt;td&gt;Deployed Application&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;Where the "development" and "operations" teams can refer to those organizations within a company, to individual developers and operations engineers, or even to the multiple roles a single person can fill.
+Indeed, how the dynamics change with each of these interpretations is something else to keep in mind.&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;People don't have ideas. Ideas have people.&lt;br&gt;
--Carl Jung&lt;/p&gt;
+&lt;p&gt;People in systems do not do what the system says they are doing&lt;br&gt;
+-The Functionary's Falsity, John Gall, &lt;em&gt;Systemantics: How Systems Work and Especially How They Fail&lt;/em&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
+&lt;p&gt;One person performing all of these tasks could reasonably be said to be sending letters (i.e. delivering valuable applications).
+However, once a system is set up and tasks split between people, there are only paper folders (developers writing code) and envelope sealers (operations team deploying binaries).
+It is now the system which is sending letters and not any individual within it.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;The function performed by a system is not operationally identical to the function of the same name performed by a person&lt;br&gt;
+-The Operational Fallacy (long form), John Gall, &lt;em&gt;Systemantics&lt;/em&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;In this light, it is entirely reasonable to imagine - as indeed does happen - that the system is in fact producing mounds of folded paper which either does not fit in or is more numerous than the given size or number of envelopes.
+Thus, a system operating under this structure may not be sending letters at all.
+The motivated reader is encouraged to think of other ways in which the system could be doing something entirely different than its stated purpose.&lt;/p&gt;
+&lt;h2&gt;Motivation for Maps&lt;/h2&gt;
+&lt;p&gt;The "maps" after which our series is named refer to constructs out of the book &lt;em&gt;Maps of Meaning&lt;/em&gt;.
+We will first consider the "map" of Known (or Explored) Territory, diagrammatically represented as &lt;strong&gt;The Domain and Constituent Elements of the Known&lt;/strong&gt;.
+This is the landscape you inhabit when you know what you are doing:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;You exist in the state of What Is&lt;/li&gt;
+&lt;li&gt;You aim for What (you believe) Should Be&lt;/li&gt;
+&lt;li&gt;You execute a sequence of behavior to move from the former to the latter&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src="https://jameselliothart.github.io/images/maps-of-devops-first/TheKnown.jpg" width="500"&gt;&lt;/p&gt;
+&lt;p&gt;Why is it appropriate to call this a map?
+It is a map in the sense that it describes where you are, where you are going, and how to get there even though those "places" are not exactly physical.
+A mental map is no less real simply because it does not take up physical space or guide you to a physical address.
+Contrast this with Unknown (or Unexplored) Territory: you do not know where you are, what you are doing, or where you need to go (more on this later).&lt;/p&gt;
+&lt;p&gt;This leads to our first key insight: A business inhabits the same existential landscape.
+The sequence of behavior has a different content but not a different objective.
+To represent this, below I have modified &lt;strong&gt;The Domain and Constituent Elements of the Known&lt;/strong&gt; to show the maps of both development and operations embedded within the larger map of the business.&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://jameselliothart.github.io/images/maps-of-devops-first/WhatIsWhatShouldBeDevOps.jpg" width="500"&gt;&lt;/p&gt;
+&lt;p&gt;That is to say, a technology firm pursues value through the actions of its Development and Operations organizations.
+These organizations in turn have their own maps, all the way down to the level of the individual employees (which of course is the level of analysis we started with).
+As we have previously noted, these maps may not be in alignment.
+However, seen within the broader perspective of the organization as a whole, this is as undesirable as the proverbial hunter chasing two rabbits at once.&lt;/p&gt;
+&lt;h2&gt;The First Way: Systems Thinking&lt;/h2&gt;
+&lt;p&gt;&lt;img alt="The First Way" src="https://jameselliothart.github.io/images/maps-of-devops-first/TheFirstWay.png"&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Stop Starting. Start Finishing.&lt;br&gt;
+-David J. Anderson&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Applying this framework to our mailing letters scenario, we have:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;What Is: unfolded paper, un-mailed letters&lt;/li&gt;
+&lt;li&gt;What Should Be: folded paper, mailed in envelopes&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Now the question arises, what sequence of behavior should we pursue?&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Batches: Fold all paper first, insert all papers into envelopes, seal all envelopes, etc.&lt;/li&gt;
+&lt;li&gt;Single Piece Flow: Fold a single piece of paper, insert it into an envelope, seal its envelope, etc.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img alt="SPF" src="https://jameselliothart.github.io/images/maps-of-devops-first/SinglePieceFlow.jpg"&gt;&lt;/p&gt;
+&lt;p&gt;It is easy to see that the Single Piece Flow (SPF) approach achieves What Should Be faster - that is, SPF is the superior way of delivering the value we seek.
+This is because value is in filled, sealed, mailed envelopes, &lt;strong&gt;not&lt;/strong&gt; folded paper!
+A development team that produces volumes of untested, undeployed code has not created value.&lt;/p&gt;
+&lt;h2&gt;How To Use This Info&lt;/h2&gt;
+&lt;p&gt;One common and very useful practice to enable Systems Thinking is &lt;a href="https://en.wikipedia.org/wiki/Value-stream_mapping"&gt;Value Stream Mapping&lt;/a&gt; which involves identifying the series of steps necessary to take a proposed change from conception to final delivery.
+If you do not know what all of these steps are, who does them, or how long they take, it becomes very difficult - if not impossible - to identify where the constraints are that cause bottlenecks in the system.&lt;/p&gt;
+&lt;p&gt;Sometimes more importantly, it is also difficult to tell which parts of the process are the most loathsome to those performing them.
+This point is particularly important if there is not significant buy-in or even active resistance to trying to change existing processes to align more with DevOps principles.
+Do not underestimate the benefits a boost in morale can confer to the desire people have to contribute to and believe in the potential of a DevOps transformation.&lt;/p&gt;
+&lt;p&gt;Applying this principle to itself, remember that a DevOps transformation does not need to happen in one batch.
+Make small, valuable changes (at the constraints and pain points!) and implement them through to the end.
+This is not a time to let perfect be the enemy of good.&lt;/p&gt;
+&lt;h3&gt;Tools of the Trade&lt;/h3&gt;
+&lt;p&gt;This and the following section are targeted specifically to the domain of software development.
+Readers unfamiliar with the software development life cycle may skip the remaining content without worry of missing any key concepts.&lt;/p&gt;
+&lt;p&gt;That said, an in-depth discussion of tooling is beyond the scope of this series given that our focus is primarily on the principles underpinning DevOps.
+However, we would be remiss not at least to mention along the way some of the more ubiquitous tools to provide the technical reader with avenues for further independent investigation.
+Tools most related to The First Way are Continuous Integration / Continuous Deployment (CI/CD) Pipelines, examples of which are &lt;a href="https://azure.microsoft.com/en-us/services/devops/"&gt;Azure DevOps&lt;/a&gt; or &lt;a href="https://jenkins.io/"&gt;Jenkins&lt;/a&gt; (and many others).&lt;/p&gt;
+&lt;h3&gt;Spotlight: The Deployment Pipeline&lt;/h3&gt;
+&lt;p&gt;The CI/CD Pipeline is an automated process for getting code produced by a developer into the hands of the end user.
+The following diagram from &lt;em&gt;Continuous Delivery&lt;/em&gt; is an abstract representation of that process.&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://jameselliothart.github.io/images/maps-of-devops-first/CICD.png" width="800"&gt;&lt;/p&gt;
+&lt;p&gt;For most technology organizations, the steps required for that process follow the same high-level pattern (or if they don't, they probably should).
+These steps include checking a change into version control, building an artifact of the code as of that point in time (i.e. a snapshot of the checked-in code whether compiled or otherwise), and the progression of that artifact from cheaper / more volatile environments (sandbox and development) to more expensive / more stable environments (user acceptance testing and production).
+The CI/CD pipeline provides consistency and visibility to a process that otherwise would be manual (and thus error-prone) and opaque.&lt;/p&gt;
+&lt;p&gt;For more information, we would encourage interested readers to reference the excellent treatments of the CI/CD pipeline found in &lt;em&gt;Continuous Delivery&lt;/em&gt; as well as &lt;em&gt;The DevOps Handbook&lt;/em&gt; or simply to query their preferred search engine for the wealth of material online.&lt;/p&gt;
+&lt;h2&gt;References&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;Maps of Meaning: The Architecture of Belief, Jordan B. Peterson (1999), Routledge (BOOK) - &lt;a href="https://www.amazon.com/Maps-Meaning-Architecture-Jordan-Peterson/dp/0415922224"&gt;https://www.amazon.com/Maps-Meaning-Architecture-Jordan-Peterson/dp/0415922224&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;The DevOps Handbook: How to Create World-Class Agility, Reliability, and Security in Technology Organizations; Gene Kim, Patrick Debois, John Willis, Jez Humble, John Allspaw (2016), IT Revolution Press (BOOK) - &lt;a href="https://www.amazon.com/DevOps-Handbook-World-Class-Reliability-Organizations/dp/1942788002"&gt;https://www.amazon.com/DevOps-Handbook-World-Class-Reliability-Organizations/dp/1942788002&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Continuous Delivery: Reliable Software Releases through Build, Test, and Deployment Automation; Jez Humble, David Farley (2010), Addison-Wesley Professional (BOOK) - &lt;a href="https://www.amazon.com/Continuous-Delivery-Deployment-Automation-Addison-Wesley/dp/0321601912"&gt;https://www.amazon.com/Continuous-Delivery-Deployment-Automation-Addison-Wesley/dp/0321601912&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Systemantics: How Systems Work and Especially How They Fail, John Gall (1977), Quadrangle (BOOK) - &lt;a href="https://www.amazon.com/Systemantics-Systems-Work-Especially-They/dp/0812906748"&gt;https://www.amazon.com/Systemantics-Systems-Work-Especially-They/dp/0812906748&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;</content><category term="DevOps"></category><category term="DevOps"></category><category term="MapsOfMeaning"></category><category term="TheThreeWays"></category><category term="TheFirstWayOfDevOps"></category><category term="CICD"></category><category term="ContinuousDelivery"></category></entry><entry><title>Maps of DevOps: Introduction</title><link href="https://jameselliothart.github.io/maps-of-devops-introduction.html" rel="alternate"></link><published>2019-10-25T00:00:00-05:00</published><updated>2019-12-05T00:00:00-06:00</updated><author><name>James Hart</name></author><id>tag:jameselliothart.github.io,2019-10-25:/maps-of-devops-introduction.html</id><summary type="html">&lt;h2&gt;Welcome&lt;/h2&gt;
 &lt;p&gt;This post marks the beginning of a multi-part series
 explaining the ideas of DevOps (that is, Development Operations).
 The target audience is primarily those
 unfamiliar with DevOps, and it is meant to
-be friendly even to those without a technical …&lt;/p&gt;</summary><content type="html">&lt;h2&gt;Motivation&lt;/h2&gt;
-&lt;blockquote&gt;
-&lt;p&gt;People don't have ideas. Ideas have people.&lt;br&gt;
--Carl Jung&lt;/p&gt;
-&lt;/blockquote&gt;
+be friendly even to those without a technical background who seek to
+understand the principles behind what …&lt;/p&gt;</summary><content type="html">&lt;h2&gt;Welcome&lt;/h2&gt;
 &lt;p&gt;This post marks the beginning of a multi-part series
 explaining the ideas of DevOps (that is, Development Operations).
 The target audience is primarily those
@@ -21,6 +146,22 @@ be friendly even to those without a technical background who seek to
 understand the principles behind what has become something of a tech
 buzzword. Perhaps even those already initiated may find a nice
 insight or two.&lt;/p&gt;
+&lt;h2&gt;Definitions&lt;/h2&gt;
+&lt;p&gt;To begin, we should first define some terms.
+"Software development" is generally concerned with building applications which provide some business value - that is, which provide solutions to business problems.
+On the other hand, "information-technology (IT) operations" is generally concerned with keeping an organization running smoothly by maintaining the existing applications and the infrastructure on which they rely while ensuring that changes to those assets do not cause service disruptions.
+As you can see, these goals are not necessarily in alignment and could even be at odds.&lt;/p&gt;
+&lt;p&gt;Thus, &lt;a href="https://en.wikipedia.org/wiki/DevOps"&gt;Wikipedia&lt;/a&gt; defines DevOps as such:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;DevOps is a set of practices that combines software development and information-technology operations which aims to shorten the systems development life cycle and provide continuous delivery with high software quality&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;In other words, DevOps is the attempt to have the best of both worlds: to delivery software quickly and often while maintaining a high level of system up time.
+Throughout this series, we will explore the ideas which underlie this goal, and in describing the underlying pattern, we hope to reveal a broader applicability of these principles such as always comes when one extracts a general principle from a particular case.&lt;/p&gt;
+&lt;h2&gt;Motivation&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;People don't have ideas. Ideas have people.&lt;br&gt;
+-Carl Jung&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;p&gt;I first encountered the principles of DevOps in a book called
 &lt;em&gt;Leading the Transformation&lt;/em&gt;&lt;sup&gt;1&lt;/sup&gt; some years ago and have since
 become rather passionate about the topic.
@@ -65,6 +206,7 @@ a pattern of behavior - and not a particular set of tools and
 buzzwords. Put another way, DevOps is an &lt;em&gt;idea&lt;/em&gt; that inhabits an
 organization and the individuals within it.&lt;/p&gt;
 &lt;p&gt;I hope you will join me on this journey.&lt;/p&gt;
+&lt;hr&gt;
 &lt;h2&gt;Figures&lt;/h2&gt;
 &lt;p&gt;The following are figures from &lt;em&gt;Maps of Meaning&lt;/em&gt; juxtaposed with Gene
 Kim's diagrammatic representations of The Three Ways of DevOps.

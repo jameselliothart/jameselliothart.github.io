@@ -1,0 +1,274 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="" />
+
+  <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro|Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="https://jameselliothart.github.io/theme/stylesheet/style.min.css">
+
+  <link rel="stylesheet" type="text/css" href="https://jameselliothart.github.io/theme/pygments/github.min.css">
+  <link rel="stylesheet" type="text/css" href="https://jameselliothart.github.io/theme/font-awesome/css/font-awesome.min.css">
+
+
+    <link href="https://jameselliothart.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="A Hart's Eye View Atom">
+
+
+
+
+
+<meta name="author" content="James Hart" />
+<meta name="description" content="Welcome Welcome to the second post in the Maps of DevOps series! In this installment, we will explore The First Way: Systems Thinking. Motivating Scenario: Mailing Letters In an attempt to avoid the obfuscating effect of technical jargon, we will use a technology-agnostic scenario as the stage within which to …" />
+<meta name="keywords" content="DevOps, MapsOfMeaning, TheThreeWays, TheFirstWayOfDevOps, CICD, ContinuousDelivery">
+
+<meta property="og:site_name" content="A Hart's Eye View"/>
+<meta property="og:title" content="Maps of DevOps: The First Way"/>
+<meta property="og:description" content="Welcome Welcome to the second post in the Maps of DevOps series! In this installment, we will explore The First Way: Systems Thinking. Motivating Scenario: Mailing Letters In an attempt to avoid the obfuscating effect of technical jargon, we will use a technology-agnostic scenario as the stage within which to …"/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:url" content="https://jameselliothart.github.io/maps-of-devops-the-first-way.html"/>
+<meta property="og:type" content="article"/>
+<meta property="article:published_time" content="2019-12-08 00:00:00-06:00"/>
+<meta property="article:modified_time" content=""/>
+<meta property="article:author" content="https://jameselliothart.github.io/author/james-hart.html">
+<meta property="article:section" content="DevOps"/>
+<meta property="article:tag" content="DevOps"/>
+<meta property="article:tag" content="MapsOfMeaning"/>
+<meta property="article:tag" content="TheThreeWays"/>
+<meta property="article:tag" content="TheFirstWayOfDevOps"/>
+<meta property="article:tag" content="CICD"/>
+<meta property="article:tag" content="ContinuousDelivery"/>
+<meta property="og:image" content="/images/me.jpeg">
+
+  <title>A Hart's Eye View &ndash; Maps of DevOps: The First Way</title>
+
+</head>
+<body>
+  <aside>
+    <div>
+      <a href="https://jameselliothart.github.io">
+        <img src="/images/me.jpeg" alt="A Hart's Eye View" title="A Hart's Eye View">
+      </a>
+      <h1><a href="https://jameselliothart.github.io">A Hart's Eye View</a></h1>
+
+
+      <nav>
+        <ul class="list">
+          <li><a href="https://jameselliothart.github.io/pages/about.html#about">About</a></li>
+
+          <li><a href="http://getpelican.com/" target="_blank">Pelican</a></li>
+          <li><a href="http://python.org/" target="_blank">Python.org</a></li>
+          <li><a href="http://jinja.pocoo.org/" target="_blank">Jinja2</a></li>
+        </ul>
+      </nav>
+
+      <ul class="social">
+        <li><a class="sc-linkedin" href="https://www.linkedin.com/in/james-hart-3543664b/" target="_blank"><i class="fa fa-linkedin"></i></a></li>
+        <li><a class="sc-github" href="https://github.com/jameselliothart/" target="_blank"><i class="fa fa-github"></i></a></li>
+        <li><a class="sc-rss" href="/feeds/all.atom.xml" target="_blank"><i class="fa fa-rss"></i></a></li>
+      </ul>
+    </div>
+
+
+  </aside>
+  <main>
+
+    <nav>
+      <a href="https://jameselliothart.github.io">    Home
+</a>
+
+      <a href="/archives.html">Archives</a>
+      <a href="/categories.html">Categories</a>
+      <a href="/tags.html">Tags</a>
+
+      <a href="https://jameselliothart.github.io/feeds/all.atom.xml">    Atom
+</a>
+
+    </nav>
+
+<article class="single">
+  <header>
+      
+    <h1 id="maps-of-devops-the-first-way">Maps of DevOps: The First Way</h1>
+    <p>
+          Posted on December 08, 2019 in <a href="https://jameselliothart.github.io/category/devops.html">DevOps</a>
+
+          </br>
+    </p>
+  </header>
+
+
+  <div>
+    <h2>Welcome</h2>
+<p>Welcome to the second post in the Maps of DevOps series!
+In this installment, we will explore The First Way: Systems Thinking.</p>
+<h2>Motivating Scenario: Mailing Letters</h2>
+<p>In an attempt to avoid the obfuscating effect of technical jargon, we will use a technology-agnostic scenario as the stage within which to play out our DevOps exploration.
+The scenario, taken from <em>The DevOps Handbook</em>, is that of mailing letters and will be used throughout the series.
+The tasks involved are as follows:</p>
+<ol>
+<li>Fold letter</li>
+<li>Insert letter into envelope</li>
+<li>Seal envelope</li>
+<li>Stamp envelope</li>
+<li>Mail letter</li>
+</ol>
+<p>We can keep the following possible translation in mind throughout:</p>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Translation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Folder</td>
+<td>Development Team</td>
+</tr>
+<tr>
+<td>Folded Paper</td>
+<td>Compiled Code</td>
+</tr>
+<tr>
+<td>Sealer/Stamper</td>
+<td>Operations Team</td>
+</tr>
+<tr>
+<td>Mailed Letter</td>
+<td>Deployed Application</td>
+</tr>
+</tbody>
+</table>
+<p>Where the "development" and "operations" teams can refer to those organizations within a company, to individual developers and operations engineers, or even to the multiple roles a single person can fill.
+Indeed, how the dynamics change with each of these interpretations is something else to keep in mind.</p>
+<blockquote>
+<p>People in systems do not do what the system says they are doing<br>
+-The Functionary's Falsity, John Gall, <em>Systemantics: How Systems Work and Especially How They Fail</em></p>
+</blockquote>
+<p>One person performing all of these tasks could reasonably be said to be sending letters (i.e. delivering valuable applications).
+However, once a system is set up and tasks split between people, there are only paper folders (developers writing code) and envelope sealers (operations team deploying binaries).
+It is now the system which is sending letters and not any individual within it.</p>
+<blockquote>
+<p>The function performed by a system is not operationally identical to the function of the same name performed by a person<br>
+-The Operational Fallacy (long form), John Gall, <em>Systemantics</em></p>
+</blockquote>
+<p>In this light, it is entirely reasonable to imagine - as indeed does happen - that the system is in fact producing mounds of folded paper which either does not fit in or is more numerous than the given size or number of envelopes.
+Thus, a system operating under this structure may not be sending letters at all.
+The motivated reader is encouraged to think of other ways in which the system could be doing something entirely different than its stated purpose.</p>
+<h2>Motivation for Maps</h2>
+<p>The "maps" after which our series is named refer to constructs out of the book <em>Maps of Meaning</em>.
+We will first consider the "map" of Known (or Explored) Territory, diagrammatically represented as <strong>The Domain and Constituent Elements of the Known</strong>.
+This is the landscape you inhabit when you know what you are doing:</p>
+<ul>
+<li>You exist in the state of What Is</li>
+<li>You aim for What (you believe) Should Be</li>
+<li>You execute a sequence of behavior to move from the former to the latter</li>
+</ul>
+<p><img src="https://jameselliothart.github.io/images/maps-of-devops-first/TheKnown.jpg" width="500"></p>
+<p>Why is it appropriate to call this a map?
+It is a map in the sense that it describes where you are, where you are going, and how to get there even though those "places" are not exactly physical.
+A mental map is no less real simply because it does not take up physical space or guide you to a physical address.
+Contrast this with Unknown (or Unexplored) Territory: you do not know where you are, what you are doing, or where you need to go (more on this later).</p>
+<p>This leads to our first key insight: A business inhabits the same existential landscape.
+The sequence of behavior has a different content but not a different objective.
+To represent this, below I have modified <strong>The Domain and Constituent Elements of the Known</strong> to show the maps of both development and operations embedded within the larger map of the business.</p>
+<p><img src="https://jameselliothart.github.io/images/maps-of-devops-first/WhatIsWhatShouldBeDevOps.jpg" width="500"></p>
+<p>That is to say, a technology firm pursues value through the actions of its Development and Operations organizations.
+These organizations in turn have their own maps, all the way down to the level of the individual employees (which of course is the level of analysis we started with).
+As we have previously noted, these maps may not be in alignment.
+However, seen within the broader perspective of the organization as a whole, this is as undesirable as the proverbial hunter chasing two rabbits at once.</p>
+<h2>The First Way: Systems Thinking</h2>
+<p><img alt="The First Way" src="https://jameselliothart.github.io/images/maps-of-devops-first/TheFirstWay.png"></p>
+<blockquote>
+<p>Stop Starting. Start Finishing.<br>
+-David J. Anderson</p>
+</blockquote>
+<p>Applying this framework to our mailing letters scenario, we have:</p>
+<ul>
+<li>What Is: unfolded paper, un-mailed letters</li>
+<li>What Should Be: folded paper, mailed in envelopes</li>
+</ul>
+<p>Now the question arises, what sequence of behavior should we pursue?</p>
+<ol>
+<li>Batches: Fold all paper first, insert all papers into envelopes, seal all envelopes, etc.</li>
+<li>Single Piece Flow: Fold a single piece of paper, insert it into an envelope, seal its envelope, etc.</li>
+</ol>
+<p><img alt="SPF" src="https://jameselliothart.github.io/images/maps-of-devops-first/SinglePieceFlow.jpg"></p>
+<p>It is easy to see that the Single Piece Flow (SPF) approach achieves What Should Be faster - that is, SPF is the superior way of delivering the value we seek.
+This is because value is in filled, sealed, mailed envelopes, <strong>not</strong> folded paper!
+A development team that produces volumes of untested, undeployed code has not created value.</p>
+<h2>How To Use This Info</h2>
+<p>One common and very useful practice to enable Systems Thinking is <a href="https://en.wikipedia.org/wiki/Value-stream_mapping">Value Stream Mapping</a> which involves identifying the series of steps necessary to take a proposed change from conception to final delivery.
+If you do not know what all of these steps are, who does them, or how long they take, it becomes very difficult - if not impossible - to identify where the constraints are that cause bottlenecks in the system.</p>
+<p>Sometimes more importantly, it is also difficult to tell which parts of the process are the most loathsome to those performing them.
+This point is particularly important if there is not significant buy-in or even active resistance to trying to change existing processes to align more with DevOps principles.
+Do not underestimate the benefits a boost in morale can confer to the desire people have to contribute to and believe in the potential of a DevOps transformation.</p>
+<p>Applying this principle to itself, remember that a DevOps transformation does not need to happen in one batch.
+Make small, valuable changes (at the constraints and pain points!) and implement them through to the end.
+This is not a time to let perfect be the enemy of good.</p>
+<h3>Tools of the Trade</h3>
+<p>This and the following section are targeted specifically to the domain of software development.
+Readers unfamiliar with the software development life cycle may skip the remaining content without worry of missing any key concepts.</p>
+<p>That said, an in-depth discussion of tooling is beyond the scope of this series given that our focus is primarily on the principles underpinning DevOps.
+However, we would be remiss not at least to mention along the way some of the more ubiquitous tools to provide the technical reader with avenues for further independent investigation.
+Tools most related to The First Way are Continuous Integration / Continuous Deployment (CI/CD) Pipelines, examples of which are <a href="https://azure.microsoft.com/en-us/services/devops/">Azure DevOps</a> or <a href="https://jenkins.io/">Jenkins</a> (and many others).</p>
+<h3>Spotlight: The Deployment Pipeline</h3>
+<p>The CI/CD Pipeline is an automated process for getting code produced by a developer into the hands of the end user.
+The following diagram from <em>Continuous Delivery</em> is an abstract representation of that process.</p>
+<p><img src="https://jameselliothart.github.io/images/maps-of-devops-first/CICD.png" width="800"></p>
+<p>For most technology organizations, the steps required for that process follow the same high-level pattern (or if they don't, they probably should).
+These steps include checking a change into version control, building an artifact of the code as of that point in time (i.e. a snapshot of the checked-in code whether compiled or otherwise), and the progression of that artifact from cheaper / more volatile environments (sandbox and development) to more expensive / more stable environments (user acceptance testing and production).
+The CI/CD pipeline provides consistency and visibility to a process that otherwise would be manual (and thus error-prone) and opaque.</p>
+<p>For more information, we would encourage interested readers to reference the excellent treatments of the CI/CD pipeline found in <em>Continuous Delivery</em> as well as <em>The DevOps Handbook</em> or simply to query their preferred search engine for the wealth of material online.</p>
+<h2>References</h2>
+<ol>
+<li>Maps of Meaning: The Architecture of Belief, Jordan B. Peterson (1999), Routledge (BOOK) - <a href="https://www.amazon.com/Maps-Meaning-Architecture-Jordan-Peterson/dp/0415922224">https://www.amazon.com/Maps-Meaning-Architecture-Jordan-Peterson/dp/0415922224</a></li>
+<li>The DevOps Handbook: How to Create World-Class Agility, Reliability, and Security in Technology Organizations; Gene Kim, Patrick Debois, John Willis, Jez Humble, John Allspaw (2016), IT Revolution Press (BOOK) - <a href="https://www.amazon.com/DevOps-Handbook-World-Class-Reliability-Organizations/dp/1942788002">https://www.amazon.com/DevOps-Handbook-World-Class-Reliability-Organizations/dp/1942788002</a></li>
+<li>Continuous Delivery: Reliable Software Releases through Build, Test, and Deployment Automation; Jez Humble, David Farley (2010), Addison-Wesley Professional (BOOK) - <a href="https://www.amazon.com/Continuous-Delivery-Deployment-Automation-Addison-Wesley/dp/0321601912">https://www.amazon.com/Continuous-Delivery-Deployment-Automation-Addison-Wesley/dp/0321601912</a></li>
+<li>Systemantics: How Systems Work and Especially How They Fail, John Gall (1977), Quadrangle (BOOK) - <a href="https://www.amazon.com/Systemantics-Systems-Work-Especially-They/dp/0812906748">https://www.amazon.com/Systemantics-Systems-Work-Especially-They/dp/0812906748</a></li>
+</ol>
+  </div>
+  <div class="tag-cloud">
+    <p>
+      <a href="https://jameselliothart.github.io/tag/devops.html">DevOps</a>
+      <a href="https://jameselliothart.github.io/tag/mapsofmeaning.html">MapsOfMeaning</a>
+      <a href="https://jameselliothart.github.io/tag/thethreeways.html">TheThreeWays</a>
+      <a href="https://jameselliothart.github.io/tag/thefirstwayofdevops.html">TheFirstWayOfDevOps</a>
+      <a href="https://jameselliothart.github.io/tag/cicd.html">CICD</a>
+      <a href="https://jameselliothart.github.io/tag/continuousdelivery.html">ContinuousDelivery</a>
+    </p>
+  </div>
+
+
+
+
+
+</article>
+
+    <footer>
+<p>&copy; James Hart 2019</p>
+<p>    Powered by <a href="http://getpelican.com" target="_blank">Pelican</a> - <a href="https://github.com/alexandrevicenzi/flex" target="_blank">Flex</a> theme by <a href="http://alexandrevicenzi.com" target="_blank">Alexandre Vicenzi</a>
+</p>    </footer>
+  </main>
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " A Hart's Eye View ",
+  "url" : "https://jameselliothart.github.io",
+  "image": "/images/me.jpeg",
+  "description": ""
+}
+</script>
+
+</body>
+</html>
