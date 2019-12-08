@@ -2,7 +2,7 @@ title: Maps of DevOps: The First Way
 date: 12-08-19
 author: James Hart
 category: DevOps
-tags: DevOps, MapsOfMeaning, TheThreeWays, TheFirstWayOfDevOps, CICD, ContinuousDelivery
+tags: DevOps, MapsOfMeaning, TheThreeWays, TheFirstWayOfDevOps, SystemsThinking, CICD, ContinuousIntegration, ContinuousDelivery
 
 ## Welcome
 
