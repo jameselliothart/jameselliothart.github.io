@@ -32,7 +32,7 @@ Throughout this series, we will explore the ideas which underlie this goal, and 
 
 ## Motivation
 
->People don't have ideas. Ideas have people.  
+>People don't have ideas. Ideas have people.
 -Carl Jung
 
 I first encountered the principles of DevOps in a book called
@@ -66,7 +66,7 @@ derived from the ideas presented there.
 
 ## Approach
 
->There is more wisdom in your body than in your deepest philosophy  
+>There is more wisdom in your body than in your deepest philosophy
 -Friedrich Nietzsche, _Thus Spoke Zarathustra_
 
 One of the main theses of _Maps of Meaning_ is that there is a
@@ -84,7 +84,7 @@ a pattern of behavior - and not a particular set of tools and
 buzzwords. Put another way, DevOps is an _idea_ that inhabits an
 organization and the individuals within it.
 
-I hope you will join me on this journey.
+I hope you will join me on this journey to reimagine the principles of DevOps.
 
 ---
 
