@@ -129,3 +129,7 @@ dmypy.json
 
 # Pelican output
 output/
+
+# vim
+*.swp
+*.un~
