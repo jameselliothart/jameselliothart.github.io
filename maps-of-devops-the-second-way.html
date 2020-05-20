@@ -1,0 +1,244 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="" />
+
+  <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro|Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="https://jameselliothart.github.io/theme/stylesheet/style.min.css">
+
+  <link rel="stylesheet" type="text/css" href="https://jameselliothart.github.io/theme/pygments/github.min.css">
+  <link rel="stylesheet" type="text/css" href="https://jameselliothart.github.io/theme/font-awesome/css/font-awesome.min.css">
+
+
+    <link href="https://jameselliothart.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="A Hart's Eye View Atom">
+
+
+
+
+
+<meta name="author" content="James Hart" />
+<meta name="description" content="Welcome Welcome to the second post in the Maps of DevOps series! In The First Way, we introduced the scenario of mailing letters to use as a stand-in for delivering software and discussed the necessity of performing our analysis from a system perspective. In doing so, we discovered that Single …" />
+<meta name="keywords" content="DevOps, MapsOfMeaning, TheThreeWays, TheSecondWayOfDevOps, Feedback, APM, Monitoring">
+
+<meta property="og:site_name" content="A Hart's Eye View"/>
+<meta property="og:title" content="Maps of DevOps: The Second Way"/>
+<meta property="og:description" content="Welcome Welcome to the second post in the Maps of DevOps series! In The First Way, we introduced the scenario of mailing letters to use as a stand-in for delivering software and discussed the necessity of performing our analysis from a system perspective. In doing so, we discovered that Single …"/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:url" content="https://jameselliothart.github.io/maps-of-devops-the-second-way.html"/>
+<meta property="og:type" content="article"/>
+<meta property="article:published_time" content="2020-05-19 00:00:00-05:00"/>
+<meta property="article:modified_time" content=""/>
+<meta property="article:author" content="https://jameselliothart.github.io/author/james-hart.html">
+<meta property="article:section" content="DevOps"/>
+<meta property="article:tag" content="DevOps"/>
+<meta property="article:tag" content="MapsOfMeaning"/>
+<meta property="article:tag" content="TheThreeWays"/>
+<meta property="article:tag" content="TheSecondWayOfDevOps"/>
+<meta property="article:tag" content="Feedback"/>
+<meta property="article:tag" content="APM"/>
+<meta property="article:tag" content="Monitoring"/>
+<meta property="og:image" content="/images/me.jpeg">
+
+  <title>A Hart's Eye View &ndash; Maps of DevOps: The Second Way</title>
+
+</head>
+<body>
+  <aside>
+    <div>
+      <a href="https://jameselliothart.github.io">
+        <img src="/images/me.jpeg" alt="A Hart's Eye View" title="A Hart's Eye View">
+      </a>
+      <h1><a href="https://jameselliothart.github.io">A Hart's Eye View</a></h1>
+
+
+      <nav>
+        <ul class="list">
+          <li><a href="https://jameselliothart.github.io/pages/about.html#about">About</a></li>
+
+        </ul>
+      </nav>
+
+      <ul class="social">
+        <li><a class="sc-linkedin" href="https://www.linkedin.com/in/james-hart-3543664b/" target="_blank"><i class="fa fa-linkedin"></i></a></li>
+        <li><a class="sc-github" href="https://github.com/jameselliothart/" target="_blank"><i class="fa fa-github"></i></a></li>
+        <li><a class="sc-rss" href="/feeds/all.atom.xml" target="_blank"><i class="fa fa-rss"></i></a></li>
+      </ul>
+    </div>
+
+
+  </aside>
+  <main>
+
+    <nav>
+      <a href="https://jameselliothart.github.io">    Home
+</a>
+
+      <a href="/archives.html">Archives</a>
+      <a href="/categories.html">Categories</a>
+      <a href="/tags.html">Tags</a>
+
+      <a href="https://jameselliothart.github.io/feeds/all.atom.xml">    Atom
+</a>
+
+    </nav>
+
+<article class="single">
+  <header>
+      
+    <h1 id="maps-of-devops-the-second-way">Maps of DevOps: The Second Way</h1>
+    <p>
+          Posted on May 19, 2020 in <a href="https://jameselliothart.github.io/category/devops.html">DevOps</a>
+
+          </br>
+    </p>
+  </header>
+
+
+  <div>
+    <h2>Welcome</h2>
+<p>Welcome to the second post in the Maps of DevOps series!
+In <a href="https://jameselliothart.github.io/maps-of-devops-the-first-way">The First Way</a>, we introduced the scenario of mailing letters to use as a stand-in for delivering software and discussed the necessity of performing our analysis from a system perspective.
+In doing so, we discovered that Single Piece Flow (SPF) was superior to batching because we could more quickly deliver value.</p>
+<p>Along the way, we also introduced the map of Known Territory (where we are when we know what we are doing) and alluded to the Unknown (where we are when we don't). In this post, we will discuss the important and ever-present mediator between them - Anomaly.</p>
+<h2>Anomaly</h2>
+<p>We will define Anomaly as <em>new information that deviates from the expected</em>.
+This new information can be either positive or negative - that is, it can be either a <strong>Tool</strong> or an <strong>Obstacle</strong>.
+A Tool aids us in reaching the stated objective while an Obstacle hinders our ability to move forward.</p>
+<p><img src="https://jameselliothart.github.io/images/maps-of-devops-second/Anomaly.png" width="500"></p>
+<p>Notice that this is a subtle but important move to define tools in terms of their actual outcomes rather than hoped for results.
+In particular, note that many new technologies are labeled "tools" but may not fit this definition.
+One cannot "do DevOps" simply by implementing DevOps "tools" - they must address some particular need at hand.
+This common mistake underlies the trend of "DevOps" becoming simply a marketing gimmick for selling the latest tools and related services.</p>
+<p>Returning to anomaly, we may be justified in thinking that they are rare events (almost by definition), but the <em>potential</em> for anomaly always surrounds us in latent form.
+Small enough anomalies may hardly be noticed as we are able to quickly incorporate them into a known map, or schema, within which to understand them.
+However, a sufficiently large anomaly can transform the Known into Unknown.
+We experience this when something so unexpected happens that our current pursuits or methods or even our current state of being come into question.</p>
+<p>To illustrate, suppose you are folding papers in our letter mailing scenario and the table catches on fire.
+You are now in a very different place with very different motivations than you were before!
+Your previous map has disintegrated, and this new information must be taken into account and reintegrated into a new one (presumably centered around putting out the fire and only sometime afterwards resuming paper folding).</p>
+<p><img src="https://jameselliothart.github.io/images/maps-of-devops-second/RegenerationFromChaos.jpg" width="500"></p>
+<h2>Anomalies in Mailing Letters</h2>
+<p>To further our analysis, consider the following less extreme anomalies that could occur:</p>
+<ol>
+<li>Letters have gotten too big for their envelopes</li>
+<li>Envelope seals do not hold and open in transit</li>
+</ol>
+<p>In the first case, the sealer can communicate this back to the folder.
+Notice that the issue is greatly relieved by the Single Piece Flow delivery model - we get feedback after only one letter is too large thus minimizing rework.
+In the Batch strategy, every letter of the batch would need to be refolded.
+Alternatively, we need bigger envelopes, and it is better to know on the first one rather than having already ordered enough envelopes for the entire batch of paper.</p>
+<p>In the second case, this may mean letters are never delivered, and we only find out weeks later through receiving an angry call from the intended recipients.
+And this only if we are lucky enough for them to be expecting the letter - how many important but unanticipated letters fail to go through?
+The questions arise:</p>
+<ul>
+<li>How often is the envelope seal not holding?</li>
+<li>Where in the process is the issue occurring?</li>
+<li>When did the issue start?</li>
+</ul>
+<p>The answers to these question may determine whether it was a freak accident or a fundamental flaw in our process.
+Worse still, if we cannot even determine the answers to these questions, we must ask even more fundamental ones, e.g. should we even continue trying to mail letters?</p>
+<p>The key to mitigating the first case was the quick feedback we received, and that is exactly what we need now.
+Perhaps we could monitor the initial seal quality on new envelopes and track letters as they travel to report back on seal status?</p>
+<h2>The Second Way: Amplify Feedback Loops</h2>
+<p><img alt="The Second Way" src="https://jameselliothart.github.io/images/maps-of-devops-second/TheSecondWay.png"></p>
+<p>What we have discovered is the need for The Second Way.
+Fundamentally, we are trying to answer two questions (and answer them continually):</p>
+<ol>
+<li>Do we know where we are (What Is)?</li>
+<li>Are we achieving What Should Be?</li>
+</ol>
+<p>In other words:</p>
+<ol>
+<li>Are our past hypotheses and assumptions still valid?</li>
+<li>Was our latest business hypothesis correct?</li>
+</ol>
+<p>Is the system still functioning the way it should, and if it is not, can we easily look into its current state?
+Did the change we deployed create the value we expected?
+When we create a new screen in our application, can we tell if anyone is actually using it?
+If we modify one piece of the system, does it still process inputs from upstream systems correctly or are there any adverse effects on systems downstream?</p>
+<h2>How To Use This Info</h2>
+<p>Notice that there are at least two classes of problems here: ones stemming from changes we produce within and those originating from the environment without.</p>
+<p>For changes produced by us, The Second Way goes hand-in-hand with The First.
+The value in continuous monitoring of the system is decreased if our changes are not continually deployed - the feedback we receive on the impact of our changes is only as continuous as the rate at which we deploy them.
+Indeed, if many changes are made at once and a problem occurs, it can be very difficult to isolate the contributing factors even if we are quickly alerted of the issue.
+And if on the other hand we see increased value, it can be hard to tell which of the many changes contributed (so we can continue down that path) and which had no effect (so we can focus our attention elsewhere).</p>
+<p>That said, problems arising from the environment are still very susceptible to continuous feedback.
+Our applications do not exist in a vacuum.
+They are reliant on the storage and memory capacity of the servers that host them, perhaps on the availability of a database or other service, access to network locations, or any other systems which are assumed to exist for our applications to function properly.
+This surrounding infrastructure has just as much if not a greater effect on their status than the content of their code.
+A monitoring system that can alert us of issues at the time they arise - or even before - can be invaluable in keeping a system functional.</p>
+<h3>Tools of the Trade</h3>
+<p>Basic monitoring and alerting on the environment can be as easy as writing shell scripts to check how much disk space or memory is left on a server.
+Indeed, this may be a good place to start if there is nothing in place - the important thing is to gain an understanding of the assumptions of the system in question and thus to get an idea of <em>what</em> needs to be monitored.
+Remember that a monitoring "tool" that shows metrics you do not understand or know how to correlate to the state of the system is not really a Tool - it is a distraction.</p>
+<p>Having said that, shell scripts are not a good long-term solution as they do not easily scale, can become cumbersome to maintain, and put you in a position of reinventing the wheel.
+That is where Network Monitoring tools such as <a href="https://www.solarwinds.com/">SolarWinds</a> and <a href="https://www.splunk.com/">Splunk</a> start to shine.</p>
+<p>In contrast to environment monitoring, Application Performance Monitoring (APM) solutions are required to get insight into the state of all but trivial applications.
+These tools work by either attaching to your application's processes in a lightweight manor to monitor its calls or by your adding explicit instrumentation to your code (or both).
+APM solutions include <a href="https://newrelic.com/">New Relic</a> and <a href="https://www.dynatrace.com/">Dynatrace</a> or the Azure service <a href="https://docs.microsoft.com/en-us/azure/azure-monitor/app/app-insights-overview">Application Insights</a>.</p>
+<p>Service monitoring and observability is a huge topic, so we can only scratch the surface here.
+However, the key point to keep in mind is that what makes these "tools" into Tools is their ability to help us keep Chaos at bay by giving us feedback in the form of checking our assumptions about the current state of the system and validating that the changes we make create value.</p>
+<h3>Spotlight: APM</h3>
+<blockquote>
+<p>APM strives to detect and diagnose complex application performance problems to maintain an expected level of service
+-<a href="https://en.wikipedia.org/wiki/Application_performance_management">Wikipedia</a></p>
+</blockquote>
+<p>Below is a dashboard view from the application performance monitor New Relic which I single out just because I have experience with it.
+The sample is for a web application which is a particularly valuable use case for an APM as it can track and break down web response times - the functionality in a website does not matter if it is too sluggish to use.</p>
+<p><img alt="APM" src="https://jameselliothart.github.io/images/maps-of-devops-second/APM.png"></p>
+<p>An APM "[translates] IT metrics into business meaning (value)" writes <a href="https://www.apmdigest.com/the-anatomy-of-apm-4-foundational-elements-to-a-successful-strategy">Larry Dragich</a>.
+From this snapshot, we can see the response times users are experiencing, where that time is spent, what the longest running transactions are, and more.
+By knowing this, we are able to make informed decisions about whether or where to spend time optimizing as well as if changes we make have an adverse effect on the user experience or error rate of the application.
+Getting this feedback before users complain can make all the difference in being able to remediate an issue quickly and users silently abandoning or building resentment of your applications.</p>
+<h2>References</h2>
+<ol>
+<li>Maps of Meaning: The Architecture of Belief, Jordan B. Peterson (1999), Routledge (BOOK) - <a href="https://www.amazon.com/Maps-Meaning-Architecture-Jordan-Peterson/dp/0415922224">https://www.amazon.com/Maps-Meaning-Architecture-Jordan-Peterson/dp/0415922224</a></li>
+<li>The DevOps Handbook: How to Create World-Class Agility, Reliability, and Security in Technology Organizations; Gene Kim, Patrick Debois, John Willis, Jez Humble, John Allspaw (2016), IT Revolution Press (BOOK) - <a href="https://www.amazon.com/DevOps-Handbook-World-Class-Reliability-Organizations/dp/1942788002">https://www.amazon.com/DevOps-Handbook-World-Class-Reliability-Organizations/dp/1942788002</a></li>
+</ol>
+  </div>
+  <div class="tag-cloud">
+    <p>
+      <a href="https://jameselliothart.github.io/tag/devops.html">DevOps</a>
+      <a href="https://jameselliothart.github.io/tag/mapsofmeaning.html">MapsOfMeaning</a>
+      <a href="https://jameselliothart.github.io/tag/thethreeways.html">TheThreeWays</a>
+      <a href="https://jameselliothart.github.io/tag/thesecondwayofdevops.html">TheSecondWayOfDevOps</a>
+      <a href="https://jameselliothart.github.io/tag/feedback.html">Feedback</a>
+      <a href="https://jameselliothart.github.io/tag/apm.html">APM</a>
+      <a href="https://jameselliothart.github.io/tag/monitoring.html">Monitoring</a>
+    </p>
+  </div>
+
+
+
+
+
+</article>
+
+    <footer>
+<p>&copy; James Hart 2019</p>
+<p>    Powered by <a href="http://getpelican.com" target="_blank">Pelican</a> - <a href="https://github.com/alexandrevicenzi/flex" target="_blank">Flex</a> theme by <a href="http://alexandrevicenzi.com" target="_blank">Alexandre Vicenzi</a>
+</p>    </footer>
+  </main>
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " A Hart's Eye View ",
+  "url" : "https://jameselliothart.github.io",
+  "image": "/images/me.jpeg",
+  "description": ""
+}
+</script>
+
+</body>
+</html>
