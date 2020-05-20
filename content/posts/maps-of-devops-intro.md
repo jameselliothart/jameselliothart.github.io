@@ -3,7 +3,7 @@ date: 10-25-19
 author: James Hart
 category: DevOps
 tags: DevOps, MapsOfMeaning, TheThreeWays
-modified: 12-05-19
+modified: 05-19-20
 
 ## Welcome
 
@@ -101,9 +101,9 @@ that ground in due time.
 <img src="{static}/images/maps-of-devops-intro/TheKnown.jpg" width="500">
 ![The First Way]({static}/images/maps-of-devops-intro/TheFirstWay.png)
 
-### The Metamythological Cycle of the Way vs The Second Way
+### The Regeneration of Stability from the Domain of Chaos vs The Second Way
 
-<img src="{static}/images/maps-of-devops-intro/TheCycle.jpg" width="500">
+<img src="{static}/images/maps-of-devops-intro/RegenerationFromChaos.jpg" width="500">
 ![The First Way]({static}/images/maps-of-devops-intro/TheSecondWay.png)
 
 ### Bounded Revolution vs The Third Way
