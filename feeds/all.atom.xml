@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>A Hart's Eye View</title><link href="https://jameselliothart.github.io/" rel="alternate"></link><link href="https://jameselliothart.github.io/feeds/all.atom.xml" rel="self"></link><id>https://jameselliothart.github.io/</id><updated>2020-05-19T00:00:00-05:00</updated><entry><title>Maps of DevOps: The Second Way</title><link href="https://jameselliothart.github.io/maps-of-devops-the-second-way.html" rel="alternate"></link><published>2020-05-19T00:00:00-05:00</published><updated>2020-05-19T00:00:00-05:00</updated><author><name>James Hart</name></author><id>tag:jameselliothart.github.io,2020-05-19:/maps-of-devops-the-second-way.html</id><summary type="html">&lt;h2&gt;Welcome&lt;/h2&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>A Hart's Eye View</title><link href="https://jameselliothart.github.io/" rel="alternate"></link><link href="https://jameselliothart.github.io/feeds/all.atom.xml" rel="self"></link><id>https://jameselliothart.github.io/</id><updated>2020-05-22T00:00:00-05:00</updated><entry><title>Maps of DevOps: The Second Way</title><link href="https://jameselliothart.github.io/maps-of-devops-the-second-way.html" rel="alternate"></link><published>2020-05-19T00:00:00-05:00</published><updated>2020-05-22T00:00:00-05:00</updated><author><name>James Hart</name></author><id>tag:jameselliothart.github.io,2020-05-19:/maps-of-devops-the-second-way.html</id><summary type="html">&lt;h2&gt;Welcome&lt;/h2&gt;
 &lt;p&gt;Welcome to the second post in the Maps of DevOps series!
 In &lt;a href="https://jameselliothart.github.io/maps-of-devops-the-first-way"&gt;The First Way&lt;/a&gt;, we introduced the scenario of mailing letters to use as a stand-in for delivering software and discussed the necessity of performing our analysis from a system perspective.
 In doing so, we discovered that Single …&lt;/p&gt;</summary><content type="html">&lt;h2&gt;Welcome&lt;/h2&gt;
@@ -18,11 +18,15 @@ One cannot "do DevOps" simply by implementing DevOps "tools" - they must address
 This common mistake underlies the trend of "DevOps" becoming simply a marketing gimmick for selling the latest tools and related services.&lt;/p&gt;
 &lt;p&gt;Returning to anomaly, we may be justified in thinking that they are rare events (almost by definition), but the &lt;em&gt;potential&lt;/em&gt; for anomaly always surrounds us in latent form.
 Small enough anomalies may hardly be noticed as we are able to quickly incorporate them into a known map, or schema, within which to understand them.
-However, a sufficiently large anomaly can transform the Known into Unknown.
+However, a sufficiently large anomaly can transform the Known into Unknown or, as it can well be called, &lt;em&gt;Chaos&lt;/em&gt;.
 We experience this when something so unexpected happens that our current pursuits or methods or even our current state of being come into question.&lt;/p&gt;
 &lt;p&gt;To illustrate, suppose you are folding papers in our letter mailing scenario and the table catches on fire.
 You are now in a very different place with very different motivations than you were before!
 Your previous map has disintegrated, and this new information must be taken into account and reintegrated into a new one (presumably centered around putting out the fire and only sometime afterwards resuming paper folding).&lt;/p&gt;
+&lt;p&gt;Many will be familiar with the colloquialism of saying a project is "on fire" when a catastrophic problem or situation arises.
+If this symbolism is not immediately understood it is at least forever remembered: the state of the project needs to be reevaluated and immediately attended to because a foundational assumption has come into question.
+We have descended into Chaos.
+In order to carry on, the map we had used to guide us forward must be updated to account for the anomalous information that has come to our attention.&lt;/p&gt;
 &lt;p&gt;&lt;img src="https://jameselliothart.github.io/images/maps-of-devops-second/RegenerationFromChaos.jpg" width="500"&gt;&lt;/p&gt;
 &lt;h2&gt;Anomalies in Mailing Letters&lt;/h2&gt;
 &lt;p&gt;To further our analysis, consider the following less extreme anomalies that could occur:&lt;/p&gt;
@@ -101,7 +105,60 @@ Getting this feedback before users complain can make all the difference in being
 &lt;ol&gt;
 &lt;li&gt;Maps of Meaning: The Architecture of Belief, Jordan B. Peterson (1999), Routledge (BOOK) - &lt;a href="https://www.amazon.com/Maps-Meaning-Architecture-Jordan-Peterson/dp/0415922224"&gt;https://www.amazon.com/Maps-Meaning-Architecture-Jordan-Peterson/dp/0415922224&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;The DevOps Handbook: How to Create World-Class Agility, Reliability, and Security in Technology Organizations; Gene Kim, Patrick Debois, John Willis, Jez Humble, John Allspaw (2016), IT Revolution Press (BOOK) - &lt;a href="https://www.amazon.com/DevOps-Handbook-World-Class-Reliability-Organizations/dp/1942788002"&gt;https://www.amazon.com/DevOps-Handbook-World-Class-Reliability-Organizations/dp/1942788002&lt;/a&gt;&lt;/li&gt;
-&lt;/ol&gt;</content><category term="DevOps"></category><category term="DevOps"></category><category term="MapsOfMeaning"></category><category term="TheThreeWays"></category><category term="TheSecondWayOfDevOps"></category><category term="Feedback"></category><category term="APM"></category><category term="Monitoring"></category></entry><entry><title>Maps of DevOps: The First Way</title><link href="https://jameselliothart.github.io/maps-of-devops-the-first-way.html" rel="alternate"></link><published>2019-12-08T00:00:00-06:00</published><updated>2019-12-08T00:00:00-06:00</updated><author><name>James Hart</name></author><id>tag:jameselliothart.github.io,2019-12-08:/maps-of-devops-the-first-way.html</id><summary type="html">&lt;h2&gt;Welcome&lt;/h2&gt;
+&lt;/ol&gt;</content><category term="DevOps"></category><category term="DevOps"></category><category term="MapsOfMeaning"></category><category term="TheThreeWays"></category><category term="TheSecondWayOfDevOps"></category><category term="Feedback"></category><category term="APM"></category><category term="Monitoring"></category></entry><entry><title>Maps of DevOps: The Third Way</title><link href="https://jameselliothart.github.io/maps-of-devops-the-third-way.html" rel="alternate"></link><published>2020-05-19T00:00:00-05:00</published><updated>2020-05-19T00:00:00-05:00</updated><author><name>James Hart</name></author><id>tag:jameselliothart.github.io,2020-05-19:/maps-of-devops-the-third-way.html</id><summary type="html">&lt;h2&gt;Welcome&lt;/h2&gt;
+&lt;p&gt;Welcome to the third and final post in the Maps of DevOps series!&lt;/p&gt;
+&lt;h2&gt;A Return to the Beginning&lt;/h2&gt;
+&lt;p&gt;We noted at the beginning that Development and Operations are composed of smaller units just as the business was composed of Dev and Ops.
+Now consider mailing letters as a full-scale …&lt;/p&gt;</summary><content type="html">&lt;h2&gt;Welcome&lt;/h2&gt;
+&lt;p&gt;Welcome to the third and final post in the Maps of DevOps series!&lt;/p&gt;
+&lt;h2&gt;A Return to the Beginning&lt;/h2&gt;
+&lt;p&gt;We noted at the beginning that Development and Operations are composed of smaller units just as the business was composed of Dev and Ops.
+Now consider mailing letters as a full-scale business enterprise: instead of one Folder, there is a team of Folders reporting to a team lead with each department composed of many teams.&lt;/p&gt;
+&lt;p&gt;The question we ask now is: Who has the most information about what works well and what doesn't on the current folding techniques?
+The answer, of course, is the people doing the folding - the folders themselves.
+That is not really the question.
+The question is who know &lt;em&gt;what the process actually is in practice&lt;/em&gt; as opposed to simply what someone &lt;em&gt;imagines&lt;/em&gt; it to be.
+People doing the work may have a blind spot in thinking something works well that doesn't at all (they don't know of another way).
+If you want to find out what the process is, you have to ask the people doing the processing.
+Gather their ideas for improvement, but this is also a chance for more senior leaders to give perspective and counsel.&lt;/p&gt;
+&lt;h2&gt;The Third Way: Continuous Learning&lt;/h2&gt;
+&lt;p&gt;&lt;img alt="The Third Way" src="https://jameselliothart.github.io/images/maps-of-devops-third/TheThirdWay.png"&gt;&lt;/p&gt;
+&lt;p&gt;What we derive from this is that the fractal nature of the original map means that the first two ways (Systems Thinking and Amplify Feedback Loops) must be applied down the whole chain.
+What is true at one level of analysis (business) is true at all others (department and individual).
+That is to say, each individual should try to improve their own workflow and gather feedback on what is working and what is not.
+If everyone does just a little and shares it, it doesn't take long for those gains to compound.
+What does it look like for an individual to embody Systems Thinking?
+Fine-tuning their workflow.
+Avoiding rework.
+Automating repetitive or cumbersome tasks.
+What does it look like for an individual to Amplify Feedback Loops?
+Share that knowledge with others.
+See if it works for them, what suggestions they have, what they've done.
+The Third Way is the recognition that if this happens at every level, a culture of continuous learning and improvement has developed.
+This can't be mandated from the top down, it must be encouraged from the ground up.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;A system is no better than its sensory organs
+-John Gall, &lt;em&gt;Systemantics&lt;/em&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Ultimately, the sensory organs of an organization are the people living and working in it.
+Thus each individual should be encouraged to make their own hypotheses, run experiments, and share the outcomes with others.&lt;/p&gt;
+&lt;p&gt;Internal wiki pages such as can be created with &lt;a href="https://www.atlassian.com/software/confluence"&gt;Confluence&lt;/a&gt; and &lt;a href="https://products.office.com/en-us/sharepoint/collaboration"&gt;SharePoint&lt;/a&gt;, collaboration apps like &lt;a href="https://slack.com/"&gt;Slack&lt;/a&gt; and &lt;a href="https://products.office.com/en-us/microsoft-teams/group-chat-software"&gt;Microsoft Teams&lt;/a&gt;, and source code open to the company all help to facilitate this.&lt;/p&gt;
+&lt;p&gt;That said, not every change can be driven at the individual level - this is the important role that leadership serves in having a broader perspective.
+However, that perspective must be kept healthy and up-to-date.
+This is the reason for the authors' insistence in &lt;em&gt;Leading the Transformation&lt;/em&gt; that executives "walk the floor" to see day-to-day operations first-hand.&lt;/p&gt;
+&lt;p&gt;Without constant effort, systems fall apart of their own accord.
+This is the unavoidable and continual march of entropic decay.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Improving daily work is even more important than doing daily work
+-Gene Kim, &lt;em&gt;The Phoenix Project&lt;/em&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2&gt;References&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;Leading the Transformation: Applying Agile and DevOps Principles at Scale, Gary Gruver, Tommy Mouser, Gene Kim (2015), IT Revolution Press (BOOK) - &lt;a href="https://www.amazon.com/Leading-Transformation-Applying-DevOps-Principles/dp/1942788010"&gt;https://www.amazon.com/Leading-Transformation-Applying-DevOps-Principles/dp/1942788010&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Systemantics: How Systems Work and Especially How They Fail, John Gall (1977), Quadrangle (BOOK) - &lt;a href="https://www.amazon.com/Systemantics-Systems-Work-Especially-They/dp/0812906748"&gt;https://www.amazon.com/Systemantics-Systems-Work-Especially-They/dp/0812906748&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;The Phoenix Project: A Novel about IT, DevOps, and Helping Your Business Win; Gene Kim, Kevin Behr, George Spafford (2013), IT Revolution Press (BOOK) - &lt;a href="https://www.amazon.com/Phoenix-Project-DevOps-Helping-Business/dp/0988262592"&gt;https://www.amazon.com/Phoenix-Project-DevOps-Helping-Business/dp/0988262592&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Maps of Meaning: The Architecture of Belief, Jordan B. Peterson (1999), Routledge (BOOK) - &lt;a href="https://www.amazon.com/Maps-Meaning-Architecture-Jordan-Peterson/dp/0415922224"&gt;https://www.amazon.com/Maps-Meaning-Architecture-Jordan-Peterson/dp/0415922224&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;</content><category term="DevOps"></category><category term="DevOps"></category><category term="MapsOfMeaning"></category><category term="TheThreeWays"></category><category term="TheThirdWayOfDevOps"></category><category term="ContinuousLearning"></category></entry><entry><title>Maps of DevOps: The First Way</title><link href="https://jameselliothart.github.io/maps-of-devops-the-first-way.html" rel="alternate"></link><published>2019-12-08T00:00:00-06:00</published><updated>2019-12-08T00:00:00-06:00</updated><author><name>James Hart</name></author><id>tag:jameselliothart.github.io,2019-12-08:/maps-of-devops-the-first-way.html</id><summary type="html">&lt;h2&gt;Welcome&lt;/h2&gt;
 &lt;p&gt;Welcome to the second post in the Maps of DevOps series!
 In this installment, we will explore The First Way: Systems Thinking.&lt;/p&gt;
 &lt;h2&gt;Motivating Scenario: Mailing Letters&lt;/h2&gt;
