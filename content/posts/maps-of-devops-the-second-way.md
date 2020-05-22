@@ -3,6 +3,7 @@ date: 05-19-20
 author: James Hart
 category: DevOps
 tags: DevOps, MapsOfMeaning, TheThreeWays, TheSecondWayOfDevOps, Feedback, APM, Monitoring
+modified: 05-22-20
 
 ## Welcome
 
@@ -27,12 +28,17 @@ This common mistake underlies the trend of "DevOps" becoming simply a marketing 
 
 Returning to anomaly, we may be justified in thinking that they are rare events (almost by definition), but the *potential* for anomaly always surrounds us in latent form.
 Small enough anomalies may hardly be noticed as we are able to quickly incorporate them into a known map, or schema, within which to understand them.
-However, a sufficiently large anomaly can transform the Known into Unknown.
+However, a sufficiently large anomaly can transform the Known into Unknown or, as it can well be called, *Chaos*.
 We experience this when something so unexpected happens that our current pursuits or methods or even our current state of being come into question.
 
 To illustrate, suppose you are folding papers in our letter mailing scenario and the table catches on fire.
 You are now in a very different place with very different motivations than you were before!
 Your previous map has disintegrated, and this new information must be taken into account and reintegrated into a new one (presumably centered around putting out the fire and only sometime afterwards resuming paper folding).
+
+Many will be familiar with the colloquialism of saying a project is "on fire" when a catastrophic problem or situation arises.
+If this symbolism is not immediately understood it is at least forever remembered: the state of the project needs to be reevaluated and immediately attended to because a foundational assumption has come into question.
+We have descended into Chaos.
+In order to carry on, the map we had used to guide us forward must be updated to account for the anomalous information that has come to our attention.
 
 <img src="{static}/images/maps-of-devops-second/RegenerationFromChaos.jpg" width="500">
 
