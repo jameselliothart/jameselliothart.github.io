@@ -1,0 +1,193 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="" />
+
+  <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro|Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="https://jameselliothart.github.io/theme/stylesheet/style.min.css">
+
+  <link rel="stylesheet" type="text/css" href="https://jameselliothart.github.io/theme/pygments/github.min.css">
+  <link rel="stylesheet" type="text/css" href="https://jameselliothart.github.io/theme/font-awesome/css/font-awesome.min.css">
+
+
+    <link href="https://jameselliothart.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="A Hart's Eye View Atom">
+
+
+
+
+
+<meta name="author" content="James Hart" />
+<meta name="description" content="This post marks the introduction for a code kata series in which we will develop a command-line todo list manager in a few different languages. Each kata will assume a working development environment (I will be working in VS Code on Ubuntu 18.04) and basic familiarity with the syntax …" />
+<meta name="keywords" content="Tutorial, FSharp, Todo, Development">
+
+<meta property="og:site_name" content="A Hart's Eye View"/>
+<meta property="og:title" content="Todo Kata - Introduction"/>
+<meta property="og:description" content="This post marks the introduction for a code kata series in which we will develop a command-line todo list manager in a few different languages. Each kata will assume a working development environment (I will be working in VS Code on Ubuntu 18.04) and basic familiarity with the syntax …"/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:url" content="https://jameselliothart.github.io/todo-kata-introduction.html"/>
+<meta property="og:type" content="article"/>
+<meta property="article:published_time" content="2020-10-04 00:00:00-05:00"/>
+<meta property="article:modified_time" content=""/>
+<meta property="article:author" content="https://jameselliothart.github.io/author/james-hart.html">
+<meta property="article:section" content="Tutorial"/>
+<meta property="article:tag" content="Tutorial"/>
+<meta property="article:tag" content="FSharp"/>
+<meta property="article:tag" content="Todo"/>
+<meta property="article:tag" content="Development"/>
+<meta property="og:image" content="/images/me.jpeg">
+
+  <title>A Hart's Eye View &ndash; Todo Kata - Introduction</title>
+
+</head>
+<body>
+  <aside>
+    <div>
+      <a href="https://jameselliothart.github.io">
+        <img src="/images/me.jpeg" alt="A Hart's Eye View" title="A Hart's Eye View">
+      </a>
+      <h1><a href="https://jameselliothart.github.io">A Hart's Eye View</a></h1>
+
+
+      <nav>
+        <ul class="list">
+          <li><a href="https://jameselliothart.github.io/pages/about.html#about">About</a></li>
+
+        </ul>
+      </nav>
+
+      <ul class="social">
+        <li><a class="sc-linkedin" href="https://www.linkedin.com/in/james-hart-3543664b/" target="_blank"><i class="fa fa-linkedin"></i></a></li>
+        <li><a class="sc-github" href="https://github.com/jameselliothart/" target="_blank"><i class="fa fa-github"></i></a></li>
+        <li><a class="sc-rss" href="/feeds/all.atom.xml" target="_blank"><i class="fa fa-rss"></i></a></li>
+      </ul>
+    </div>
+
+
+  </aside>
+  <main>
+
+    <nav>
+      <a href="https://jameselliothart.github.io">    Home
+</a>
+
+      <a href="/archives.html">Archives</a>
+      <a href="/categories.html">Categories</a>
+      <a href="/tags.html">Tags</a>
+
+      <a href="https://jameselliothart.github.io/feeds/all.atom.xml">    Atom
+</a>
+
+    </nav>
+
+<article class="single">
+  <header>
+      
+    <h1 id="todo-kata-introduction">Todo Kata - Introduction</h1>
+    <p>
+          Posted on October 04, 2020 in <a href="https://jameselliothart.github.io/category/tutorial.html">Tutorial</a>
+
+          </br>
+    </p>
+  </header>
+
+
+  <div>
+    <p>This post marks the introduction for a <a href="https://en.wikipedia.org/wiki/Kata_(programming)">code kata</a> series in which we will develop a command-line todo list manager in a few different languages.
+Each kata will assume a working development environment (I will be working in <a href="https://code.visualstudio.com/">VS Code</a> on Ubuntu 18.04) and basic familiarity with the syntax of the language involved.
+The end result will be two programs, <code>todo</code> and <code>done</code>, to track a current todo list and to keep track of completed items by date.
+The final API will look something like this:</p>
+<div class="highlight"><pre><span></span>$ todo a <span class="s2">&quot;create a todo manager&quot;</span>
+$ todo a <span class="s2">&quot;create a completed item manager&quot;</span>
+$ todo
+<span class="m">1</span>. create a completed item manager
+<span class="m">2</span>. create a todo manager
+$ todo r <span class="m">0</span>
+$ todo
+<span class="m">0</span>. create a todo manager
+$ <span class="k">done</span> d <span class="m">0</span>
+<span class="o">[</span><span class="m">2020</span>-10-05T13:23:56<span class="o">]</span> create a completed item manager
+$ <span class="k">done</span> w <span class="m">1</span>
+<span class="o">[</span><span class="m">2020</span>-10-02T12:40:12<span class="o">]</span> draft tutorial
+<span class="o">[</span><span class="m">2020</span>-10-05T13:23:56<span class="o">]</span> create a completed item manager
+</pre></div>
+
+
+<p>The commands do the following:</p>
+<ol>
+<li><code>todo a</code> - Add items to the todo list</li>
+<li><code>todo</code> - List todo items</li>
+<li><code>todo r</code> - Remove (complete) an item by index</li>
+<li><code>done d</code> - Retrieve items completed a number of days ago</li>
+<li><code>done w</code> - Retrieve items completed a number of weeks ago</li>
+</ol>
+<p>(Note: Technically <code>done</code> is already a shell keyword.)</p>
+<p>We will implement this first by just saving to text files, but we will see that we can design the solution to be flexible enough to switch to saving completed items in a SQLite database with relative ease.
+The curious may read a little more about the motivation for this below.
+Otherwise, continue to the <a href="https://jameselliothart.github.io/todo-kata-fsharp-part-1">first kata</a> covering the <a href="https://fsharp.org/">FSharp</a> implementation.</p>
+<h2>Motivation</h2>
+<p>I have worked in environments that sometimes require a large amount of task switching for some time.
+This is generally the result of high priority requests coming in with unpredictable frequency as may be familiar to anyone working on a team that supports other teams or customers.
+To keep track of what I needed to do, I would typically record tasks in a <a href="https://notepad-plus-plus.org/">Notepad++</a> tab (without even saving to a file) and delete a task line when I finished.
+This suited my needs well enough until I started working on a team that followed a number of <a href="https://www.atlassian.com/agile/scrum/ceremonies">Agile ceremonies</a> - daily stand-ups and sprint retrospectives in particular.</p>
+<p>It wasn't enough simply to track what I had to do because I also needed to be able to report on what I had done yesterday and contribute meaningfully about the events of the previous two-week sprint.
+Now, there are a number of lightweight todo list applications already out there, but the security setup at work meant that I had very limited ability to install software on my machine.
+To address these issues, I wrote a PowerShell module <a href="https://github.com/jameselliothart/pstodo">pstodo</a> consisting of a single file so that I could copy/paste the entire contents from GitHub onto my machine and having a working tool.
+The implementation was quick and dirty, but it continues to serve its purpose to today.</p>
+<p>More recently, I started to play with rewriting <code>pstodo</code> and realized that while the implementation was relatively straightforward, it was non-trivial enough to serve as a good demonstration of the features of the language in which it was implemented.
+Since I have always found tutorials a great way to learn some aspect of a language, I thought I would create a series of my own partly to serve as a personal reference but also in case anyone else might find them useful.</p>
+<h2>Series Outline</h2>
+<ol>
+<li>Intro (you are here)</li>
+<li>FSharp</li>
+<li><a href="https://jameselliothart.github.io/todo-kata-fsharp-part-1">Part 1 - Done</a></li>
+<li><a href="https://jameselliothart.github.io/todo-kata-fsharp-part-2">Part 2 - Todo</a></li>
+<li><a href="https://jameselliothart.github.io/todo-kata-fsharp-part-3">Part 3 - SQLite</a></li>
+<li>Python</li>
+<li><a href="https://jameselliothart.github.io/todo-kata-python-part-1">Part 1 - Done</a></li>
+<li><a href="https://jameselliothart.github.io/todo-kata-python-part-2">Part 2 - Todo</a></li>
+<li><a href="https://jameselliothart.github.io/todo-kata-python-part-3">Part 3 - SQLite</a></li>
+</ol>
+  </div>
+  <div class="tag-cloud">
+    <p>
+      <a href="https://jameselliothart.github.io/tag/tutorial.html">Tutorial</a>
+      <a href="https://jameselliothart.github.io/tag/fsharp.html">FSharp</a>
+      <a href="https://jameselliothart.github.io/tag/todo.html">Todo</a>
+      <a href="https://jameselliothart.github.io/tag/development.html">Development</a>
+    </p>
+  </div>
+
+
+
+
+
+</article>
+
+    <footer>
+<p>&copy; James Hart 2019</p>
+<p>    Powered by <a href="http://getpelican.com" target="_blank">Pelican</a> - <a href="https://github.com/alexandrevicenzi/flex" target="_blank">Flex</a> theme by <a href="http://alexandrevicenzi.com" target="_blank">Alexandre Vicenzi</a>
+</p>    </footer>
+  </main>
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " A Hart's Eye View ",
+  "url" : "https://jameselliothart.github.io",
+  "image": "/images/me.jpeg",
+  "description": ""
+}
+</script>
+
+</body>
+</html>

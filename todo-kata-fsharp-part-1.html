@@ -1,0 +1,421 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="" />
+
+  <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro|Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="https://jameselliothart.github.io/theme/stylesheet/style.min.css">
+
+  <link rel="stylesheet" type="text/css" href="https://jameselliothart.github.io/theme/pygments/github.min.css">
+  <link rel="stylesheet" type="text/css" href="https://jameselliothart.github.io/theme/font-awesome/css/font-awesome.min.css">
+
+
+    <link href="https://jameselliothart.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="A Hart's Eye View Atom">
+
+
+
+
+
+<meta name="author" content="James Hart" />
+<meta name="description" content="Welcome to Part 1 of the FSharp kata to implement to todo list manager discussed in the introduction. In this post, we will implement the done command. We start with done rather than todo because todo will actually depend on functionality in done to save completed items whereas done has …" />
+<meta name="keywords" content="Tutorial, FSharp, Todo, Development">
+
+<meta property="og:site_name" content="A Hart's Eye View"/>
+<meta property="og:title" content="Todo Kata - FSharp Part 1"/>
+<meta property="og:description" content="Welcome to Part 1 of the FSharp kata to implement to todo list manager discussed in the introduction. In this post, we will implement the done command. We start with done rather than todo because todo will actually depend on functionality in done to save completed items whereas done has …"/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:url" content="https://jameselliothart.github.io/todo-kata-fsharp-part-1.html"/>
+<meta property="og:type" content="article"/>
+<meta property="article:published_time" content="2020-10-05 00:00:00-05:00"/>
+<meta property="article:modified_time" content=""/>
+<meta property="article:author" content="https://jameselliothart.github.io/author/james-hart.html">
+<meta property="article:section" content="Tutorial"/>
+<meta property="article:tag" content="Tutorial"/>
+<meta property="article:tag" content="FSharp"/>
+<meta property="article:tag" content="Todo"/>
+<meta property="article:tag" content="Development"/>
+<meta property="og:image" content="/images/me.jpeg">
+
+  <title>A Hart's Eye View &ndash; Todo Kata - FSharp Part 1</title>
+
+</head>
+<body>
+  <aside>
+    <div>
+      <a href="https://jameselliothart.github.io">
+        <img src="/images/me.jpeg" alt="A Hart's Eye View" title="A Hart's Eye View">
+      </a>
+      <h1><a href="https://jameselliothart.github.io">A Hart's Eye View</a></h1>
+
+
+      <nav>
+        <ul class="list">
+          <li><a href="https://jameselliothart.github.io/pages/about.html#about">About</a></li>
+
+        </ul>
+      </nav>
+
+      <ul class="social">
+        <li><a class="sc-linkedin" href="https://www.linkedin.com/in/james-hart-3543664b/" target="_blank"><i class="fa fa-linkedin"></i></a></li>
+        <li><a class="sc-github" href="https://github.com/jameselliothart/" target="_blank"><i class="fa fa-github"></i></a></li>
+        <li><a class="sc-rss" href="/feeds/all.atom.xml" target="_blank"><i class="fa fa-rss"></i></a></li>
+      </ul>
+    </div>
+
+
+  </aside>
+  <main>
+
+    <nav>
+      <a href="https://jameselliothart.github.io">    Home
+</a>
+
+      <a href="/archives.html">Archives</a>
+      <a href="/categories.html">Categories</a>
+      <a href="/tags.html">Tags</a>
+
+      <a href="https://jameselliothart.github.io/feeds/all.atom.xml">    Atom
+</a>
+
+    </nav>
+
+<article class="single">
+  <header>
+      
+    <h1 id="todo-kata-fsharp-part-1">Todo Kata - FSharp Part 1</h1>
+    <p>
+          Posted on October 05, 2020 in <a href="https://jameselliothart.github.io/category/tutorial.html">Tutorial</a>
+
+          </br>
+    </p>
+  </header>
+
+
+  <div>
+    <p>Welcome to Part 1 of the FSharp kata to implement to todo list manager discussed in the <a href="https://jameselliothart.github.io/todo-kata-introduction">introduction</a>.
+In this post, we will implement the <code>done</code> command.
+We start with <code>done</code> rather than <code>todo</code> because <code>todo</code> will actually depend on functionality in <code>done</code> to save completed items whereas <code>done</code> has no dependencies.</p>
+<p>Series Outline</p>
+<ol>
+<li><a href="https://jameselliothart.github.io/todo-kata-introduction">Intro</a></li>
+<li><a href="https://jameselliothart.github.io/todo-kata-fsharp-part-1">Part 1 - Done</a> (you are here)</li>
+<li><a href="https://jameselliothart.github.io/todo-kata-fsharp-part-2">Part 2 - Todo</a></li>
+<li><a href="https://jameselliothart.github.io/todo-kata-fsharp-part-3">Part 3 - SQLite</a></li>
+</ol>
+<p>Full source code is available <a href="https://github.com/jameselliothart/FsTodo">here</a>.</p>
+<h2>Setup</h2>
+<p>We start by setting up our <a href="https://dotnet.microsoft.com/download">.NET Core</a> console app, adding it to a solution, and opening VS Code:</p>
+<div class="highlight"><pre><span></span>$ mkdir FsTodo
+$ <span class="nb">cd</span> FsTodo
+$ dotnet new console -n Done -lang F#
+$ dotnet new sln
+$ dotnet sln add Done/Done.fsproj
+$ code .
+</pre></div>
+
+
+<p>Next we will create the Domain of our application which will hold all of the logic for creating and working with completed items - the main subjects of the <code>done</code> command.
+Add the Domain.fs file above Program.fs.</p>
+<h2>Domain.fs</h2>
+<p>The <code>done</code> command should allow us to record completed items and query for them later by how long ago they were completed.
+First, we create a module defining the type and some functions for creating and printing.
+Putting the <code>CompletedItem</code> type and the functions for working with it in a module with <code>module Done =</code> allows us to more easily group and discover related operations.
+Basically, it allows for "dot-driven development" as we get intellisense with <code>Done.</code> for <code>Done.create</code>, <code>Done.CompletedItem</code>, etc.</p>
+<div class="highlight"><pre><span></span><span class="k">module</span> <span class="nn">Done.Domain</span>
+<span class="k">open</span> <span class="nn">System</span>
+
+<span class="k">module</span> <span class="nn">Done</span> <span class="o">=</span>
+
+    <span class="k">type</span> <span class="nc">CompletedItem</span> <span class="o">=</span> <span class="o">{</span><span class="n">CompletedOn</span><span class="o">:</span> <span class="n">DateTime</span><span class="o">;</span> <span class="n">Item</span><span class="o">:</span> <span class="kt">string</span><span class="o">}</span>
+
+    <span class="k">let</span> <span class="nv">create</span> <span class="o">(</span><span class="n">completedOn</span><span class="o">:</span> <span class="n">DateTime</span><span class="o">)</span> <span class="o">(</span><span class="n">item</span><span class="o">:</span> <span class="kt">string</span><span class="o">)</span> <span class="o">=</span>
+        <span class="o">{</span><span class="n">CompletedOn</span> <span class="o">=</span> <span class="n">completedOn</span><span class="o">;</span> <span class="n">Item</span> <span class="o">=</span> <span class="n">item</span><span class="o">}</span>
+
+    <span class="k">let</span> <span class="nv">createDefault</span> <span class="n">item</span> <span class="o">=</span> <span class="n">item</span> <span class="o">|&gt;</span> <span class="n">create</span> <span class="nn">DateTime</span><span class="p">.</span><span class="n">Now</span>
+
+    <span class="k">let</span> <span class="nv">toString</span> <span class="n">item</span> <span class="o">=</span>
+        <span class="n">sprintf</span> <span class="s">&quot;[%s] %s&quot;</span> <span class="o">(</span><span class="n">item</span><span class="o">.</span><span class="n">CompletedOn</span><span class="o">.</span><span class="n">ToString</span><span class="o">(</span><span class="s">&quot;s&quot;</span><span class="o">))</span> <span class="n">item</span><span class="o">.</span><span class="n">Item</span>
+</pre></div>
+
+
+<p>The <code>toString</code> function is how we will serialize a completed item to a text file, so it will have a representation like "[2020-10-02T17:53:47] hello world".</p>
+<p>We will also need a way to turn that text representation back into a <code>CompletedItem</code> (deserialize it) to work with it again within our domain logic.
+Add a reference to <code>open System.Text.RegularExpressions</code> to access <code>Regex</code> so that we can parse the date from the completed item.</p>
+<p>The <code>tryParse</code> function will return a <code>CompletedItem option</code> because the file could potentially be "corrupted" - someone could tamper with the file and put in something like "[this is not a date] ugh" or even just leave out the "[]" like "there is no date here".
+<code>Some item</code> gives us a type-safe way of saying we got something rather than <code>None</code>.</p>
+<div class="highlight"><pre><span></span><span class="k">open</span> <span class="nn">System.Text.RegularExpressions</span>
+
+<span class="c1">// ...</span>
+
+    <span class="k">let</span> <span class="nv">tryParse</span> <span class="o">(</span><span class="n">s</span><span class="o">:</span> <span class="kt">string</span><span class="o">)</span> <span class="o">=</span>
+        <span class="k">let</span> <span class="nv">result</span> <span class="o">=</span>
+            <span class="k">try</span>
+                <span class="n">s</span>
+                <span class="o">|&gt;</span> <span class="k">fun</span> <span class="n">s</span> <span class="o">-&gt;</span> <span class="nn">Regex</span><span class="p">.</span><span class="n">Match</span><span class="o">(</span><span class="n">s</span><span class="o">,</span> <span class="s">&quot;^</span><span class="err">\</span><span class="s">[(?&lt;completedOn&gt;.*)</span><span class="err">\</span><span class="s">] (?&lt;item&gt;.*)&quot;</span><span class="o">)</span>
+                <span class="o">|&gt;</span> <span class="k">fun</span> <span class="n">m</span> <span class="o">-&gt;</span> <span class="k">if</span> <span class="n">m</span><span class="o">.</span><span class="n">Success</span> <span class="k">then</span> <span class="n">Some</span> <span class="n">m</span><span class="o">.</span><span class="n">Groups</span> <span class="k">else</span> <span class="n">None</span>
+                <span class="o">|&gt;</span> <span class="nn">Option</span><span class="p">.</span><span class="n">map</span> <span class="o">(</span>
+                    <span class="k">fun</span> <span class="n">g</span> <span class="o">-&gt;</span> <span class="o">(</span>
+                                <span class="o">(</span><span class="n">g</span> <span class="o">|&gt;</span> <span class="nn">Seq</span><span class="p">.</span><span class="n">filter</span> <span class="o">(</span><span class="k">fun</span> <span class="n">x</span> <span class="o">-&gt;</span> <span class="n">x</span><span class="o">.</span><span class="n">Name</span> <span class="o">=</span> <span class="s">&quot;completedOn&quot;</span><span class="o">)</span> <span class="o">|&gt;</span> <span class="nn">Seq</span><span class="p">.</span><span class="n">exactlyOne</span><span class="o">).</span><span class="n">Value</span><span class="o">,</span>
+                                <span class="o">(</span><span class="n">g</span> <span class="o">|&gt;</span> <span class="nn">Seq</span><span class="p">.</span><span class="n">filter</span> <span class="o">(</span><span class="k">fun</span> <span class="n">x</span> <span class="o">-&gt;</span> <span class="n">x</span><span class="o">.</span><span class="n">Name</span> <span class="o">=</span> <span class="s">&quot;item&quot;</span><span class="o">)</span> <span class="o">|&gt;</span> <span class="nn">Seq</span><span class="p">.</span><span class="n">exactlyOne</span><span class="o">).</span><span class="n">Value</span>
+                            <span class="o">)</span>
+                    <span class="o">)</span>
+                <span class="o">|&gt;</span> <span class="nn">Option</span><span class="p">.</span><span class="n">map</span> <span class="o">(</span><span class="k">fun</span> <span class="o">(</span><span class="n">date</span><span class="o">,</span> <span class="n">item</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="o">(</span><span class="nn">DateTime</span><span class="p">.</span><span class="n">TryParse</span><span class="o">(</span><span class="n">date</span><span class="o">),</span> <span class="n">item</span><span class="o">))</span>
+                <span class="o">|&gt;</span> <span class="nn">Option</span><span class="p">.</span><span class="n">map</span> <span class="o">(</span><span class="k">fun</span> <span class="o">((</span><span class="n">success</span><span class="o">,</span> <span class="n">date</span><span class="o">),</span> <span class="n">item</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="k">if</span> <span class="n">success</span> <span class="k">then</span> <span class="n">Some</span> <span class="o">(</span><span class="n">create</span> <span class="n">date</span> <span class="n">item</span><span class="o">)</span> <span class="k">else</span> <span class="n">None</span><span class="o">)</span>
+            <span class="k">with</span>
+            <span class="o">|</span> <span class="o">:?</span> <span class="n">ArgumentException</span> <span class="o">-&gt;</span> <span class="n">None</span>
+        <span class="k">match</span> <span class="n">result</span> <span class="k">with</span>
+        <span class="o">|</span> <span class="n">Some</span><span class="o">(</span><span class="n">Some</span><span class="o">(</span><span class="n">completedItem</span><span class="o">))</span> <span class="o">-&gt;</span> <span class="n">Some</span> <span class="n">completedItem</span>
+        <span class="o">|</span> <span class="o">_</span> <span class="o">-&gt;</span> <span class="n">None</span>
+</pre></div>
+
+
+<p>There is a lot going on there just to deal with potentially bad entries in the file.
+If we were confident the file will always be clean, we could use something like the below.
+However, we would still want to return a <code>CompletedItem option</code> as the cleanest way to handle <code>DateTime.TryParse</code>.</p>
+<div class="highlight"><pre><span></span>    <span class="k">let</span> <span class="nv">tryParse</span> <span class="o">(</span><span class="n">s</span><span class="o">:</span> <span class="kt">string</span><span class="o">)</span> <span class="o">=</span>
+        <span class="k">let</span> <span class="nv">result</span> <span class="o">=</span>
+            <span class="n">s</span>
+            <span class="o">|&gt;</span> <span class="k">fun</span> <span class="n">s</span> <span class="o">-&gt;</span> <span class="nn">Regex</span><span class="p">.</span><span class="n">Match</span><span class="o">(</span><span class="n">s</span><span class="o">,</span> <span class="s">&quot;^</span><span class="err">\</span><span class="s">[(?&lt;completedOn&gt;.*)</span><span class="err">\</span><span class="s">] (?&lt;item&gt;.*)&quot;</span><span class="o">)</span>
+            <span class="o">|&gt;</span> <span class="k">fun</span> <span class="n">m</span> <span class="o">-&gt;</span> <span class="o">(</span>
+                            <span class="o">(</span><span class="n">m</span><span class="o">.</span><span class="n">Groups</span> <span class="o">|&gt;</span> <span class="nn">Seq</span><span class="p">.</span><span class="n">filter</span> <span class="o">(</span><span class="k">fun</span> <span class="n">x</span> <span class="o">-&gt;</span> <span class="n">x</span><span class="o">.</span><span class="n">Name</span> <span class="o">=</span> <span class="s">&quot;completedOn&quot;</span><span class="o">)</span> <span class="o">|&gt;</span> <span class="nn">Seq</span><span class="p">.</span><span class="n">exactlyOne</span><span class="o">).</span><span class="n">Value</span><span class="o">,</span>
+                            <span class="o">(</span><span class="n">m</span><span class="o">.</span><span class="n">Groups</span> <span class="o">|&gt;</span> <span class="nn">Seq</span><span class="p">.</span><span class="n">filter</span> <span class="o">(</span><span class="k">fun</span> <span class="n">x</span> <span class="o">-&gt;</span> <span class="n">x</span><span class="o">.</span><span class="n">Name</span> <span class="o">=</span> <span class="s">&quot;item&quot;</span><span class="o">)</span> <span class="o">|&gt;</span> <span class="nn">Seq</span><span class="p">.</span><span class="n">exactlyOne</span><span class="o">).</span><span class="n">Value</span>
+                        <span class="o">)</span>
+            <span class="o">|&gt;</span> <span class="k">fun</span> <span class="o">(</span><span class="n">date</span><span class="o">,</span> <span class="n">item</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="o">(</span><span class="nn">DateTime</span><span class="p">.</span><span class="n">TryParse</span><span class="o">(</span><span class="n">date</span><span class="o">),</span> <span class="n">item</span><span class="o">)</span>
+            <span class="o">|&gt;</span> <span class="k">fun</span> <span class="o">((</span><span class="n">success</span><span class="o">,</span> <span class="n">date</span><span class="o">),</span> <span class="n">item</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="k">if</span> <span class="n">success</span> <span class="k">then</span> <span class="n">Some</span> <span class="o">(</span><span class="n">create</span> <span class="n">date</span> <span class="n">item</span><span class="o">)</span> <span class="k">else</span> <span class="n">None</span>
+</pre></div>
+
+
+<p>The whole point of storing our completed items is to be able to query for ones completed some time ago, so we can tackle that next.
+First we will define some helper functions at the top of the file to make working with dates easier:</p>
+<div class="highlight"><pre><span></span><span class="k">let</span> <span class="nv">private</span> <span class="n">startOfDay</span> <span class="o">(</span><span class="n">date</span><span class="o">:</span> <span class="n">DateTime</span><span class="o">)</span> <span class="o">=</span> <span class="n">date</span><span class="o">.</span><span class="n">Date</span>
+<span class="k">let</span> <span class="nv">private</span> <span class="n">daysAgo</span> <span class="o">(</span><span class="n">date</span><span class="o">:</span> <span class="n">DateTime</span><span class="o">)</span> <span class="n">days</span> <span class="o">=</span> <span class="n">date</span><span class="o">.</span><span class="n">AddDays</span><span class="o">(-</span><span class="n">days</span><span class="o">)</span> <span class="o">|&gt;</span> <span class="n">startOfDay</span>
+<span class="k">let</span> <span class="nv">private</span> <span class="n">startOfWeek</span> <span class="o">(</span><span class="n">date</span><span class="o">:</span> <span class="n">DateTime</span><span class="o">)</span> <span class="o">=</span> <span class="n">date</span><span class="o">.</span><span class="n">AddDays</span><span class="o">(-(</span><span class="kt">float</span><span class="o">)</span><span class="n">date</span><span class="o">.</span><span class="n">DayOfWeek</span><span class="o">)</span> <span class="o">|&gt;</span> <span class="n">startOfDay</span>
+<span class="k">let</span> <span class="nv">private</span> <span class="n">weeksAgo</span> <span class="o">(</span><span class="n">date</span><span class="o">:</span> <span class="n">DateTime</span><span class="o">)</span> <span class="n">weeks</span> <span class="o">=</span> <span class="n">date</span><span class="o">.</span><span class="n">AddDays</span><span class="o">(-</span><span class="mi">7</span><span class="o">.</span><span class="mi">0</span> <span class="o">*</span> <span class="n">weeks</span><span class="o">)</span> <span class="o">|&gt;</span> <span class="n">startOfWeek</span> <span class="o">|&gt;</span> <span class="n">startOfDay</span>
+</pre></div>
+
+
+<p>Notice they are marked as <code>private</code> because we will only use them within this module and do not want to clutter the public API.</p>
+<p>We can represent the period back we would like to query (days or weeks) nicely as a discriminated union:</p>
+<div class="highlight"><pre><span></span><span class="k">type</span> <span class="nc">Period</span> <span class="o">=</span>
+<span class="o">|</span> <span class="n">Days</span> <span class="k">of</span> <span class="kt">float</span>
+<span class="o">|</span> <span class="n">Weeks</span> <span class="k">of</span> <span class="kt">float</span>
+</pre></div>
+
+
+<p>This combined with our helper functions earlier makes the <code>completedSince</code> function pretty straightforward:</p>
+<div class="highlight"><pre><span></span>    <span class="k">let</span> <span class="nv">completedSince</span> <span class="n">period</span> <span class="o">(</span><span class="n">item</span><span class="o">:</span> <span class="n">CompletedItem</span><span class="o">)</span> <span class="o">=</span>
+        <span class="k">let</span> <span class="nv">since</span> <span class="o">=</span>
+            <span class="k">match</span> <span class="n">period</span> <span class="k">with</span>
+            <span class="o">|</span> <span class="n">Days</span> <span class="n">x</span> <span class="o">-&gt;</span> <span class="n">daysAgo</span> <span class="nn">DateTime</span><span class="p">.</span><span class="n">Now</span> <span class="n">x</span>
+            <span class="o">|</span> <span class="n">Weeks</span> <span class="n">x</span> <span class="o">-&gt;</span> <span class="n">weeksAgo</span> <span class="nn">DateTime</span><span class="p">.</span><span class="n">Now</span> <span class="n">x</span>
+        <span class="n">since</span> <span class="o">&lt;</span> <span class="n">item</span><span class="o">.</span><span class="n">CompletedOn</span>
+</pre></div>
+
+
+<p>Finally, at the bottom of the file we will define some types that we expect our persistence logic to implement.
+This tells us we expect to be able to:</p>
+<ol>
+<li>Save a completed item and get a <code>Result</code> back either of success or an error message</li>
+<li>Retrieve all completed items (which we can then filter by date with <code>completedSince</code>)</li>
+</ol>
+<div class="highlight"><pre><span></span><span class="k">type</span> <span class="nc">SaveCompletedItem</span> <span class="o">=</span> <span class="nn">Done</span><span class="p">.</span><span class="n">CompletedItem</span> <span class="o">-&gt;</span> <span class="n">Result</span><span class="o">&lt;</span><span class="kt">unit</span><span class="o">,</span><span class="kt">string</span><span class="o">&gt;</span>
+<span class="k">type</span> <span class="nc">GetCompletedItems</span> <span class="o">=</span> <span class="kt">unit</span> <span class="o">-&gt;</span> <span class="nn">Done</span><span class="p">.</span><span class="n">CompletedItem</span> <span class="n">seq</span>
+</pre></div>
+
+
+<p>As already mentioned, we will first provide implementations of these types to read/write from a file.
+Later, we will see how we can switch to using a SQLite database with minimal changes outside of implementing the SQLite logic.</p>
+<h2>Persistence.File.fs</h2>
+<p>Beneath Domain.fs, we create Persistence.File.fs.
+There is not much to implementing file persistence - the entire implementation is below.</p>
+<div class="highlight"><pre><span></span><span class="k">module</span> <span class="nn">Done.Persistence.File</span>
+<span class="k">open</span> <span class="nn">Done.Domain</span>
+<span class="k">open</span> <span class="nn">System.IO</span>
+
+<span class="o">[&lt;</span><span class="n">LiteralAttribute</span><span class="o">&gt;]</span>
+<span class="k">let</span> <span class="nv">FilePath</span> <span class="o">=</span> <span class="s">&quot;todo.done.txt&quot;</span>
+
+<span class="k">let</span> <span class="nv">saveCompletedItem</span> <span class="n">path</span> <span class="o">:</span> <span class="n">SaveCompletedItem</span> <span class="o">=</span>
+    <span class="k">fun</span> <span class="n">item</span> <span class="o">-&gt;</span>
+        <span class="k">use</span> <span class="n">writer</span> <span class="o">=</span> <span class="nn">File</span><span class="p">.</span><span class="n">AppendText</span> <span class="n">path</span>
+        <span class="n">item</span> <span class="o">|&gt;</span> <span class="nn">Done</span><span class="p">.</span><span class="n">toString</span> <span class="o">|&gt;</span> <span class="n">writer</span><span class="o">.</span><span class="n">WriteLine</span>
+        <span class="n">Ok</span> <span class="bp">()</span>
+
+<span class="k">let</span> <span class="nv">getCompletedItems</span> <span class="n">path</span> <span class="o">:</span> <span class="n">GetCompletedItems</span> <span class="o">=</span>
+    <span class="k">fun</span> <span class="o">_</span> <span class="o">-&gt;</span>
+        <span class="k">if</span> <span class="o">(</span><span class="nn">File</span><span class="p">.</span><span class="n">Exists</span> <span class="n">path</span><span class="o">)</span> <span class="k">then</span> <span class="nn">File</span><span class="p">.</span><span class="n">ReadAllLines</span> <span class="n">path</span> <span class="k">else</span> <span class="o">[||]</span>
+        <span class="o">|&gt;</span> <span class="nn">Array</span><span class="p">.</span><span class="n">map</span> <span class="nn">Done</span><span class="p">.</span><span class="n">tryParse</span>
+        <span class="o">|&gt;</span> <span class="nn">Array</span><span class="p">.</span><span class="n">filter</span> <span class="nn">Option</span><span class="p">.</span><span class="n">isSome</span>
+        <span class="o">|&gt;</span> <span class="nn">Array</span><span class="p">.</span><span class="n">map</span> <span class="o">(</span><span class="k">fun</span> <span class="n">i</span> <span class="o">-&gt;</span> <span class="n">i</span><span class="o">.</span><span class="n">Value</span><span class="o">)</span>
+        <span class="o">|&gt;</span> <span class="nn">Array</span><span class="p">.</span><span class="n">toSeq</span>
+</pre></div>
+
+
+<p>There are a couple things to call out.
+First, notice these functions take a <code>path</code> and return <code>SaveCompletedItem</code> or <code>GetCompletedItems</code> - that is, they return functions.
+We will see after this how we can partially apply the path to configure these functions for use.
+Second, it is generally bad practice to extract the value from an option like in <code>Array.map (fun i -&gt; i.Value)</code> since an exception will be thrown in the case of <code>None</code>.
+However, we filter immediately before on <code>Option.isSome</code>, so this is ok to make the return value work out.
+Also, note we are careful to handle the case of the file not existing yet by checking <code>if (File.Exists path)</code> - it is easy to forget edge cases like this!
+<code>File.AppendText</code> will create the file if it does not exist, so no need for defensive coding there.</p>
+<h2>Config.fs</h2>
+<p>The Config file is where we will configure the persistence logic for use by our application and others.
+This way, consumers do not need to worry about the implementation details of how data is stored.
+We will see how useful this is when we switch to using a SQLite database and only need to update this file instead of scouring the code for references to the <code>Persistence.File</code> functions.</p>
+<div class="highlight"><pre><span></span><span class="k">module</span> <span class="nn">Done.Config</span>
+<span class="k">open</span> <span class="nn">Persistence.File</span>
+
+<span class="k">let</span> <span class="nv">save</span> <span class="o">=</span> <span class="n">saveCompletedItem</span> <span class="n">FilePath</span>
+<span class="k">let</span> <span class="nv">get</span> <span class="o">=</span> <span class="n">getCompletedItems</span> <span class="n">FilePath</span>
+</pre></div>
+
+
+<h2>Program.fs</h2>
+<p>We are finally ready to code the actual application.
+The final usages will look like the below:</p>
+<div class="highlight"><pre><span></span>$ <span class="k">done</span> a <span class="s2">&quot;this is a completed item&quot;</span>
+$ <span class="k">done</span> d <span class="m">1</span>
+$ <span class="k">done</span> w <span class="m">1</span>
+</pre></div>
+
+
+<p>These commands show how to add a completed item, get items completed since yesterday, and get items completed since last week.
+It will be useful to keep this API in mind as we develop the logic.</p>
+<p>We start by defining the types of commands our application can respond to: it can either <code>Add</code> a new completed item or it can <code>Query</code> for them by how long ago they were completed (some number of <code>Period</code>s ago - either "d" or "w").
+(Hopefully CQRS practitioners can forgive making a <code>Query</code> a type of <code>Command</code>!)</p>
+<div class="highlight"><pre><span></span><span class="k">type</span> <span class="nc">Command</span> <span class="o">=</span>
+<span class="o">|</span> <span class="n">Add</span> <span class="k">of</span> <span class="kt">string</span>
+<span class="o">|</span> <span class="n">Query</span> <span class="k">of</span> <span class="n">Period</span>
+</pre></div>
+
+
+<p>Next, because the arguments we receive from the command line will be strings, we will define a helper method to parse the period for a <code>Query</code> (we will need to be sure not to use this when we receive an <code>Add</code> command):</p>
+<div class="highlight"><pre><span></span><span class="k">let</span> <span class="nv">tryParsePeriod</span> <span class="o">(</span><span class="n">period</span><span class="o">:</span> <span class="kt">string</span><span class="o">)</span> <span class="n">amount</span> <span class="o">=</span>
+    <span class="k">match</span> <span class="n">period</span><span class="o">.</span><span class="n">ToLowerInvariant</span><span class="bp">()</span> <span class="k">with</span>
+    <span class="o">|</span> <span class="s">&quot;d&quot;</span> <span class="o">-&gt;</span> <span class="n">Some</span> <span class="o">(</span><span class="n">Query</span> <span class="o">(</span><span class="n">Days</span> <span class="n">amount</span><span class="o">))</span>
+    <span class="o">|</span> <span class="s">&quot;w&quot;</span> <span class="o">-&gt;</span> <span class="n">Some</span> <span class="o">(</span><span class="n">Query</span> <span class="o">(</span><span class="n">Weeks</span> <span class="n">amount</span><span class="o">))</span>
+    <span class="o">|</span> <span class="o">_</span> <span class="o">-&gt;</span> <span class="n">None</span>
+</pre></div>
+
+
+<p>The heavily nested <code>Some (Query (Days amount))</code> may look intimidating at first glance.
+Breaking it down, we can see it reflects:</p>
+<ol>
+<li>We may have received invalid input - use an Option (<code>Some</code>/<code>None</code>) to indicate whether a valid <code>Period</code> is requested</li>
+<li>We mentioned earlier this will only be used for a <code>Query</code> which expects a <code>Period</code> (either <code>Days</code> or <code>Weeks</code>)</li>
+<li>The "d" or "w" specifies whether the <code>amount</code> is in <code>Days</code> or <code>Weeks</code> (<code>amount</code> is inferred to be a <code>float</code>)</li>
+</ol>
+<p>With that helper function defined, we can try to parse the entire command line argument array:</p>
+<div class="highlight"><pre><span></span><span class="k">let</span> <span class="nv">tryParseArgs</span> <span class="o">(</span><span class="n">argv</span><span class="o">:</span> <span class="kt">string</span> <span class="bp">[]</span><span class="o">)</span> <span class="o">=</span>
+    <span class="k">match</span> <span class="n">argv</span> <span class="k">with</span>
+    <span class="o">|</span> <span class="o">[|</span><span class="n">command</span><span class="o">;</span><span class="n">param</span><span class="o">|]</span> <span class="o">-&gt;</span>
+        <span class="k">if</span> <span class="n">command</span> <span class="o">=</span> <span class="s">&quot;a&quot;</span> <span class="k">then</span> <span class="n">Some</span> <span class="o">(</span><span class="n">Add</span> <span class="n">param</span><span class="o">)</span> <span class="k">else</span>
+            <span class="k">match</span> <span class="nn">Double</span><span class="p">.</span><span class="n">TryParse</span><span class="o">(</span><span class="n">param</span><span class="o">)</span> <span class="k">with</span>
+            <span class="o">|</span> <span class="o">(</span><span class="k">true</span><span class="o">,</span> <span class="n">x</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="n">tryParsePeriod</span> <span class="n">command</span> <span class="n">x</span>
+            <span class="o">|</span> <span class="o">(</span><span class="k">false</span><span class="o">,</span> <span class="o">_)</span> <span class="o">-&gt;</span> <span class="n">None</span>
+    <span class="o">|</span> <span class="o">[|</span><span class="n">period</span><span class="o">|]</span> <span class="o">-&gt;</span> <span class="n">tryParsePeriod</span> <span class="n">period</span> <span class="mi">0</span><span class="o">.</span><span class="mi">0</span>
+    <span class="o">|</span> <span class="o">_</span> <span class="o">-&gt;</span> <span class="n">None</span>
+</pre></div>
+
+
+<p>We pattern match on the <code>string array</code> of incoming arguments:</p>
+<ol>
+<li>If we received two arguments (<code>[|command;param|]</code>)</li>
+<li>If the first argument is "a" then we are adding a new completed item (the <code>param</code>): <code>if command = "a" then Some (Add param)</code></li>
+<li>Otherwise, assume it is a query<ol>
+<li>Then the <code>param</code> needs to be parsed to a <code>Double</code></li>
+<li>If the <code>param</code> is valid, then try to determine the <code>Period</code> (using the helper we defined above)</li>
+</ol>
+</li>
+<li>If we received one argument, assume it is a query for the current <code>Day</code> or <code>Week</code> (this is a nice convenience)</li>
+<li>Otherwise, we have received bad arguments, so return <code>None</code></li>
+</ol>
+<p>The use of pattern matching and helper methods makes this kind of deeply nested logic more readable.</p>
+<p>Now we'll define a smaller helper function to display any errors if we receive them or nothing if not (we have actually not even defined any errors at this point).
+The implicit argument is a <code>Result&lt;'a,string&gt;</code>.</p>
+<div class="highlight"><pre><span></span><span class="k">let</span> <span class="nv">printIfError</span> <span class="o">=</span> <span class="k">function</span>
+    <span class="o">|</span> <span class="n">Error</span> <span class="n">e</span> <span class="o">-&gt;</span> <span class="n">printfn</span> <span class="s">&quot;%s&quot;</span> <span class="n">e</span>
+    <span class="o">|</span> <span class="n">Ok</span> <span class="o">_</span> <span class="o">-&gt;</span> <span class="bp">()</span>
+</pre></div>
+
+
+<p>And the final bit of code before the <code>main</code> function is a help message if we received bad arguments and the dispatching logic to run the actual code requested:</p>
+<div class="highlight"><pre><span></span><span class="k">open</span> <span class="nn">Done.Domain</span>
+<span class="k">open</span> <span class="nn">Done.Config</span>
+
+<span class="c1">// ...</span>
+
+<span class="o">[&lt;</span><span class="n">Literal</span><span class="o">&gt;]</span>
+<span class="k">let</span> <span class="nv">HelpMessage</span> <span class="o">=</span>
+    <span class="s">&quot;Usage: `done d &lt;number&gt;` or `done w &lt;number&gt;` to get items done &lt;number&gt; of days/weeks ago or add with `done a`&quot;</span>
+
+<span class="k">let</span> <span class="nv">dispatch</span> <span class="n">argv</span> <span class="o">=</span>
+    <span class="k">let</span> <span class="nv">cmd</span> <span class="o">=</span> <span class="n">tryParseArgs</span> <span class="n">argv</span>
+    <span class="k">match</span> <span class="n">cmd</span> <span class="k">with</span>
+    <span class="o">|</span> <span class="n">Some</span> <span class="n">c</span> <span class="o">-&gt;</span>
+        <span class="k">match</span> <span class="n">c</span> <span class="k">with</span>
+        <span class="o">|</span> <span class="n">Query</span> <span class="n">p</span> <span class="o">-&gt;</span>
+            <span class="n">get</span><span class="bp">()</span>
+            <span class="o">|&gt;</span> <span class="nn">Seq</span><span class="p">.</span><span class="n">filter</span> <span class="o">(</span><span class="nn">Done</span><span class="p">.</span><span class="n">completedSince</span> <span class="n">p</span><span class="o">)</span>
+            <span class="o">|&gt;</span> <span class="nn">Seq</span><span class="p">.</span><span class="n">iter</span> <span class="o">(</span><span class="nn">Done</span><span class="p">.</span><span class="n">toString</span> <span class="o">&gt;&gt;</span> <span class="n">printfn</span> <span class="s">&quot;%s&quot;</span><span class="o">)</span>
+        <span class="o">|</span> <span class="n">Add</span> <span class="n">s</span> <span class="o">-&gt;</span> <span class="n">s</span> <span class="o">|&gt;</span> <span class="nn">Done</span><span class="p">.</span><span class="n">createDefault</span> <span class="o">|&gt;</span> <span class="n">save</span> <span class="o">|&gt;</span> <span class="n">printIfError</span>
+    <span class="o">|</span> <span class="n">None</span> <span class="o">-&gt;</span> <span class="n">printfn</span> <span class="s">&quot;%s&quot;</span> <span class="n">HelpMessage</span>
+</pre></div>
+
+
+<p>We can see in the use of <code>get()</code> and <code>save</code> (with a reference to <code>open Done.Config</code>) that we can change the definitions of those functions (e.g. to use SQLite instead of a text file) without the program knowing any difference.</p>
+<h2>Wrapping Up</h2>
+<p>That completes the <code>done</code> implementation.
+We can test it out with the commands below:</p>
+<div class="highlight"><pre><span></span>$ dotnet run a <span class="s2">&quot;complete our first todo&quot;</span>
+$ dotnet run d
+<span class="o">[</span><span class="m">2020</span>-10-05T21:38:56<span class="o">]</span> <span class="nb">complete</span> our first todo
+</pre></div>
+
+
+<p>Nice.
+The next part of the series will cover creating the <code>todo</code> application.</p>
+  </div>
+  <div class="tag-cloud">
+    <p>
+      <a href="https://jameselliothart.github.io/tag/tutorial.html">Tutorial</a>
+      <a href="https://jameselliothart.github.io/tag/fsharp.html">FSharp</a>
+      <a href="https://jameselliothart.github.io/tag/todo.html">Todo</a>
+      <a href="https://jameselliothart.github.io/tag/development.html">Development</a>
+    </p>
+  </div>
+
+
+
+
+
+</article>
+
+    <footer>
+<p>&copy; James Hart 2019</p>
+<p>    Powered by <a href="http://getpelican.com" target="_blank">Pelican</a> - <a href="https://github.com/alexandrevicenzi/flex" target="_blank">Flex</a> theme by <a href="http://alexandrevicenzi.com" target="_blank">Alexandre Vicenzi</a>
+</p>    </footer>
+  </main>
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " A Hart's Eye View ",
+  "url" : "https://jameselliothart.github.io",
+  "image": "/images/me.jpeg",
+  "description": ""
+}
+</script>
+
+</body>
+</html>

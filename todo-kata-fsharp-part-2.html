@@ -1,0 +1,439 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="" />
+
+  <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro|Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="https://jameselliothart.github.io/theme/stylesheet/style.min.css">
+
+  <link rel="stylesheet" type="text/css" href="https://jameselliothart.github.io/theme/pygments/github.min.css">
+  <link rel="stylesheet" type="text/css" href="https://jameselliothart.github.io/theme/font-awesome/css/font-awesome.min.css">
+
+
+    <link href="https://jameselliothart.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="A Hart's Eye View Atom">
+
+
+
+
+
+<meta name="author" content="James Hart" />
+<meta name="description" content="In Part 2 of the FSharp kata, we will implement the todo application. This will allow us to keep track of a todo list, and it will utilize the done functionality we created in the previous post to record the items we complete. Series Outline Intro Part 1 - Done Part …" />
+<meta name="keywords" content="Tutorial, FSharp, Todo, Development">
+
+<meta property="og:site_name" content="A Hart's Eye View"/>
+<meta property="og:title" content="Todo Kata - FSharp Part 2"/>
+<meta property="og:description" content="In Part 2 of the FSharp kata, we will implement the todo application. This will allow us to keep track of a todo list, and it will utilize the done functionality we created in the previous post to record the items we complete. Series Outline Intro Part 1 - Done Part …"/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:url" content="https://jameselliothart.github.io/todo-kata-fsharp-part-2.html"/>
+<meta property="og:type" content="article"/>
+<meta property="article:published_time" content="2020-10-06 00:00:00-05:00"/>
+<meta property="article:modified_time" content=""/>
+<meta property="article:author" content="https://jameselliothart.github.io/author/james-hart.html">
+<meta property="article:section" content="Tutorial"/>
+<meta property="article:tag" content="Tutorial"/>
+<meta property="article:tag" content="FSharp"/>
+<meta property="article:tag" content="Todo"/>
+<meta property="article:tag" content="Development"/>
+<meta property="og:image" content="/images/me.jpeg">
+
+  <title>A Hart's Eye View &ndash; Todo Kata - FSharp Part 2</title>
+
+</head>
+<body>
+  <aside>
+    <div>
+      <a href="https://jameselliothart.github.io">
+        <img src="/images/me.jpeg" alt="A Hart's Eye View" title="A Hart's Eye View">
+      </a>
+      <h1><a href="https://jameselliothart.github.io">A Hart's Eye View</a></h1>
+
+
+      <nav>
+        <ul class="list">
+          <li><a href="https://jameselliothart.github.io/pages/about.html#about">About</a></li>
+
+        </ul>
+      </nav>
+
+      <ul class="social">
+        <li><a class="sc-linkedin" href="https://www.linkedin.com/in/james-hart-3543664b/" target="_blank"><i class="fa fa-linkedin"></i></a></li>
+        <li><a class="sc-github" href="https://github.com/jameselliothart/" target="_blank"><i class="fa fa-github"></i></a></li>
+        <li><a class="sc-rss" href="/feeds/all.atom.xml" target="_blank"><i class="fa fa-rss"></i></a></li>
+      </ul>
+    </div>
+
+
+  </aside>
+  <main>
+
+    <nav>
+      <a href="https://jameselliothart.github.io">    Home
+</a>
+
+      <a href="/archives.html">Archives</a>
+      <a href="/categories.html">Categories</a>
+      <a href="/tags.html">Tags</a>
+
+      <a href="https://jameselliothart.github.io/feeds/all.atom.xml">    Atom
+</a>
+
+    </nav>
+
+<article class="single">
+  <header>
+      
+    <h1 id="todo-kata-fsharp-part-2">Todo Kata - FSharp Part 2</h1>
+    <p>
+          Posted on October 06, 2020 in <a href="https://jameselliothart.github.io/category/tutorial.html">Tutorial</a>
+
+          </br>
+    </p>
+  </header>
+
+
+  <div>
+    <p>In Part 2 of the FSharp kata, we will implement the <code>todo</code> application.
+This will allow us to keep track of a todo list, and it will utilize the <code>done</code> functionality we created in the previous post to record the items we complete.</p>
+<p>Series Outline</p>
+<ol>
+<li><a href="https://jameselliothart.github.io/todo-kata-introduction">Intro</a></li>
+<li><a href="https://jameselliothart.github.io/todo-kata-fsharp-part-1">Part 1 - Done</a></li>
+<li><a href="https://jameselliothart.github.io/todo-kata-fsharp-part-2">Part 2 - Todo</a> (you are here)</li>
+<li><a href="https://jameselliothart.github.io/todo-kata-fsharp-part-3">Part 3 - SQLite</a></li>
+</ol>
+<p>Full source code is available <a href="https://github.com/jameselliothart/FsTodo">here</a>.</p>
+<h2>Setup</h2>
+<p>As before, we create a console application and add it to the solution:</p>
+<div class="highlight"><pre><span></span>$ dotnet new console -n Todo -lang F#
+$ dotnet sln add Todo/Todo.fsproj
+</pre></div>
+
+
+<h2>Domain.fs</h2>
+<p>As before, we start by defining the types of our domain.
+We use a single case discriminated union for the <code>Todo</code> type and mark it <code>private</code> for use only within the <code>Todo</code> module.</p>
+<div class="highlight"><pre><span></span><span class="k">module</span> <span class="nn">Domain</span>
+
+<span class="k">module</span> <span class="nn">Todo</span> <span class="o">=</span>
+    <span class="k">type</span> <span class="nc">Todo</span> <span class="o">=</span> <span class="k">private</span> <span class="n">Todo</span> <span class="k">of</span> <span class="n">index</span><span class="o">:</span> <span class="n">int</span> <span class="o">*</span> <span class="n">item</span><span class="o">:</span> <span class="kt">string</span>
+</pre></div>
+
+
+<p>Todos will be numbered with their index (this will allow us to reference the index when completing them), but we want the module only to expose the <code>TodoList</code> to prevent a caller from creating a nonsensical list.</p>
+<div class="highlight"><pre><span></span>    <span class="k">type</span> <span class="nc">TodoList</span> <span class="o">=</span>
+    <span class="o">|</span> <span class="n">Todos</span> <span class="k">of</span> <span class="n">Todo</span> <span class="n">array</span>
+    <span class="o">|</span> <span class="n">Nothing</span>
+</pre></div>
+
+
+<p>Example display of todos:</p>
+<blockquote>
+<ol>
+<li>Get something done</li>
+<li>Do another thing</li>
+</ol>
+</blockquote>
+<p>By making <code>Todo</code> <code>private</code> we avoid the possibility of callers creating a todo list like this:</p>
+<div class="highlight"><pre><span></span><span class="k">let</span> <span class="nv">badTodoList</span> <span class="o">=</span> <span class="o">[|</span><span class="nn">Todo</span><span class="p">.</span><span class="n">Todo</span> <span class="o">(</span><span class="mi">42</span><span class="o">,</span> <span class="s">&quot;these indices&quot;</span><span class="o">);</span> <span class="nn">Todo</span><span class="p">.</span><span class="n">Todo</span> <span class="o">(-</span><span class="mi">7</span><span class="o">,</span> <span class="s">&quot;make&quot;</span><span class="o">);</span> <span class="nn">Todo</span><span class="p">.</span><span class="n">Todo</span> <span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="s">&quot;no sense&quot;</span><span class="o">)|]</span>
+</pre></div>
+
+
+<p>We will also define events which the program should handle.
+We want to be able to add a todo item, complete an item (mark it done), purge an item (remove without marking done), and keep track of any remaining items.
+Though it may not be clear right now, doing this will give us a great amount of control over the behavior of the application.</p>
+<div class="highlight"><pre><span></span>    <span class="k">type</span> <span class="nc">TodoEvent</span> <span class="o">=</span>
+    <span class="o">|</span> <span class="n">TodoAddedEvent</span> <span class="k">of</span> <span class="kt">string</span>
+    <span class="o">|</span> <span class="n">TodosRemainingEvent</span> <span class="k">of</span> <span class="n">TodoList</span>
+    <span class="o">|</span> <span class="n">TodosCompletedEvent</span> <span class="k">of</span> <span class="n">TodoList</span>
+    <span class="o">|</span> <span class="n">TodosPurgedEvent</span> <span class="k">of</span> <span class="n">TodoList</span>
+</pre></div>
+
+
+<p>With the domain types defined, we next give callers a way to actually create a Todo list and convenience functions to access the index and value of a <code>Todo</code> item.</p>
+<div class="highlight"><pre><span></span>    <span class="k">let</span> <span class="nv">create</span> <span class="o">(</span><span class="n">todos</span><span class="o">:</span> <span class="kt">string</span><span class="bp">[]</span><span class="o">)</span> <span class="o">=</span>
+        <span class="k">match</span> <span class="n">todos</span> <span class="k">with</span>
+        <span class="o">|</span> <span class="o">[||]</span> <span class="o">-&gt;</span> <span class="n">Nothing</span>
+        <span class="o">|</span> <span class="n">todos</span> <span class="o">-&gt;</span>
+            <span class="n">todos</span>
+            <span class="o">|&gt;</span> <span class="nn">Array</span><span class="p">.</span><span class="n">indexed</span>
+            <span class="o">|&gt;</span> <span class="nn">Array</span><span class="p">.</span><span class="n">map</span> <span class="n">Todo</span>
+            <span class="o">|&gt;</span> <span class="n">Todos</span>
+
+    <span class="k">let</span> <span class="nv">value</span> <span class="o">(</span><span class="n">Todo</span><span class="o">(_,</span><span class="n">item</span><span class="o">))</span> <span class="o">=</span> <span class="n">item</span>
+    <span class="k">let</span> <span class="nv">index</span> <span class="o">(</span><span class="n">Todo</span><span class="o">(</span><span class="n">i</span><span class="o">,_))</span> <span class="o">=</span> <span class="n">i</span>
+</pre></div>
+
+
+<p>The point of a todo list is to complete items off of it, so we define those functions next.
+We will use these functions when handling the <code>TodoEvent</code>s defined above.</p>
+<div class="highlight"><pre><span></span>    <span class="k">let</span> <span class="nv">private</span> <span class="n">partitionTodos</span> <span class="n">idx</span> <span class="n">todos</span> <span class="o">=</span>
+        <span class="k">match</span> <span class="n">todos</span> <span class="k">with</span>
+        <span class="o">|</span> <span class="n">Nothing</span> <span class="o">-&gt;</span> <span class="o">(</span><span class="n">Nothing</span><span class="o">,</span> <span class="n">Nothing</span><span class="o">)</span>
+        <span class="o">|</span> <span class="n">Todos</span> <span class="n">todos</span> <span class="o">-&gt;</span>
+            <span class="n">todos</span>
+            <span class="o">|&gt;</span> <span class="nn">Array</span><span class="p">.</span><span class="n">partition</span> <span class="o">(</span><span class="k">fun</span> <span class="n">t</span> <span class="o">-&gt;</span> <span class="n">index</span> <span class="n">t</span> <span class="o">=</span> <span class="n">idx</span><span class="o">)</span>
+            <span class="o">|&gt;</span> <span class="k">fun</span> <span class="o">(</span><span class="n">completed</span><span class="o">,</span> <span class="n">remaining</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="o">(</span><span class="n">Todos</span> <span class="n">completed</span><span class="o">,</span> <span class="n">Todos</span> <span class="n">remaining</span><span class="o">)</span>
+
+    <span class="k">let</span> <span class="nv">complete</span> <span class="n">index</span> <span class="n">todos</span> <span class="o">=</span>
+        <span class="n">partitionTodos</span> <span class="n">index</span> <span class="n">todos</span>
+        <span class="o">|&gt;</span> <span class="k">fun</span> <span class="o">(</span><span class="n">completed</span><span class="o">,</span> <span class="n">remaining</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="o">[</span><span class="n">TodosCompletedEvent</span> <span class="n">completed</span><span class="o">;</span> <span class="n">TodosRemainingEvent</span> <span class="n">remaining</span><span class="o">]</span>
+
+    <span class="k">let</span> <span class="nv">purge</span> <span class="n">index</span> <span class="n">todos</span> <span class="o">=</span>
+        <span class="n">partitionTodos</span> <span class="n">index</span> <span class="n">todos</span>
+        <span class="o">|&gt;</span> <span class="k">fun</span> <span class="o">(</span><span class="n">purged</span><span class="o">,</span> <span class="n">remaining</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="o">[</span><span class="n">TodosPurgedEvent</span> <span class="n">purged</span><span class="o">;</span> <span class="n">TodosRemainingEvent</span> <span class="n">remaining</span><span class="o">]</span>
+</pre></div>
+
+
+<p>We encapsulate the partitioning logic for a completed or purged item in <code>partitionTodos</code>.
+The only difference between the two functions <code>complete</code> and <code>purge</code> is whether a <code>TodosCompletedEvent</code> or a <code>TodosPurgedEvent</code> is returned.</p>
+<p>Adding a reference to the <code>Done</code> project allows us to transform a <code>Todo</code> into a <code>CompletedItem</code>.
+We will use this to save a todo we have completed as a <code>CompletedItem</code>.</p>
+<div class="highlight"><pre><span></span><span class="k">open</span> <span class="nn">Done.Domain</span>
+
+<span class="c1">// ...</span>
+
+    <span class="k">let</span> <span class="nv">toCompletedItems</span> <span class="n">todos</span> <span class="o">=</span>
+        <span class="k">match</span> <span class="n">todos</span> <span class="k">with</span>
+        <span class="o">|</span> <span class="n">Todos</span> <span class="n">todos</span> <span class="o">-&gt;</span>
+            <span class="n">todos</span>
+            <span class="o">|&gt;</span> <span class="nn">Array</span><span class="p">.</span><span class="n">map</span> <span class="o">(</span><span class="n">value</span> <span class="o">&gt;&gt;</span> <span class="nn">Done</span><span class="p">.</span><span class="n">createDefault</span><span class="o">)</span>
+            <span class="o">|&gt;</span> <span class="n">Some</span>
+        <span class="o">|</span> <span class="n">Nothing</span> <span class="o">-&gt;</span> <span class="n">None</span>
+</pre></div>
+
+
+<p>The composition operator <code>&gt;&gt;</code> allows us to get the value of the todo item with the <code>value</code> function and pass the result to <code>Done.createDefault</code> in one statement.</p>
+<p>Finally, we define function types that we expect the consumers of <code>Todo</code> to implement.</p>
+<div class="highlight"><pre><span></span><span class="k">type</span> <span class="nc">PrintTodo</span> <span class="o">=</span> <span class="nn">Todo</span><span class="p">.</span><span class="n">TodoList</span> <span class="o">-&gt;</span> <span class="kt">unit</span>
+<span class="k">type</span> <span class="nc">GetTodos</span> <span class="o">=</span> <span class="kt">unit</span> <span class="o">-&gt;</span> <span class="nn">Todo</span><span class="p">.</span><span class="n">TodoList</span>
+<span class="k">type</span> <span class="nc">AddTodo</span> <span class="o">=</span> <span class="kt">string</span> <span class="o">-&gt;</span> <span class="n">Result</span><span class="o">&lt;</span><span class="kt">unit</span><span class="o">,</span><span class="kt">string</span><span class="o">&gt;</span>
+<span class="k">type</span> <span class="nc">SaveTodos</span> <span class="o">=</span> <span class="nn">Todo</span><span class="p">.</span><span class="n">TodoList</span> <span class="o">-&gt;</span> <span class="n">Result</span><span class="o">&lt;</span><span class="kt">unit</span><span class="o">,</span><span class="kt">string</span><span class="o">&gt;</span>
+</pre></div>
+
+
+<h2>Persistence.File.fs</h2>
+<p>The persistence logic is similar to what we already saw with <code>Done</code>.</p>
+<div class="highlight"><pre><span></span><span class="k">module</span> <span class="nn">Persistence.File</span>
+<span class="k">open</span> <span class="nn">Domain</span>
+<span class="k">open</span> <span class="nn">System.IO</span>
+
+<span class="k">let</span> <span class="nv">writeAllLines</span> <span class="n">path</span> <span class="o">(</span><span class="n">s</span><span class="o">:</span> <span class="kt">string</span> <span class="bp">[]</span><span class="o">)</span> <span class="o">=</span>
+    <span class="nn">File</span><span class="p">.</span><span class="n">WriteAllLines</span><span class="o">(</span><span class="n">path</span><span class="o">,</span> <span class="n">s</span><span class="o">)</span>
+
+<span class="k">let</span> <span class="nv">addTodo</span> <span class="n">path</span> <span class="o">:</span> <span class="n">AddTodo</span> <span class="o">=</span>
+    <span class="k">fun</span> <span class="n">todo</span> <span class="o">-&gt;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="o">(</span><span class="nn">File</span><span class="p">.</span><span class="n">Exists</span> <span class="n">path</span><span class="o">)</span> <span class="k">then</span>
+            <span class="nn">File</span><span class="p">.</span><span class="n">Create</span><span class="o">(</span><span class="n">path</span><span class="o">).</span><span class="n">Dispose</span><span class="bp">()</span>
+            <span class="n">printfn</span> <span class="s">&quot;Created %s&quot;</span> <span class="o">(</span><span class="nn">Path</span><span class="p">.</span><span class="n">GetFullPath</span> <span class="n">path</span><span class="o">)</span>
+        <span class="nn">File</span><span class="p">.</span><span class="n">ReadAllLines</span> <span class="n">path</span>
+        <span class="o">|&gt;</span> <span class="nn">Array</span><span class="p">.</span><span class="n">append</span> <span class="o">[|</span><span class="n">todo</span><span class="o">|]</span>
+        <span class="o">|&gt;</span> <span class="n">writeAllLines</span> <span class="n">path</span>
+        <span class="n">Ok</span> <span class="bp">()</span>
+
+<span class="k">let</span> <span class="nv">saveTodos</span> <span class="n">path</span> <span class="o">:</span> <span class="n">SaveTodos</span> <span class="o">=</span>
+    <span class="k">fun</span> <span class="n">todos</span> <span class="o">-&gt;</span>
+        <span class="k">let</span> <span class="nv">write</span> <span class="o">=</span> <span class="n">writeAllLines</span> <span class="n">path</span>
+        <span class="k">match</span> <span class="n">todos</span> <span class="k">with</span>
+        <span class="o">|</span> <span class="nn">Todo</span><span class="p">.</span><span class="n">Nothing</span> <span class="o">-&gt;</span> <span class="n">write</span> <span class="o">[||]</span>
+        <span class="o">|</span> <span class="nn">Todo</span><span class="p">.</span><span class="n">Todos</span> <span class="n">todos</span> <span class="o">-&gt;</span>
+            <span class="n">todos</span>
+            <span class="o">|&gt;</span> <span class="nn">Array</span><span class="p">.</span><span class="n">map</span> <span class="nn">Todo</span><span class="p">.</span><span class="n">value</span>
+            <span class="o">|&gt;</span> <span class="n">write</span>
+        <span class="n">Ok</span> <span class="bp">()</span>
+
+<span class="k">let</span> <span class="nv">getTodos</span> <span class="n">path</span> <span class="o">:</span> <span class="n">GetTodos</span> <span class="o">=</span>
+    <span class="k">fun</span> <span class="bp">()</span> <span class="o">-&gt;</span>
+        <span class="k">if</span> <span class="o">(</span><span class="nn">File</span><span class="p">.</span><span class="n">Exists</span> <span class="n">path</span><span class="o">)</span> <span class="k">then</span> <span class="nn">File</span><span class="p">.</span><span class="n">ReadAllLines</span> <span class="n">path</span> <span class="k">else</span> <span class="o">[||]</span>
+        <span class="o">|&gt;</span> <span class="nn">Todo</span><span class="p">.</span><span class="n">create</span>
+</pre></div>
+
+
+<p>Notice as before the guards around the file existing (<code>File.Exists path</code>) and returning the function types we defined in the domain.
+Notice also that we add todos to the top of the file rather than appending to the bottom.
+From experience, we tend to work on and complete the most recently added item, so being able to consistently reference it with index 0 is a nice convenience.</p>
+<h2>Config.fs</h2>
+<p>The configuration logic for <code>Todo</code> will be much more involved than for <code>Done</code>, but each piece will be small.
+Let's dive in.</p>
+<p>First we set a path to the file in which to track todo items and use that to create the <code>get</code>/<code>save</code>/<code>add</code> functions.</p>
+<div class="highlight"><pre><span></span><span class="k">module</span> <span class="nn">Config</span>
+<span class="k">open</span> <span class="nn">System</span>
+<span class="k">open</span> <span class="nn">Domain</span>
+<span class="k">open</span> <span class="nn">Persistence.File</span>
+
+<span class="o">[&lt;</span><span class="n">LiteralAttribute</span><span class="o">&gt;]</span>
+<span class="k">let</span> <span class="nv">Path</span> <span class="o">=</span> <span class="s">&quot;todo.txt&quot;</span>
+
+<span class="k">let</span> <span class="nv">get</span> <span class="o">=</span> <span class="n">getTodos</span> <span class="n">Path</span>
+<span class="k">let</span> <span class="nv">add</span> <span class="o">=</span> <span class="n">addTodo</span> <span class="n">Path</span>
+<span class="k">let</span> <span class="nv">save</span> <span class="o">=</span> <span class="n">saveTodos</span> <span class="n">Path</span>
+</pre></div>
+
+
+<p>Next we create some helper functions for printing results.
+Notice the use of our <code>Todo</code> helper functions <code>index</code> and <code>value</code>.</p>
+<div class="highlight"><pre><span></span><span class="k">let</span> <span class="nv">printIfError</span> <span class="o">=</span> <span class="k">function</span>
+    <span class="o">|</span> <span class="n">Error</span> <span class="n">e</span> <span class="o">-&gt;</span> <span class="n">printfn</span> <span class="s">&quot;%s&quot;</span> <span class="n">e</span>
+    <span class="o">|</span> <span class="n">Ok</span> <span class="o">_</span> <span class="o">-&gt;</span> <span class="bp">()</span>
+
+<span class="k">let</span> <span class="nv">printTodo</span> <span class="o">:</span> <span class="n">PrintTodo</span> <span class="o">=</span> <span class="k">function</span>
+    <span class="o">|</span> <span class="nn">Todo</span><span class="p">.</span><span class="n">Nothing</span> <span class="o">-&gt;</span> <span class="n">printfn</span> <span class="s">&quot;No todos in %s&quot;</span> <span class="o">(</span><span class="nn">IO</span><span class="p">.</span><span class="nn">Path</span><span class="p">.</span><span class="n">GetFullPath</span> <span class="n">Path</span><span class="o">)</span>
+    <span class="o">|</span> <span class="nn">Todo</span><span class="p">.</span><span class="n">Todos</span> <span class="n">todos</span> <span class="o">-&gt;</span>
+        <span class="n">todos</span>
+        <span class="o">|&gt;</span> <span class="nn">Array</span><span class="p">.</span><span class="n">iter</span> <span class="o">(</span><span class="k">fun</span> <span class="n">t</span> <span class="o">-&gt;</span> <span class="n">printfn</span> <span class="s">&quot;%i. %s&quot;</span> <span class="o">(</span><span class="nn">Todo</span><span class="p">.</span><span class="n">index</span> <span class="n">t</span><span class="o">)</span> <span class="o">(</span><span class="nn">Todo</span><span class="p">.</span><span class="n">value</span> <span class="n">t</span><span class="o">))</span>
+</pre></div>
+
+
+<p>Now the exciting part.
+We can use <code>Event</code>s to configure the response behavior to the <code>TodoEvent</code> types we created earlier.</p>
+<div class="highlight"><pre><span></span><span class="k">let</span> <span class="nv">addedTodoEvent</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Event</span><span class="o">&lt;</span><span class="kt">string</span><span class="o">&gt;</span><span class="bp">()</span>
+<span class="n">addedTodoEvent</span><span class="o">.</span><span class="n">Publish</span> <span class="o">|&gt;</span> <span class="nn">Event</span><span class="p">.</span><span class="n">add</span> <span class="o">(</span><span class="n">add</span> <span class="o">&gt;&gt;</span> <span class="n">printIfError</span><span class="o">)</span>
+
+<span class="k">let</span> <span class="nv">remainingTodosEvent</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Event</span><span class="o">&lt;</span><span class="nn">Todo</span><span class="p">.</span><span class="n">TodoList</span><span class="o">&gt;</span><span class="bp">()</span>
+<span class="n">remainingTodosEvent</span><span class="o">.</span><span class="n">Publish</span> <span class="o">|&gt;</span> <span class="nn">Event</span><span class="p">.</span><span class="n">add</span> <span class="o">(</span><span class="n">save</span> <span class="o">&gt;&gt;</span> <span class="n">printIfError</span><span class="o">)</span>
+
+<span class="k">let</span> <span class="nv">completedTodosEvent</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Event</span><span class="o">&lt;</span><span class="nn">Todo</span><span class="p">.</span><span class="n">TodoList</span><span class="o">&gt;</span><span class="bp">()</span>
+<span class="n">completedTodosEvent</span><span class="o">.</span><span class="n">Publish</span> <span class="o">|&gt;</span> <span class="nn">Event</span><span class="p">.</span><span class="n">add</span> <span class="o">(</span><span class="n">printTodo</span><span class="o">)</span>
+<span class="n">completedTodosEvent</span><span class="o">.</span><span class="n">Publish</span>
+<span class="o">|&gt;</span> <span class="nn">Event</span><span class="p">.</span><span class="n">add</span> <span class="o">(</span>
+    <span class="nn">Todo</span><span class="p">.</span><span class="n">toCompletedItems</span> <span class="o">&gt;&gt;</span>
+        <span class="nn">Option</span><span class="p">.</span><span class="n">iter</span> <span class="o">(</span><span class="nn">Array</span><span class="p">.</span><span class="n">iter</span> <span class="o">(</span><span class="nn">Done</span><span class="p">.</span><span class="nn">Config</span><span class="p">.</span><span class="n">save</span> <span class="o">&gt;&gt;</span> <span class="n">printIfError</span><span class="o">))</span>
+    <span class="o">)</span>
+
+<span class="k">let</span> <span class="nv">purgedTodosEvent</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Event</span><span class="o">&lt;</span><span class="nn">Todo</span><span class="p">.</span><span class="n">TodoList</span><span class="o">&gt;</span><span class="bp">()</span>
+<span class="n">purgedTodosEvent</span><span class="o">.</span><span class="n">Publish</span> <span class="o">|&gt;</span> <span class="nn">Event</span><span class="p">.</span><span class="n">add</span> <span class="o">(</span><span class="n">printTodo</span><span class="o">)</span>
+</pre></div>
+
+
+<p><code>Event.add</code> configures the <code>Event</code> to run the given function (e.g. <code>printTodo</code> or the composition <code>save &gt;&gt; printIfError</code>) each time the given event (e.g. <code>completedTodosEvent</code>) is triggered.
+Each event is also strongly typed with the kind of data it expects to receive when it is triggered (e.g. <code>string</code> or <code>Todo.TodoList</code>).</p>
+<p>Once the syntax is clear, notice the difference between the <code>completedTodosEvent</code> and <code>purgedTodosEvent</code>: for a <code>purgedTodosEvent</code> we only register the <code>printTodo</code> function to display the item but <em>not</em> to save it with <code>Done.Config.save</code>.
+Also notice how we do not need to know how the <code>Done.Config.save</code> function is doing its work.
+When we switch <code>Done</code> to save to a SQLite database instead of a text file, this logic will not have to change at all!
+This is much better than if we had to call the <code>Done.Persistence.File.saveCompletedItem</code> function directly.</p>
+<p>Finally, we wire up a handler for the <code>TodoEvent</code>s by triggering the <code>Event</code>s we just defined with the <code>todo</code> payload (either a <code>string</code> or <code>Todo.TodoList</code>).</p>
+<div class="highlight"><pre><span></span><span class="k">let</span> <span class="nv">handle</span> <span class="o">=</span> <span class="k">function</span>
+    <span class="o">|</span> <span class="nn">Todo</span><span class="p">.</span><span class="n">TodoAddedEvent</span> <span class="n">todo</span> <span class="o">-&gt;</span> <span class="n">addedTodoEvent</span><span class="o">.</span><span class="n">Trigger</span> <span class="n">todo</span>
+    <span class="o">|</span> <span class="nn">Todo</span><span class="p">.</span><span class="n">TodosRemainingEvent</span> <span class="n">todos</span> <span class="o">-&gt;</span> <span class="n">remainingTodosEvent</span><span class="o">.</span><span class="n">Trigger</span> <span class="n">todos</span>
+    <span class="o">|</span> <span class="nn">Todo</span><span class="p">.</span><span class="n">TodosCompletedEvent</span> <span class="n">todos</span> <span class="o">-&gt;</span> <span class="n">completedTodosEvent</span><span class="o">.</span><span class="n">Trigger</span> <span class="n">todos</span>
+    <span class="o">|</span> <span class="nn">Todo</span><span class="p">.</span><span class="n">TodosPurgedEvent</span> <span class="n">todos</span> <span class="o">-&gt;</span> <span class="n">purgedTodosEvent</span><span class="o">.</span><span class="n">Trigger</span> <span class="n">todos</span>
+</pre></div>
+
+
+<p>Using a discriminated union for the <code>TodoEvent</code>s also means that if we add events in the future, the compiler will warn us that the <code>handle</code> function is not handling every case.
+Try adding one now to see the effect.</p>
+<h2>Program.fs</h2>
+<p>Now we are ready to put it all these pieces together in the final program.
+Similar to <code>Done</code>, we will start with a helper function to encapsulate the index parsing logic when completing or purging todo items.</p>
+<div class="highlight"><pre><span></span><span class="k">let</span> <span class="nv">tryParseIndex</span> <span class="o">(</span><span class="n">data</span><span class="o">:</span> <span class="kt">string</span><span class="o">)</span> <span class="o">=</span>
+    <span class="k">match</span> <span class="nn">Int32</span><span class="p">.</span><span class="n">TryParse</span><span class="o">(</span><span class="n">data</span><span class="o">)</span> <span class="k">with</span>
+    <span class="o">|</span> <span class="o">(</span><span class="k">true</span><span class="o">,</span> <span class="n">i</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="n">Some</span> <span class="n">i</span>
+    <span class="o">|</span> <span class="o">(</span><span class="k">false</span><span class="o">,</span> <span class="o">_)</span> <span class="o">-&gt;</span> <span class="n">None</span>
+</pre></div>
+
+
+<p>To parse the command line arguments, we will use a technique we have not used before called Active Patterns.
+The logic is similar to how we parsed arguments for <code>Done</code>, but we have a few more possibilities to handle.</p>
+<div class="highlight"><pre><span></span><span class="k">let</span> <span class="nv">helpMessage</span> <span class="o">=</span> <span class="s">&quot;Valid commands are &#39;a &lt;item&gt;&#39; and &#39;r &lt;index&gt;&#39; or &#39;p &lt;index&gt;&#39; for Add, Remove, or Purge (remove without saving)&quot;</span>
+
+<span class="k">let</span> <span class="o">(|</span><span class="n">Show</span><span class="o">|</span><span class="n">Add</span><span class="o">|</span><span class="n">Remove</span><span class="o">|</span><span class="n">Purge</span><span class="o">|</span><span class="n">Invalid</span><span class="o">|)</span> <span class="o">(</span><span class="n">argv</span><span class="o">:</span> <span class="kt">string</span> <span class="bp">[]</span><span class="o">)</span> <span class="o">=</span>
+    <span class="k">match</span> <span class="n">argv</span> <span class="k">with</span>
+    <span class="o">|</span> <span class="o">[||]</span> <span class="o">-&gt;</span> <span class="n">Show</span>
+    <span class="o">|</span> <span class="o">[|</span><span class="n">cmd</span><span class="o">;</span><span class="n">data</span><span class="o">|]</span> <span class="o">-&gt;</span>
+        <span class="k">match</span> <span class="n">cmd</span><span class="o">.</span><span class="n">ToLowerInvariant</span><span class="bp">()</span> <span class="k">with</span>
+        <span class="o">|</span> <span class="s">&quot;a&quot;</span> <span class="o">-&gt;</span> <span class="n">Add</span> <span class="n">data</span>
+        <span class="o">|</span> <span class="s">&quot;r&quot;</span> <span class="o">-&gt;</span>
+            <span class="k">match</span> <span class="n">tryParseIndex</span> <span class="n">data</span> <span class="k">with</span>
+            <span class="o">|</span> <span class="n">Some</span> <span class="n">i</span> <span class="o">-&gt;</span> <span class="n">Remove</span> <span class="n">i</span>
+            <span class="o">|</span> <span class="n">None</span> <span class="o">-&gt;</span> <span class="n">Invalid</span> <span class="s">&quot;Specify number index of item to Remove&quot;</span>
+        <span class="o">|</span> <span class="s">&quot;p&quot;</span> <span class="o">-&gt;</span>
+            <span class="k">match</span> <span class="n">tryParseIndex</span> <span class="n">data</span> <span class="k">with</span>
+            <span class="o">|</span> <span class="n">Some</span> <span class="n">i</span> <span class="o">-&gt;</span> <span class="n">Purge</span> <span class="n">i</span>
+            <span class="o">|</span> <span class="n">None</span> <span class="o">-&gt;</span> <span class="n">Invalid</span> <span class="s">&quot;Specify number index of item to Purge&quot;</span>
+        <span class="o">|</span> <span class="o">_</span> <span class="o">-&gt;</span> <span class="n">Invalid</span> <span class="n">helpMessage</span>
+    <span class="o">|</span> <span class="o">_-&gt;</span> <span class="n">Invalid</span> <span class="n">helpMessage</span>
+</pre></div>
+
+
+<p>Parsing each possibility into a <code>Choice</code> type allows us to easily dispatch to the appropriate functions.</p>
+<div class="highlight"><pre><span></span><span class="k">let</span> <span class="nv">showTodos</span> <span class="bp">()</span> <span class="o">=</span> <span class="n">get</span><span class="bp">()</span> <span class="o">|&gt;</span> <span class="n">printTodo</span>
+
+<span class="k">let</span> <span class="nv">dispatch</span> <span class="o">=</span> <span class="k">function</span>
+    <span class="o">|</span> <span class="n">Show</span> <span class="o">-&gt;</span>
+        <span class="n">showTodos</span><span class="bp">()</span>
+    <span class="o">|</span> <span class="n">Add</span> <span class="n">data</span> <span class="o">-&gt;</span>
+        <span class="nn">Todo</span><span class="p">.</span><span class="n">TodoAddedEvent</span> <span class="n">data</span> <span class="o">|&gt;</span> <span class="n">handle</span>
+        <span class="n">showTodos</span><span class="bp">()</span>
+    <span class="o">|</span> <span class="n">Remove</span> <span class="n">i</span> <span class="o">-&gt;</span>
+        <span class="n">get</span><span class="bp">()</span>
+        <span class="o">|&gt;</span> <span class="nn">Todo</span><span class="p">.</span><span class="n">complete</span> <span class="n">i</span>
+        <span class="o">|&gt;</span> <span class="nn">List</span><span class="p">.</span><span class="n">iter</span> <span class="n">handle</span>
+    <span class="o">|</span> <span class="n">Purge</span> <span class="n">i</span> <span class="o">-&gt;</span>
+        <span class="n">get</span><span class="bp">()</span>
+        <span class="o">|&gt;</span> <span class="nn">Todo</span><span class="p">.</span><span class="n">purge</span> <span class="n">i</span>
+        <span class="o">|&gt;</span> <span class="nn">List</span><span class="p">.</span><span class="n">iter</span> <span class="n">handle</span>
+    <span class="o">|</span> <span class="n">Invalid</span> <span class="n">msg</span> <span class="o">-&gt;</span> <span class="n">printfn</span> <span class="s">&quot;%s&quot;</span> <span class="n">msg</span>
+</pre></div>
+
+
+<p>Notice that we further delegate event handling to the <code>handle</code> function.</p>
+<h2>Wrapping Up</h2>
+<p>That completes <code>Todo</code>!
+You can test it out with commands like the below:</p>
+<div class="highlight"><pre><span></span>dotnet run a <span class="s2">&quot;my first todo&quot;</span>
+<span class="m">0</span>. my first todo
+dotnet run a <span class="s2">&quot;my second todo&quot;</span>
+<span class="m">0</span>. my second todo
+<span class="m">1</span>. my first todo
+dotnet run r <span class="m">0</span>
+<span class="m">0</span>. my second todo
+dotnet run
+<span class="m">0</span>. my first todo
+</pre></div>
+
+
+<p>Be sure to check the todo.done.txt file to see the completed "my second todo" item appear!</p>
+<p>In the next and final part of the FSharp series, we will circle back and see what it takes to save completed items to a SQLite database instead of a text file.</p>
+  </div>
+  <div class="tag-cloud">
+    <p>
+      <a href="https://jameselliothart.github.io/tag/tutorial.html">Tutorial</a>
+      <a href="https://jameselliothart.github.io/tag/fsharp.html">FSharp</a>
+      <a href="https://jameselliothart.github.io/tag/todo.html">Todo</a>
+      <a href="https://jameselliothart.github.io/tag/development.html">Development</a>
+    </p>
+  </div>
+
+
+
+
+
+</article>
+
+    <footer>
+<p>&copy; James Hart 2019</p>
+<p>    Powered by <a href="http://getpelican.com" target="_blank">Pelican</a> - <a href="https://github.com/alexandrevicenzi/flex" target="_blank">Flex</a> theme by <a href="http://alexandrevicenzi.com" target="_blank">Alexandre Vicenzi</a>
+</p>    </footer>
+  </main>
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " A Hart's Eye View ",
+  "url" : "https://jameselliothart.github.io",
+  "image": "/images/me.jpeg",
+  "description": ""
+}
+</script>
+
+</body>
+</html>
