@@ -2,7 +2,7 @@ title: Todo Kata - FSharp Part 2
 date: 10-06-20
 author: James Hart
 category: Tutorial
-tags: Tutorial, FSharp, Todo, Development
+tags: Tutorial, FSharp, Todo, Development, Events
 
 In Part 2 of the FSharp kata, we will implement the `todo` application.
 This will allow us to keep track of a todo list, and it will utilize the `done` functionality we created in the previous post to record the items we complete.
