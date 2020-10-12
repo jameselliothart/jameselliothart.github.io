@@ -19,7 +19,7 @@ Full source code is available [here](https://github.com/jameselliothart/FsTodo).
 
 ## Setup
 
-We start by setting up our [.NET Core](https://dotnet.microsoft.com/download) console app, adding it to a solution, and opening VS Code:
+We start by setting up our [.NET Core](https://dotnet.microsoft.com/download) (I'm using 3.1) console app, adding it to a solution, and opening VS Code:
 
 ```shell
 $ mkdir FsTodo
