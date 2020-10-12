@@ -1,26 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom"><title>A Hart's Eye View</title><link href="https://jameselliothart.github.io/" rel="alternate"></link><link href="https://jameselliothart.github.io/feeds/all.atom.xml" rel="self"></link><id>https://jameselliothart.github.io/</id><updated>2020-10-11T00:00:00-05:00</updated><entry><title>Todo Kata - Python Part 1</title><link href="https://jameselliothart.github.io/todo-kata-python-part-1.html" rel="alternate"></link><published>2020-10-11T00:00:00-05:00</published><updated>2020-10-11T00:00:00-05:00</updated><author><name>James Hart</name></author><id>tag:jameselliothart.github.io,2020-10-11:/todo-kata-python-part-1.html</id><summary type="html">&lt;p&gt;In this part of the &lt;strong&gt;Todo&lt;/strong&gt; kata, we will cover the Python implementation.
-If you are new to the series, I would recommend reading the &lt;a href="https://jameselliothart.github.io/todo-kata-introduction"&gt;intro&lt;/a&gt; first.
+If you are new to the series, I would recommend reading the &lt;a href="todo-kata-introduction"&gt;intro&lt;/a&gt; first.
 It should give sufficient background to be able to follow along even without being familiar with previous posts.&lt;/p&gt;
 &lt;p&gt;Series Outline&lt;/p&gt;
 &lt;ol&gt;
-&lt;li&gt;&lt;a href="https://jameselliothart.github.io/todo-kata-introduction"&gt;Intro&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;FSharp Series …&lt;/li&gt;&lt;/ol&gt;</summary><content type="html">&lt;p&gt;In this part of the &lt;strong&gt;Todo&lt;/strong&gt; kata, we will cover the Python implementation.
-If you are new to the series, I would recommend reading the &lt;a href="https://jameselliothart.github.io/todo-kata-introduction"&gt;intro&lt;/a&gt; first.
+&lt;li&gt;&lt;a href="todo-kata-introduction"&gt;Intro&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;F# Series …&lt;/li&gt;&lt;/ol&gt;</summary><content type="html">&lt;p&gt;In this part of the &lt;strong&gt;Todo&lt;/strong&gt; kata, we will cover the Python implementation.
+If you are new to the series, I would recommend reading the &lt;a href="todo-kata-introduction"&gt;intro&lt;/a&gt; first.
 It should give sufficient background to be able to follow along even without being familiar with previous posts.&lt;/p&gt;
 &lt;p&gt;Series Outline&lt;/p&gt;
 &lt;ol&gt;
-&lt;li&gt;&lt;a href="https://jameselliothart.github.io/todo-kata-introduction"&gt;Intro&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;FSharp Series&lt;ol&gt;
-&lt;li&gt;&lt;a href="https://jameselliothart.github.io/todo-kata-fsharp-part-1"&gt;Part 1 - Done&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="https://jameselliothart.github.io/todo-kata-fsharp-part-2"&gt;Part 2 - Todo&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="https://jameselliothart.github.io/todo-kata-fsharp-part-3"&gt;Part 3 - SQLite&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="todo-kata-introduction"&gt;Intro&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;F# Series&lt;ol&gt;
+&lt;li&gt;&lt;a href="todo-kata-fsharp-part-1"&gt;Part 1 - Done&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="todo-kata-fsharp-part-2"&gt;Part 2 - Todo&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="todo-kata-fsharp-part-3"&gt;Part 3 - SQLite&lt;/a&gt;&lt;/li&gt;
 &lt;/ol&gt;
 &lt;/li&gt;
 &lt;li&gt;Python Series&lt;ol&gt;
-&lt;li&gt;&lt;a href="https://jameselliothart.github.io/todo-kata-python-part-1"&gt;Part 1 - Done&lt;/a&gt; (you are here)&lt;/li&gt;
-&lt;li&gt;&lt;a href="https://jameselliothart.github.io/todo-kata-python-part-2"&gt;Part 2 - Todo&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="https://jameselliothart.github.io/todo-kata-python-part-3"&gt;Part 3 - SQLite&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Part 1 - Done (you are here)&lt;/li&gt;
+&lt;li&gt;&lt;a href="todo-kata-python-part-2"&gt;Part 2 - Todo&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="todo-kata-python-part-3"&gt;Part 3 - SQLite&lt;/a&gt;&lt;/li&gt;
 &lt;/ol&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
@@ -116,7 +116,7 @@ We will only use &lt;code&gt;append_line&lt;/code&gt; for &lt;code&gt;done&lt;/c
 It is easy to forget the &lt;code&gt;\n&lt;/code&gt; in &lt;code&gt;f.writelines([f'{line}\n' for line in lines])&lt;/code&gt; and get everything on one line!
 It is also easy to forget to &lt;code&gt;strip()&lt;/code&gt; the new lines when reading a file, but such is life.&lt;/p&gt;
 &lt;h2&gt;done_file.py&lt;/h2&gt;
-&lt;p&gt;You may have noticed in &lt;a href="https://jameselliothart.github.io/todo-kata-fsharp-part-1"&gt;Part 1 of the FSharp series&lt;/a&gt; that we had domain functions (in domain.fs) related to parsing completed items from strings.
+&lt;p&gt;You may have noticed in &lt;a href="todo-kata-fsharp-part-1"&gt;Part 1 of the F# series&lt;/a&gt; that we had domain functions (in domain.fs) related to parsing completed items from strings.
 Since that logic is specific to file persistence, it really does not belong in the domain - we will correct that this time around.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;re&lt;/span&gt;
 &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;os&lt;/span&gt;
@@ -276,7 +276,7 @@ We can run the program with commands like this:&lt;/p&gt;
 
 &lt;h2&gt;Wrapping Up&lt;/h2&gt;
 &lt;p&gt;That wraps up the Python implementation of &lt;code&gt;done&lt;/code&gt;.
-Next we will cover &lt;code&gt;todo&lt;/code&gt; and get a small look at reactive programming with &lt;code&gt;RxPy&lt;/code&gt;.&lt;/p&gt;</content><category term="Tutorial"></category><category term="Tutorial"></category><category term="Python"></category><category term="Todo"></category><category term="Development"></category><category term="mypy"></category><category term="click"></category></entry><entry><title>Todo Kata - F# Part 3</title><link href="https://jameselliothart.github.io/todo-kata-f-part-3.html" rel="alternate"></link><published>2020-10-07T00:00:00-05:00</published><updated>2020-10-07T00:00:00-05:00</updated><author><name>James Hart</name></author><id>tag:jameselliothart.github.io,2020-10-07:/todo-kata-f-part-3.html</id><summary type="html">&lt;p&gt;Welcome to Part 3 of the F# Todo kata.
+Next we will cover &lt;code&gt;todo&lt;/code&gt; and get a small look at reactive programming with &lt;code&gt;RxPy&lt;/code&gt;.&lt;/p&gt;</content><category term="Tutorial"></category><category term="Tutorial"></category><category term="Python"></category><category term="Todo"></category><category term="Development"></category><category term="mypy"></category><category term="click"></category></entry><entry><title>Todo Kata - FSharp Part 3</title><link href="https://jameselliothart.github.io/todo-kata-fsharp-part-3.html" rel="alternate"></link><published>2020-10-07T00:00:00-05:00</published><updated>2020-10-07T00:00:00-05:00</updated><author><name>James Hart</name></author><id>tag:jameselliothart.github.io,2020-10-07:/todo-kata-fsharp-part-3.html</id><summary type="html">&lt;p&gt;Welcome to Part 3 of the F# Todo kata.
 In this final part, we will revisit the &lt;code&gt;done&lt;/code&gt; application and modify it to work with a SQLite database instead of a text file.&lt;/p&gt;
 &lt;p&gt;(Note: F# has a great feature called a &lt;a href="https://docs.microsoft.com/en-us/dotnet/fsharp/tutorials/type-providers/"&gt;type provider&lt;/a&gt; which can give strongly typed compile-time access …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Welcome to Part 3 of the F# Todo kata.
 In this final part, we will revisit the &lt;code&gt;done&lt;/code&gt; application and modify it to work with a SQLite database instead of a text file.&lt;/p&gt;
@@ -284,17 +284,17 @@ In this final part, we will revisit the &lt;code&gt;done&lt;/code&gt; applicatio
 However, the &lt;a href="https://fsprojects.github.io/SQLProvider/"&gt;SQLProvider&lt;/a&gt; was surprisingly difficult to set up for SQLite, so we will opt for the lightweight &lt;code&gt;Dapper&lt;/code&gt; ORM instead.)&lt;/p&gt;
 &lt;p&gt;Series Outline&lt;/p&gt;
 &lt;ol&gt;
-&lt;li&gt;&lt;a href="https://jameselliothart.github.io/todo-kata-introduction"&gt;Intro&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="todo-kata-introduction"&gt;Intro&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;F# Series&lt;ol&gt;
-&lt;li&gt;&lt;a href="https://jameselliothart.github.io/todo-kata-fsharp-part-1"&gt;Part 1 - Done&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="https://jameselliothart.github.io/todo-kata-fsharp-part-2"&gt;Part 2 - Todo&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="https://jameselliothart.github.io/todo-kata-fsharp-part-3"&gt;Part 3 - SQLite&lt;/a&gt; (you are here)&lt;/li&gt;
+&lt;li&gt;&lt;a href="todo-kata-fsharp-part-1"&gt;Part 1 - Done&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="todo-kata-fsharp-part-2"&gt;Part 2 - Todo&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Part 3 - SQLite (you are here)&lt;/li&gt;
 &lt;/ol&gt;
 &lt;/li&gt;
 &lt;li&gt;Python Series&lt;ol&gt;
-&lt;li&gt;&lt;a href="https://jameselliothart.github.io/todo-kata-python-part-1"&gt;Part 1 - Done&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="https://jameselliothart.github.io/todo-kata-python-part-2"&gt;Part 2 - Todo&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="https://jameselliothart.github.io/todo-kata-python-part-3"&gt;Part 3 - SQLite&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="todo-kata-python-part-1"&gt;Part 1 - Done&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="todo-kata-python-part-2"&gt;Part 2 - Todo&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="todo-kata-python-part-3"&gt;Part 3 - SQLite&lt;/a&gt;&lt;/li&gt;
 &lt;/ol&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
@@ -413,27 +413,27 @@ The next installment will cover a &lt;a href="https://www.python.org/"&gt;Python
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;Nice.&lt;/p&gt;</content><category term="Tutorial"></category><category term="Tutorial"></category><category term="F#"></category><category term="Todo"></category><category term="Development"></category><category term="SQLite"></category><category term="Dapper"></category><category term="ORM"></category><category term="SQL"></category></entry><entry><title>Todo Kata - F# Part 2</title><link href="https://jameselliothart.github.io/todo-kata-f-part-2.html" rel="alternate"></link><published>2020-10-06T00:00:00-05:00</published><updated>2020-10-06T00:00:00-05:00</updated><author><name>James Hart</name></author><id>tag:jameselliothart.github.io,2020-10-06:/todo-kata-f-part-2.html</id><summary type="html">&lt;p&gt;In Part 2 of the F# kata, we will implement the &lt;code&gt;todo&lt;/code&gt; application.
+&lt;p&gt;Nice.&lt;/p&gt;</content><category term="Tutorial"></category><category term="Tutorial"></category><category term="F#"></category><category term="Todo"></category><category term="Development"></category><category term="SQLite"></category><category term="Dapper"></category><category term="ORM"></category><category term="SQL"></category></entry><entry><title>Todo Kata - FSharp Part 2</title><link href="https://jameselliothart.github.io/todo-kata-fsharp-part-2.html" rel="alternate"></link><published>2020-10-06T00:00:00-05:00</published><updated>2020-10-06T00:00:00-05:00</updated><author><name>James Hart</name></author><id>tag:jameselliothart.github.io,2020-10-06:/todo-kata-fsharp-part-2.html</id><summary type="html">&lt;p&gt;In Part 2 of the F# kata, we will implement the &lt;code&gt;todo&lt;/code&gt; application.
 This will allow us to keep track of a todo list, and it will utilize the &lt;code&gt;done&lt;/code&gt; functionality we created in the previous post to record the items we complete.&lt;/p&gt;
 &lt;p&gt;Series Outline&lt;/p&gt;
 &lt;ol&gt;
-&lt;li&gt;&lt;a href="https://jameselliothart.github.io/todo-kata-introduction"&gt;Intro&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="todo-kata-introduction"&gt;Intro&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;F# Series&lt;ol&gt;
-&lt;li&gt;&lt;a href="https://jameselliothart.github.io/todo-kata-fsharp-part-1"&gt;Part 1 …&lt;/a&gt;&lt;/li&gt;&lt;/ol&gt;&lt;/li&gt;&lt;/ol&gt;</summary><content type="html">&lt;p&gt;In Part 2 of the F# kata, we will implement the &lt;code&gt;todo&lt;/code&gt; application.
+&lt;li&gt;&lt;a href="todo-kata-fsharp-part-1"&gt;Part 1 …&lt;/a&gt;&lt;/li&gt;&lt;/ol&gt;&lt;/li&gt;&lt;/ol&gt;</summary><content type="html">&lt;p&gt;In Part 2 of the F# kata, we will implement the &lt;code&gt;todo&lt;/code&gt; application.
 This will allow us to keep track of a todo list, and it will utilize the &lt;code&gt;done&lt;/code&gt; functionality we created in the previous post to record the items we complete.&lt;/p&gt;
 &lt;p&gt;Series Outline&lt;/p&gt;
 &lt;ol&gt;
-&lt;li&gt;&lt;a href="https://jameselliothart.github.io/todo-kata-introduction"&gt;Intro&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="todo-kata-introduction"&gt;Intro&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;F# Series&lt;ol&gt;
-&lt;li&gt;&lt;a href="https://jameselliothart.github.io/todo-kata-fsharp-part-1"&gt;Part 1 - Done&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="https://jameselliothart.github.io/todo-kata-fsharp-part-2"&gt;Part 2 - Todo&lt;/a&gt; (you are here)&lt;/li&gt;
-&lt;li&gt;&lt;a href="https://jameselliothart.github.io/todo-kata-fsharp-part-3"&gt;Part 3 - SQLite&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="todo-kata-fsharp-part-1"&gt;Part 1 - Done&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Part 2 - Todo (you are here)&lt;/li&gt;
+&lt;li&gt;&lt;a href="todo-kata-fsharp-part-3"&gt;Part 3 - SQLite&lt;/a&gt;&lt;/li&gt;
 &lt;/ol&gt;
 &lt;/li&gt;
 &lt;li&gt;Python Series&lt;ol&gt;
-&lt;li&gt;&lt;a href="https://jameselliothart.github.io/todo-kata-python-part-1"&gt;Part 1 - Done&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="https://jameselliothart.github.io/todo-kata-python-part-2"&gt;Part 2 - Todo&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="https://jameselliothart.github.io/todo-kata-python-part-3"&gt;Part 3 - SQLite&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="todo-kata-python-part-1"&gt;Part 1 - Done&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="todo-kata-python-part-2"&gt;Part 2 - Todo&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="todo-kata-python-part-3"&gt;Part 3 - SQLite&lt;/a&gt;&lt;/li&gt;
 &lt;/ol&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
@@ -728,24 +728,24 @@ dotnet run
 
 
 &lt;p&gt;Be sure to check the todo.done.txt file to see the completed "my second todo" item appear!&lt;/p&gt;
-&lt;p&gt;In the next and final part of the F# series, we will circle back and see what it takes to save completed items to a SQLite database instead of a text file.&lt;/p&gt;</content><category term="Tutorial"></category><category term="Tutorial"></category><category term="F#"></category><category term="Todo"></category><category term="Development"></category><category term="Events"></category></entry><entry><title>Todo Kata - F# Part 1</title><link href="https://jameselliothart.github.io/todo-kata-f-part-1.html" rel="alternate"></link><published>2020-10-05T00:00:00-05:00</published><updated>2020-10-05T00:00:00-05:00</updated><author><name>James Hart</name></author><id>tag:jameselliothart.github.io,2020-10-05:/todo-kata-f-part-1.html</id><summary type="html">&lt;p&gt;Welcome to Part 1 of the F# kata to implement to todo list manager discussed in the &lt;a href="https://jameselliothart.github.io/todo-kata-introduction"&gt;introduction&lt;/a&gt;.
+&lt;p&gt;In the next and final part of the F# series, we will circle back and see what it takes to save completed items to a SQLite database instead of a text file.&lt;/p&gt;</content><category term="Tutorial"></category><category term="Tutorial"></category><category term="F#"></category><category term="Todo"></category><category term="Development"></category><category term="Events"></category></entry><entry><title>Todo Kata - FSharp Part 1</title><link href="https://jameselliothart.github.io/todo-kata-fsharp-part-1.html" rel="alternate"></link><published>2020-10-05T00:00:00-05:00</published><updated>2020-10-05T00:00:00-05:00</updated><author><name>James Hart</name></author><id>tag:jameselliothart.github.io,2020-10-05:/todo-kata-fsharp-part-1.html</id><summary type="html">&lt;p&gt;Welcome to Part 1 of the F# kata to implement to todo list manager discussed in the &lt;a href="todo-kata-introduction"&gt;introduction&lt;/a&gt;.
 In this post, we will implement the &lt;code&gt;done&lt;/code&gt; command.
-We start with &lt;code&gt;done&lt;/code&gt; rather than &lt;code&gt;todo&lt;/code&gt; because &lt;code&gt;todo&lt;/code&gt; will actually depend on functionality in &lt;code&gt;done&lt;/code&gt; to save completed items whereas &lt;code&gt;done&lt;/code&gt; has …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Welcome to Part 1 of the F# kata to implement to todo list manager discussed in the &lt;a href="https://jameselliothart.github.io/todo-kata-introduction"&gt;introduction&lt;/a&gt;.
+We start with &lt;code&gt;done&lt;/code&gt; rather than &lt;code&gt;todo&lt;/code&gt; because &lt;code&gt;todo&lt;/code&gt; will actually depend on functionality in &lt;code&gt;done&lt;/code&gt; to save completed items whereas &lt;code&gt;done&lt;/code&gt; has …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Welcome to Part 1 of the F# kata to implement to todo list manager discussed in the &lt;a href="todo-kata-introduction"&gt;introduction&lt;/a&gt;.
 In this post, we will implement the &lt;code&gt;done&lt;/code&gt; command.
 We start with &lt;code&gt;done&lt;/code&gt; rather than &lt;code&gt;todo&lt;/code&gt; because &lt;code&gt;todo&lt;/code&gt; will actually depend on functionality in &lt;code&gt;done&lt;/code&gt; to save completed items whereas &lt;code&gt;done&lt;/code&gt; has no dependencies.&lt;/p&gt;
 &lt;p&gt;Series Outline&lt;/p&gt;
 &lt;ol&gt;
-&lt;li&gt;&lt;a href="https://jameselliothart.github.io/todo-kata-introduction"&gt;Intro&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="todo-kata-introduction"&gt;Intro&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;F# Series&lt;ol&gt;
-&lt;li&gt;&lt;a href="https://jameselliothart.github.io/todo-kata-fsharp-part-1"&gt;Part 1 - Done&lt;/a&gt; (you are here)&lt;/li&gt;
-&lt;li&gt;&lt;a href="https://jameselliothart.github.io/todo-kata-fsharp-part-2"&gt;Part 2 - Todo&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="https://jameselliothart.github.io/todo-kata-fsharp-part-3"&gt;Part 3 - SQLite&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Part 1 - Done (you are here)&lt;/li&gt;
+&lt;li&gt;&lt;a href="todo-kata-fsharp-part-2"&gt;Part 2 - Todo&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="todo-kata-fsharp-part-3"&gt;Part 3 - SQLite&lt;/a&gt;&lt;/li&gt;
 &lt;/ol&gt;
 &lt;/li&gt;
 &lt;li&gt;Python Series&lt;ol&gt;
-&lt;li&gt;&lt;a href="https://jameselliothart.github.io/todo-kata-python-part-1"&gt;Part 1 - Done&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="https://jameselliothart.github.io/todo-kata-python-part-2"&gt;Part 2 - Todo&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="https://jameselliothart.github.io/todo-kata-python-part-3"&gt;Part 3 - SQLite&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="todo-kata-python-part-1"&gt;Part 1 - Done&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="todo-kata-python-part-2"&gt;Part 2 - Todo&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="todo-kata-python-part-3"&gt;Part 3 - SQLite&lt;/a&gt;&lt;/li&gt;
 &lt;/ol&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
@@ -1053,7 +1053,7 @@ $ &lt;span class="k"&gt;done&lt;/span&gt; w &lt;span class="m"&gt;1&lt;/span&gt;
 &lt;p&gt;(Note: Technically &lt;code&gt;done&lt;/code&gt; is already a shell keyword.)&lt;/p&gt;
 &lt;p&gt;We will implement this first by just saving to text files, but we will see that we can design the solution to be flexible enough to switch to saving completed items in a SQLite database with relative ease.
 The curious may read a little more about the motivation for this below.
-Otherwise, continue to the &lt;a href="https://jameselliothart.github.io/todo-kata-fsharp-part-1"&gt;first kata&lt;/a&gt; covering the &lt;a href="https://fsharp.org/"&gt;FSharp&lt;/a&gt; implementation.&lt;/p&gt;
+Otherwise, continue to the &lt;a href="todo-kata-fsharp-part-1"&gt;first kata&lt;/a&gt; covering the &lt;a href="https://fsharp.org/"&gt;F#&lt;/a&gt; implementation.&lt;/p&gt;
 &lt;h2&gt;Motivation&lt;/h2&gt;
 &lt;p&gt;I have worked in environments that sometimes require a large amount of task switching for some time.
 This is generally the result of high priority requests coming in with unpredictable frequency as may be familiar to anyone working on a team that supports other teams or customers.
@@ -1069,32 +1069,32 @@ Since I have always found tutorials a great way to learn some aspect of a langua
 &lt;ol&gt;
 &lt;li&gt;Intro (you are here)&lt;/li&gt;
 &lt;li&gt;F# Series&lt;ol&gt;
-&lt;li&gt;&lt;a href="https://jameselliothart.github.io/todo-kata-fsharp-part-1"&gt;Part 1 - Done&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="https://jameselliothart.github.io/todo-kata-fsharp-part-2"&gt;Part 2 - Todo&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="https://jameselliothart.github.io/todo-kata-fsharp-part-3"&gt;Part 3 - SQLite&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="todo-kata-fsharp-part-1"&gt;Part 1 - Done&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="todo-kata-fsharp-part-2"&gt;Part 2 - Todo&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="todo-kata-fsharp-part-3"&gt;Part 3 - SQLite&lt;/a&gt;&lt;/li&gt;
 &lt;/ol&gt;
 &lt;/li&gt;
 &lt;li&gt;Python Series&lt;ol&gt;
-&lt;li&gt;&lt;a href="https://jameselliothart.github.io/todo-kata-python-part-1"&gt;Part 1 - Done&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="https://jameselliothart.github.io/todo-kata-python-part-2"&gt;Part 2 - Todo&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="https://jameselliothart.github.io/todo-kata-python-part-3"&gt;Part 3 - SQLite&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="todo-kata-python-part-1"&gt;Part 1 - Done&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="todo-kata-python-part-2"&gt;Part 2 - Todo&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="todo-kata-python-part-3"&gt;Part 3 - SQLite&lt;/a&gt;&lt;/li&gt;
 &lt;/ol&gt;
 &lt;/li&gt;
 &lt;/ol&gt;</content><category term="Tutorial"></category><category term="Tutorial"></category><category term="FSharp"></category><category term="Todo"></category><category term="Development"></category></entry><entry><title>Maps of DevOps: The Third Way</title><link href="https://jameselliothart.github.io/maps-of-devops-the-third-way.html" rel="alternate"></link><published>2020-05-29T00:00:00-05:00</published><updated>2020-05-29T00:00:00-05:00</updated><author><name>James Hart</name></author><id>tag:jameselliothart.github.io,2020-05-29:/maps-of-devops-the-third-way.html</id><summary type="html">&lt;h2&gt;Welcome&lt;/h2&gt;
 &lt;p&gt;Welcome to the third and final post in the Maps of DevOps series!
-In &lt;a href="https://jameselliothart.github.io/maps-of-devops-the-first-way"&gt;The First Way: Systems Thinking&lt;/a&gt; we used a mock scenario of mailing letters to demonstrate the importance of completing a finished product (sealed and mailed letters) over accumulating inventory (folded paper).
+In &lt;a href="maps-of-devops-the-first-way"&gt;The First Way: Systems Thinking&lt;/a&gt; we used a mock scenario of mailing letters to demonstrate the importance of completing a finished product (sealed and mailed letters) over accumulating inventory (folded paper).
 We used this as …&lt;/p&gt;</summary><content type="html">&lt;h2&gt;Welcome&lt;/h2&gt;
 &lt;p&gt;Welcome to the third and final post in the Maps of DevOps series!
-In &lt;a href="https://jameselliothart.github.io/maps-of-devops-the-first-way"&gt;The First Way: Systems Thinking&lt;/a&gt; we used a mock scenario of mailing letters to demonstrate the importance of completing a finished product (sealed and mailed letters) over accumulating inventory (folded paper).
+In &lt;a href="maps-of-devops-the-first-way"&gt;The First Way: Systems Thinking&lt;/a&gt; we used a mock scenario of mailing letters to demonstrate the importance of completing a finished product (sealed and mailed letters) over accumulating inventory (folded paper).
 We used this as an analogy for a Development organization delivering working software to production rather than letting it sit undeployed, and this inherently meant that the strict boundary between coding applications (development) and deploying applications (operations) needed to be broken down.
-This focus on creating value worked well when we knew what we were doing (when we were in Known Territory), but in &lt;a href="https://jameselliothart.github.io/maps-of-devops-the-second-way"&gt;The Second Way: Amplify Feedback Loops&lt;/a&gt; we found it was insufficient once Anomaly appeared and cast us into the Unknown, aka Chaos.
+This focus on creating value worked well when we knew what we were doing (when we were in Known Territory), but in &lt;a href="maps-of-devops-the-second-way"&gt;The Second Way: Amplify Feedback Loops&lt;/a&gt; we found it was insufficient once Anomaly appeared and cast us into the Unknown, aka Chaos.
 To handle this, we needed to be able to proactively gather and respond to information about the validity of our assumptions and the effects of our efforts.&lt;/p&gt;
 &lt;h2&gt;A Return to the Beginning&lt;/h2&gt;
 &lt;p&gt;We noted in The First Way that the Development and Operations organizations are composed of smaller units just as the business was composed of Dev and Ops.&lt;/p&gt;
 &lt;p&gt;Now let us expand our scenario to a full-scale business enterprise: instead of one Folder, there is a team of Folders reporting to a team lead with each department composed of many teams, some middle managers, and department heads.
 As a large organization is not created &lt;em&gt;ex nihilo&lt;/em&gt; but evolves from a small one, one can imagine the natural expansion a real business would undergo to reach this rather generic org structure.&lt;/p&gt;
 &lt;p&gt;At the same time one can also imagine that as our enterprise grows, the department heads, managers, and even team leads get further away from the day-to-day work done by the Folders.
-This is a necessary shift but also creates a dilemma: even if we know &lt;em&gt;what&lt;/em&gt; has to happen to improve department efficiency, &lt;em&gt;how&lt;/em&gt; do we implement 
+This is a necessary shift but also creates a dilemma: even if we know &lt;em&gt;what&lt;/em&gt; has to happen to improve department efficiency, &lt;em&gt;how&lt;/em&gt; do we implement
 From this thought experiment, it is obvious that any improvement in the efficiency of a department must have a corresponding improvement in the efficiency in its teams and ultimately the individuals within it.
 It is necessary for higher levels of management to operate at higher levels of abstraction to be able to focus on the broader company or even (maybe especially) industry trends.
 This allows them to know what direction the company or industry are going, what budgetary constraints are in place, etc.
@@ -1152,10 +1152,10 @@ This is the unavoidable and continual march of entropic decay.&lt;/p&gt;
 &lt;li&gt;Maps of Meaning: The Architecture of Belief, Jordan B. Peterson (1999), Routledge (BOOK) - &lt;a href="https://www.amazon.com/Maps-Meaning-Architecture-Jordan-Peterson/dp/0415922224"&gt;https://www.amazon.com/Maps-Meaning-Architecture-Jordan-Peterson/dp/0415922224&lt;/a&gt;&lt;/li&gt;
 &lt;/ol&gt;</content><category term="DevOps"></category><category term="DevOps"></category><category term="MapsOfMeaning"></category><category term="TheThreeWays"></category><category term="TheThirdWayOfDevOps"></category><category term="ContinuousLearning"></category></entry><entry><title>Maps of DevOps: The Second Way</title><link href="https://jameselliothart.github.io/maps-of-devops-the-second-way.html" rel="alternate"></link><published>2020-05-19T00:00:00-05:00</published><updated>2020-05-22T00:00:00-05:00</updated><author><name>James Hart</name></author><id>tag:jameselliothart.github.io,2020-05-19:/maps-of-devops-the-second-way.html</id><summary type="html">&lt;h2&gt;Welcome&lt;/h2&gt;
 &lt;p&gt;Welcome to the second post in the Maps of DevOps series!
-In &lt;a href="https://jameselliothart.github.io/maps-of-devops-the-first-way"&gt;The First Way&lt;/a&gt;, we introduced the scenario of mailing letters to use as a stand-in for delivering software and discussed the necessity of performing our analysis from a system perspective.
+In &lt;a href="maps-of-devops-the-first-way"&gt;The First Way&lt;/a&gt;, we introduced the scenario of mailing letters to use as a stand-in for delivering software and discussed the necessity of performing our analysis from a system perspective.
 In doing so, we discovered that Single …&lt;/p&gt;</summary><content type="html">&lt;h2&gt;Welcome&lt;/h2&gt;
 &lt;p&gt;Welcome to the second post in the Maps of DevOps series!
-In &lt;a href="https://jameselliothart.github.io/maps-of-devops-the-first-way"&gt;The First Way&lt;/a&gt;, we introduced the scenario of mailing letters to use as a stand-in for delivering software and discussed the necessity of performing our analysis from a system perspective.
+In &lt;a href="maps-of-devops-the-first-way"&gt;The First Way&lt;/a&gt;, we introduced the scenario of mailing letters to use as a stand-in for delivering software and discussed the necessity of performing our analysis from a system perspective.
 In doing so, we discovered that Single Piece Flow (SPF) was superior to batching because we could more quickly deliver value.&lt;/p&gt;
 &lt;p&gt;Along the way, we also introduced the map of Known Territory (where we are when we know what we are doing) and alluded to the Unknown (where we are when we don't). In this post, we will discuss the important and ever-present mediator between them - Anomaly.&lt;/p&gt;
 &lt;h2&gt;Anomaly&lt;/h2&gt;

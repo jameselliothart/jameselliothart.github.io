@@ -23,12 +23,12 @@
 
 
 <meta name="author" content="James Hart" />
-<meta name="description" content="In this part of the Todo kata, we will cover the Python implementation. If you are new to the series, I would recommend reading the intro first. It should give sufficient background to be able to follow along even without being familiar with previous posts. Series Outline Intro FSharp Series …" />
+<meta name="description" content="In this part of the Todo kata, we will cover the Python implementation. If you are new to the series, I would recommend reading the intro first. It should give sufficient background to be able to follow along even without being familiar with previous posts. Series Outline Intro F# Series …" />
 <meta name="keywords" content="Tutorial, Python, Todo, Development, mypy, click">
 
 <meta property="og:site_name" content="A Hart's Eye View"/>
 <meta property="og:title" content="Todo Kata - Python Part 1"/>
-<meta property="og:description" content="In this part of the Todo kata, we will cover the Python implementation. If you are new to the series, I would recommend reading the intro first. It should give sufficient background to be able to follow along even without being familiar with previous posts. Series Outline Intro FSharp Series …"/>
+<meta property="og:description" content="In this part of the Todo kata, we will cover the Python implementation. If you are new to the series, I would recommend reading the intro first. It should give sufficient background to be able to follow along even without being familiar with previous posts. Series Outline Intro F# Series …"/>
 <meta property="og:locale" content="en_US"/>
 <meta property="og:url" content="https://jameselliothart.github.io/todo-kata-python-part-1.html"/>
 <meta property="og:type" content="article"/>
@@ -101,21 +101,21 @@
 
   <div>
     <p>In this part of the <strong>Todo</strong> kata, we will cover the Python implementation.
-If you are new to the series, I would recommend reading the <a href="https://jameselliothart.github.io/todo-kata-introduction">intro</a> first.
+If you are new to the series, I would recommend reading the <a href="todo-kata-introduction">intro</a> first.
 It should give sufficient background to be able to follow along even without being familiar with previous posts.</p>
 <p>Series Outline</p>
 <ol>
-<li><a href="https://jameselliothart.github.io/todo-kata-introduction">Intro</a></li>
-<li>FSharp Series<ol>
-<li><a href="https://jameselliothart.github.io/todo-kata-fsharp-part-1">Part 1 - Done</a></li>
-<li><a href="https://jameselliothart.github.io/todo-kata-fsharp-part-2">Part 2 - Todo</a></li>
-<li><a href="https://jameselliothart.github.io/todo-kata-fsharp-part-3">Part 3 - SQLite</a></li>
+<li><a href="todo-kata-introduction">Intro</a></li>
+<li>F# Series<ol>
+<li><a href="todo-kata-fsharp-part-1">Part 1 - Done</a></li>
+<li><a href="todo-kata-fsharp-part-2">Part 2 - Todo</a></li>
+<li><a href="todo-kata-fsharp-part-3">Part 3 - SQLite</a></li>
 </ol>
 </li>
 <li>Python Series<ol>
-<li><a href="https://jameselliothart.github.io/todo-kata-python-part-1">Part 1 - Done</a> (you are here)</li>
-<li><a href="https://jameselliothart.github.io/todo-kata-python-part-2">Part 2 - Todo</a></li>
-<li><a href="https://jameselliothart.github.io/todo-kata-python-part-3">Part 3 - SQLite</a></li>
+<li>Part 1 - Done (you are here)</li>
+<li><a href="todo-kata-python-part-2">Part 2 - Todo</a></li>
+<li><a href="todo-kata-python-part-3">Part 3 - SQLite</a></li>
 </ol>
 </li>
 </ol>
@@ -211,7 +211,7 @@ We will only use <code>append_line</code> for <code>done</code> (the others will
 It is easy to forget the <code>\n</code> in <code>f.writelines([f'{line}\n' for line in lines])</code> and get everything on one line!
 It is also easy to forget to <code>strip()</code> the new lines when reading a file, but such is life.</p>
 <h2>done_file.py</h2>
-<p>You may have noticed in <a href="https://jameselliothart.github.io/todo-kata-fsharp-part-1">Part 1 of the FSharp series</a> that we had domain functions (in domain.fs) related to parsing completed items from strings.
+<p>You may have noticed in <a href="todo-kata-fsharp-part-1">Part 1 of the F# series</a> that we had domain functions (in domain.fs) related to parsing completed items from strings.
 Since that logic is specific to file persistence, it really does not belong in the domain - we will correct that this time around.</p>
 <div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">re</span>
 <span class="kn">import</span> <span class="nn">os</span>
@@ -391,7 +391,7 @@ Next we will cover <code>todo</code> and get a small look at reactive programmin
 </article>
 
     <footer>
-<p>&copy; James Hart 2019</p>
+<p>&copy; James Hart 2020</p>
 <p>    Powered by <a href="http://getpelican.com" target="_blank">Pelican</a> - <a href="https://github.com/alexandrevicenzi/flex" target="_blank">Flex</a> theme by <a href="http://alexandrevicenzi.com" target="_blank">Alexandre Vicenzi</a>
 </p>    </footer>
   </main>
