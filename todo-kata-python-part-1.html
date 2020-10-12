@@ -1,0 +1,414 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="" />
+
+  <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro|Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="https://jameselliothart.github.io/theme/stylesheet/style.min.css">
+
+  <link rel="stylesheet" type="text/css" href="https://jameselliothart.github.io/theme/pygments/github.min.css">
+  <link rel="stylesheet" type="text/css" href="https://jameselliothart.github.io/theme/font-awesome/css/font-awesome.min.css">
+
+
+    <link href="https://jameselliothart.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="A Hart's Eye View Atom">
+
+
+
+
+
+<meta name="author" content="James Hart" />
+<meta name="description" content="In this part of the Todo kata, we will cover the Python implementation. If you are new to the series, I would recommend reading the intro first. It should give sufficient background to be able to follow along even without being familiar with previous posts. Series Outline Intro FSharp Series …" />
+<meta name="keywords" content="Tutorial, Python, Todo, Development, mypy, click">
+
+<meta property="og:site_name" content="A Hart's Eye View"/>
+<meta property="og:title" content="Todo Kata - Python Part 1"/>
+<meta property="og:description" content="In this part of the Todo kata, we will cover the Python implementation. If you are new to the series, I would recommend reading the intro first. It should give sufficient background to be able to follow along even without being familiar with previous posts. Series Outline Intro FSharp Series …"/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:url" content="https://jameselliothart.github.io/todo-kata-python-part-1.html"/>
+<meta property="og:type" content="article"/>
+<meta property="article:published_time" content="2020-10-11 00:00:00-05:00"/>
+<meta property="article:modified_time" content=""/>
+<meta property="article:author" content="https://jameselliothart.github.io/author/james-hart.html">
+<meta property="article:section" content="Tutorial"/>
+<meta property="article:tag" content="Tutorial"/>
+<meta property="article:tag" content="Python"/>
+<meta property="article:tag" content="Todo"/>
+<meta property="article:tag" content="Development"/>
+<meta property="article:tag" content="mypy"/>
+<meta property="article:tag" content="click"/>
+<meta property="og:image" content="/images/me.jpeg">
+
+  <title>A Hart's Eye View &ndash; Todo Kata - Python Part 1</title>
+
+</head>
+<body>
+  <aside>
+    <div>
+      <a href="https://jameselliothart.github.io">
+        <img src="/images/me.jpeg" alt="A Hart's Eye View" title="A Hart's Eye View">
+      </a>
+      <h1><a href="https://jameselliothart.github.io">A Hart's Eye View</a></h1>
+
+
+      <nav>
+        <ul class="list">
+          <li><a href="https://jameselliothart.github.io/pages/about.html#about">About</a></li>
+
+        </ul>
+      </nav>
+
+      <ul class="social">
+        <li><a class="sc-linkedin" href="https://www.linkedin.com/in/james-hart-3543664b/" target="_blank"><i class="fa fa-linkedin"></i></a></li>
+        <li><a class="sc-github" href="https://github.com/jameselliothart/" target="_blank"><i class="fa fa-github"></i></a></li>
+        <li><a class="sc-rss" href="/feeds/all.atom.xml" target="_blank"><i class="fa fa-rss"></i></a></li>
+      </ul>
+    </div>
+
+
+  </aside>
+  <main>
+
+    <nav>
+      <a href="https://jameselliothart.github.io">    Home
+</a>
+
+      <a href="/archives.html">Archives</a>
+      <a href="/categories.html">Categories</a>
+      <a href="/tags.html">Tags</a>
+
+      <a href="https://jameselliothart.github.io/feeds/all.atom.xml">    Atom
+</a>
+
+    </nav>
+
+<article class="single">
+  <header>
+      
+    <h1 id="todo-kata-python-part-1">Todo Kata - Python Part 1</h1>
+    <p>
+          Posted on October 11, 2020 in <a href="https://jameselliothart.github.io/category/tutorial.html">Tutorial</a>
+
+          </br>
+    </p>
+  </header>
+
+
+  <div>
+    <p>In this part of the <strong>Todo</strong> kata, we will cover the Python implementation.
+If you are new to the series, I would recommend reading the <a href="https://jameselliothart.github.io/todo-kata-introduction">intro</a> first.
+It should give sufficient background to be able to follow along even without being familiar with previous posts.</p>
+<p>Series Outline</p>
+<ol>
+<li><a href="https://jameselliothart.github.io/todo-kata-introduction">Intro</a></li>
+<li>FSharp Series<ol>
+<li><a href="https://jameselliothart.github.io/todo-kata-fsharp-part-1">Part 1 - Done</a></li>
+<li><a href="https://jameselliothart.github.io/todo-kata-fsharp-part-2">Part 2 - Todo</a></li>
+<li><a href="https://jameselliothart.github.io/todo-kata-fsharp-part-3">Part 3 - SQLite</a></li>
+</ol>
+</li>
+<li>Python Series<ol>
+<li><a href="https://jameselliothart.github.io/todo-kata-python-part-1">Part 1 - Done</a> (you are here)</li>
+<li><a href="https://jameselliothart.github.io/todo-kata-python-part-2">Part 2 - Todo</a></li>
+<li><a href="https://jameselliothart.github.io/todo-kata-python-part-3">Part 3 - SQLite</a></li>
+</ol>
+</li>
+</ol>
+<p>Full source code is available <a href="https://github.com/jameselliothart/PyTodo">here</a>.</p>
+<h2>Setup</h2>
+<p>Note: The version of Python on my machine - Python 3.6 - is relatively old, and there are several nice features that have been added to the language since which I will point out along the way.</p>
+<p>We will start by creating a folder for the project and setting up a virtual environment:</p>
+<div class="highlight"><pre><span></span>$ mkdir PyTodo
+$ <span class="nb">cd</span> PyTodo
+$ python3 -m venv venv
+$ code .
+</pre></div>
+
+
+<p>VS Code will automatically detect and activate the virtual environment which is a great convenience.
+To use <a href="https://mypy.readthedocs.io/en/latest/">mypy</a> as the linter, we install it and configure the .vscode/settings.json.</p>
+<div class="highlight"><pre><span></span><span class="o">(</span>venv<span class="o">)</span> $ python -m pip install mypy
+</pre></div>
+
+
+<p>.vscode/settings.json</p>
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;python.linting.mypyEnabled&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="nt">&quot;python.linting.enabled&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>Of course, you can use another linter and skip the type hints.
+However, even for a simple program like this, type hints caught a number of bugs at design time.</p>
+<p>With our setup complete, we can start writing some code.</p>
+<h2>done_domain.py</h2>
+<p>The domain logic of <code>done</code> consists just of the <code>CompletedItem</code> class and some functions for returning dates we will use to query for completed items.</p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span><span class="p">,</span> <span class="n">timedelta</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">NamedTuple</span>
+
+<span class="k">class</span> <span class="nc">CompletedItem</span><span class="p">(</span><span class="n">NamedTuple</span><span class="p">):</span>
+    <span class="n">item</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">completed_on</span><span class="p">:</span> <span class="n">datetime</span>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;[{self.completed_on.isoformat()}] </span><span class="si">{self.item}</span><span class="s1">&#39;</span>
+
+<span class="k">def</span> <span class="nf">create_default</span><span class="p">(</span><span class="n">item</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">CompletedItem</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">CompletedItem</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">())</span>
+</pre></div>
+
+
+<p>The <code>CompletedItem</code> class is just a <code>NamedTuple</code> with a nice string representation.
+We will use that when writing a <code>CompletedItem</code> to a file and when printing it to the console.
+(<em>Note: a <a href="https://docs.python.org/3/library/dataclasses.html"><code>dataclass</code></a> would also be a nice way of implementing <code>CompletedItem</code> in Python 3.7+.</em>)</p>
+<p>The date functions are nothing special:</p>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">_start_of_day</span><span class="p">(</span><span class="n">date</span><span class="p">:</span> <span class="n">datetime</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">datetime</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">date</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">hour</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">minute</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">second</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">microsecond</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">_start_of_week</span><span class="p">(</span><span class="n">date</span><span class="p">:</span> <span class="n">datetime</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">datetime</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">_start_of_day</span><span class="p">(</span><span class="n">date</span> <span class="o">-</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="n">date</span><span class="o">.</span><span class="n">isoweekday</span><span class="p">()))</span>
+
+<span class="k">def</span> <span class="nf">days_ago</span><span class="p">(</span><span class="n">date</span><span class="p">:</span> <span class="n">datetime</span><span class="p">,</span> <span class="n">num_days</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">datetime</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">_start_of_day</span><span class="p">(</span><span class="n">date</span> <span class="o">-</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="n">num_days</span><span class="p">))</span>
+
+<span class="k">def</span> <span class="nf">weeks_ago</span><span class="p">(</span><span class="n">date</span><span class="p">:</span> <span class="n">datetime</span><span class="p">,</span> <span class="n">num_weeks</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">datetime</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">_start_of_week</span><span class="p">(</span><span class="n">date</span> <span class="o">-</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="mi">7</span><span class="o">*</span><span class="n">num_weeks</span><span class="p">))</span>
+</pre></div>
+
+
+<p>Note the leading <code>_</code> to mark "private" functions - we will not use <code>_start_of_day</code> or <code>_start_of_week</code> outside of this module.</p>
+<h2>file.py</h2>
+<p>Next we will create some helper functions for reading from and writing to files.
+We will only use <code>append_line</code> for <code>done</code> (the others will be used in <code>todo</code>), but we may as well define them all now.</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span>
+
+
+<span class="k">def</span> <span class="nf">write_all_lines</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">lines</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]):</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">f</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">append_line</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">line</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">f</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">read_all_lines</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">[]</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">f</span><span class="o">.</span><span class="n">readlines</span><span class="p">()]</span>
+</pre></div>
+
+
+<p>The <code>print(line, file=f)</code> idiom is a nice way of writing a line to a file without having to remember to specify the new line at the end.
+It is easy to forget the <code>\n</code> in <code>f.writelines([f'{line}\n' for line in lines])</code> and get everything on one line!
+It is also easy to forget to <code>strip()</code> the new lines when reading a file, but such is life.</p>
+<h2>done_file.py</h2>
+<p>You may have noticed in <a href="https://jameselliothart.github.io/todo-kata-fsharp-part-1">Part 1 of the FSharp series</a> that we had domain functions (in domain.fs) related to parsing completed items from strings.
+Since that logic is specific to file persistence, it really does not belong in the domain - we will correct that this time around.</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">file</span>
+<span class="kn">import</span> <span class="nn">done_domain</span> <span class="k">as</span> <span class="nn">done</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span>
+
+<span class="c1"># define a file path where completed items will be stored</span>
+<span class="n">PATH</span> <span class="o">=</span> <span class="s1">&#39;todo.done.txt&#39;</span>
+
+<span class="k">def</span> <span class="nf">_parse_datetime</span><span class="p">(</span><span class="n">iso_date</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">datetime</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">iso_date</span><span class="p">,</span> <span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">T%H:%M:%S.</span><span class="si">%f</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># could add a print statement when parse fails</span>
+<span class="k">def</span> <span class="nf">try_parse</span><span class="p">(</span><span class="n">done_item</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">done</span><span class="o">.</span><span class="n">CompletedItem</span><span class="p">]:</span>
+    <span class="n">pattern</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;^\[(?P&lt;completedOn&gt;.*)\] (?P&lt;item&gt;.*)&#39;</span>
+    <span class="n">matches</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">pattern</span><span class="p">,</span> <span class="n">done_item</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">matches</span><span class="p">:</span>
+        <span class="n">completed_on</span> <span class="o">=</span> <span class="n">_parse_datetime</span><span class="p">(</span><span class="n">matches</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s1">&#39;completedOn&#39;</span><span class="p">))</span>
+        <span class="n">item</span> <span class="o">=</span> <span class="n">matches</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s1">&#39;item&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">done</span><span class="o">.</span><span class="n">CompletedItem</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">completed_on</span><span class="p">)</span>
+    <span class="k">return</span> <span class="kc">None</span>
+
+<span class="k">def</span> <span class="nf">parse</span><span class="p">(</span><span class="n">done_item</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">done</span><span class="o">.</span><span class="n">CompletedItem</span><span class="p">:</span>
+    <span class="sd">&#39;&#39;&#39;Raises `ValueError` if parse fails.&#39;&#39;&#39;</span>
+    <span class="n">completed_item</span> <span class="o">=</span> <span class="n">try_parse</span><span class="p">(</span><span class="n">done_item</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">completed_item</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">completed_item</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;`done_item` must be of format &#39;[isodate] completed item&#39;&quot;</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Recall that we are calling <code>completed_on.isoformat()</code> to get a string representation of the completed time.
+In Python 3.7+, there is an inverse function <a href="https://docs.python.org/3.8/library/datetime.html#datetime.date.fromisoformat"><code>fromisoformat</code></a> to get back the datetime object, but since we are using 3.6 we have to parse manually.
+It is useful to be familiar with how to do this anyway when the need arises to parse dates encountered in the wild.</p>
+<p>The <code>parse</code> function is basically the equivalent of our explicitly extracting the <code>Option.Value</code> in the F# version - we do it to get rid of the <code>Optional</code> while understanding we should be sure the parse does not fail.
+You could see this as a drawback of using type hints in that we almost doubled the amount of parsing code just to have the types work out.
+With <code>try_parse</code> alone, we would still get a runtime exception if we tried to access the returned <code>CompletedItem</code>, so you could argue we are no better off having <code>parse</code> raise a runtime exception slightly earlier.
+However, having <code>try_parse</code> return an <code>Optional[done.CompletedItem]</code> gives it an <em>honest type signature</em>.
+Callers know that the parse may fail and return <code>None</code>, enabling them to respond accordingly at design time without having to peek at the definition, look at any documentation, or run any code.
+Without type hints, we may still assume that the parse could fail (hence the <code>try</code>), but what is the failure behavior?
+Does it raise an exception (and if so, what?), return a <code>Tuple</code> of <code>(success_status, value)</code>, return <code>None</code>, something else?
+Unit tests are a great way of exposing and documenting the API in cases like this without type hints (and may still be a good idea since type hints are ignored at runtime), but having a linter like mypy do some of that work for you definitely takes off cognitive load.</p>
+<p>Finally, notice that in both <code>try_parse</code> and <code>parse</code> we assign a variable and then immediately use it in an <code>if</code> statement.
+Python 3.8 introduced assignment expressions (aka the walrus operator) to allow assigning a variable and using it in one line:</p>
+<div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="n">matches</span> <span class="p">:</span><span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">pattern</span><span class="p">,</span> <span class="n">done_item</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">item</span> <span class="o">=</span> <span class="n">matches</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s1">&#39;item&#39;</span><span class="p">)</span>
+    <span class="c1"># ...</span>
+</pre></div>
+
+
+<p>Wouldn't that be convenient?
+This use case of working with the match on a regular expression was actually part of the original justification for introducing assignment expressions into the language in <a href="https://www.python.org/dev/peps/pep-0572/">PEP 572</a>.</p>
+<p>Now we can finish off with the functions for reading and writing completed items to a file.</p>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">_check_completed_since</span><span class="p">(</span><span class="n">completed_item</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">done</span><span class="o">.</span><span class="n">CompletedItem</span><span class="p">],</span> <span class="n">completed_since</span><span class="p">:</span> <span class="n">datetime</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">completed_since</span> <span class="o">&lt;</span> <span class="n">completed_item</span><span class="o">.</span><span class="n">completed_on</span> <span class="k">if</span> <span class="n">completed_item</span> <span class="k">else</span> <span class="kc">False</span>
+
+<span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">completed_since</span><span class="p">:</span> <span class="n">datetime</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">done</span><span class="o">.</span><span class="n">CompletedItem</span><span class="p">]:</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">[]</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">[</span>
+            <span class="n">parse</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
+            <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">f</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">_check_completed_since</span><span class="p">(</span><span class="n">try_parse</span><span class="p">(</span><span class="n">line</span><span class="p">),</span> <span class="n">completed_since</span><span class="p">)</span>
+            <span class="p">]</span>
+
+<span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">completed_items</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">done</span><span class="o">.</span><span class="n">CompletedItem</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">completed_item</span> <span class="ow">in</span> <span class="n">completed_items</span><span class="p">:</span>
+        <span class="n">file</span><span class="o">.</span><span class="n">append_line</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">completed_item</span><span class="p">))</span>
+</pre></div>
+
+
+<p>We use Python's ability to easily operate on lines in a file as they are read (<code>for line in f.readlines()</code>) to filter out items completed before the specified date.
+Our returning an <code>Optional</code> from <code>try_parse</code> alerts us that <code>_check_completed_since</code> will have to account for the possibility of a null reference.
+Also note we explicitly write <code>str(completed_item)</code> to the file to get the <code>__str__</code> representation we defined for the <code>CompletedItem</code> class.</p>
+<h2>shared.py</h2>
+<p>The last piece we need before we get to the executable program is a function for displaying to the console.
+We will put this in a "shared" module since both <code>done</code> and <code>todo</code> will use it.</p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Iterable</span>
+
+<span class="k">def</span> <span class="nf">display</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">Any</span><span class="p">]):</span>
+    <span class="k">for</span> <span class="n">datum</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span> <span class="nb">print</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">datum</span><span class="p">))</span>
+</pre></div>
+
+
+<p>We make a call to <code>str</code> just to be explicit (<code>print</code> will already use the <code>__str__</code> representation implicitly).</p>
+<h2>done.py</h2>
+<p>Now we can actually configure and define the CLI (command-line interface).
+We will use partial application (via <code>partial</code> from <code>functools</code>) to create <code>get</code> and <code>save</code> functions which will access the path defined in done_file.py to read and write completed items.</p>
+<p>We will also define a helper function <code>save_from_string</code> to save a collection of strings as completed items.
+This will be more helpful later when we technically pass a list of todo items to be completed, but it also gives us the ability to save multiple completed items at once with one command with a little modification to the command-line parsing.
+We will leave that as an exercise.</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">done_file</span>
+<span class="kn">import</span> <span class="nn">done_domain</span>
+<span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">partial</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Iterable</span>
+
+<span class="n">save</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span><span class="n">done_file</span><span class="o">.</span><span class="n">save</span><span class="p">,</span> <span class="n">done_file</span><span class="o">.</span><span class="n">PATH</span><span class="p">)</span>
+<span class="n">get</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span><span class="n">done_file</span><span class="o">.</span><span class="n">get</span><span class="p">,</span> <span class="n">done_file</span><span class="o">.</span><span class="n">PATH</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">save_from_string</span><span class="p">(</span><span class="n">items</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="nb">str</span><span class="p">]):</span>
+    <span class="n">save</span><span class="p">([</span><span class="n">done_domain</span><span class="o">.</span><span class="n">create_default</span><span class="p">(</span><span class="n">item</span><span class="p">)</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">items</span><span class="p">])</span>
+</pre></div>
+
+
+<p>With the configuration complete, we can work on handling the incoming command-line arguments.
+We will use the <a href="https://click.palletsprojects.com/en/7.x/">click</a> package to help with this.</p>
+<div class="highlight"><pre><span></span><span class="o">(</span>venv<span class="o">)</span> $ python -m pip install click
+</pre></div>
+
+
+<p>I was hesitant at first to install a new package as opposed to just parsing from <a href="https://docs.python.org/3/library/sys.html#sys.argv"><code>sys.argv</code></a> or using <a href="https://docs.python.org/3/library/argparse.html"><code>argparse</code></a>, but I have to admit after trying it out of curiosity that <code>click</code> is wonderful to use.</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">click</span>
+<span class="kn">import</span> <span class="nn">shared</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+
+<span class="c1"># ...</span>
+
+<span class="nd">@click</span><span class="o">.</span><span class="n">group</span><span class="p">()</span>
+<span class="k">def</span> <span class="nf">cli</span><span class="p">():</span> <span class="k">pass</span>
+
+<span class="nd">@cli</span><span class="o">.</span><span class="n">command</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;a&#39;</span><span class="p">)</span>
+<span class="nd">@click</span><span class="o">.</span><span class="n">argument</span><span class="p">(</span><span class="s1">&#39;completed_item&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">save_cli</span><span class="p">(</span><span class="n">completed_item</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+    <span class="n">save_from_string</span><span class="p">([</span><span class="n">completed_item</span><span class="p">])</span>
+
+<span class="nd">@cli</span><span class="o">.</span><span class="n">command</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;d&#39;</span><span class="p">)</span>
+<span class="nd">@click</span><span class="o">.</span><span class="n">argument</span><span class="p">(</span><span class="s1">&#39;number_of_days_ago&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">get_by_days</span><span class="p">(</span><span class="n">number_of_days_ago</span><span class="p">):</span>
+    <span class="n">completed_since</span> <span class="o">=</span> <span class="n">done_domain</span><span class="o">.</span><span class="n">days_ago</span><span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">(),</span> <span class="n">number_of_days_ago</span><span class="p">)</span>
+    <span class="n">shared</span><span class="o">.</span><span class="n">display</span><span class="p">(</span><span class="n">get</span><span class="p">(</span><span class="n">completed_since</span><span class="p">))</span>
+
+<span class="nd">@cli</span><span class="o">.</span><span class="n">command</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;w&#39;</span><span class="p">)</span>
+<span class="nd">@click</span><span class="o">.</span><span class="n">argument</span><span class="p">(</span><span class="s1">&#39;number_of_weeks_ago&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">get_by_weeks</span><span class="p">(</span><span class="n">number_of_weeks_ago</span><span class="p">):</span>
+    <span class="n">completed_since</span> <span class="o">=</span> <span class="n">done_domain</span><span class="o">.</span><span class="n">weeks_ago</span><span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">(),</span> <span class="n">number_of_weeks_ago</span><span class="p">)</span>
+    <span class="n">shared</span><span class="o">.</span><span class="n">display</span><span class="p">(</span><span class="n">get</span><span class="p">(</span><span class="n">completed_since</span><span class="p">))</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">cli</span><span class="p">()</span>
+</pre></div>
+
+
+<p>The <code>@click.group()</code> decorator lets us define a mutually exclusive set of commands which are configured with the <code>@cli.command()</code> decorator.
+In this case, we define 'a', 'd', and 'w' commands to '<em>a</em>dd' a completed item and retrieving items completed a number of '<em>d</em>ays' or '<em>w</em>eeks' ago.
+The call to <code>cli()</code> under the <code>if __name__ == "__main__"</code> idiom handles parsing the incoming command-line arguments and dispatching to the appropriate function.</p>
+<p>That's it!
+We can run the program with commands like this:</p>
+<div class="highlight"><pre><span></span><span class="o">(</span>venv<span class="o">)</span> $ python <span class="k">done</span>.py a <span class="s2">&quot;complete python todo kata part 1&quot;</span>
+<span class="o">(</span>venv<span class="o">)</span> $ python <span class="k">done</span>.py d <span class="m">0</span>
+<span class="o">[</span><span class="m">2020</span>-10-11T10:33:03.696278<span class="o">]</span> <span class="nb">complete</span> python todo kata part <span class="m">1</span>
+</pre></div>
+
+
+<h2>Wrapping Up</h2>
+<p>That wraps up the Python implementation of <code>done</code>.
+Next we will cover <code>todo</code> and get a small look at reactive programming with <code>RxPy</code>.</p>
+  </div>
+  <div class="tag-cloud">
+    <p>
+      <a href="https://jameselliothart.github.io/tag/tutorial.html">Tutorial</a>
+      <a href="https://jameselliothart.github.io/tag/python.html">Python</a>
+      <a href="https://jameselliothart.github.io/tag/todo.html">Todo</a>
+      <a href="https://jameselliothart.github.io/tag/development.html">Development</a>
+      <a href="https://jameselliothart.github.io/tag/mypy.html">mypy</a>
+      <a href="https://jameselliothart.github.io/tag/click.html">click</a>
+    </p>
+  </div>
+
+
+
+
+
+</article>
+
+    <footer>
+<p>&copy; James Hart 2019</p>
+<p>    Powered by <a href="http://getpelican.com" target="_blank">Pelican</a> - <a href="https://github.com/alexandrevicenzi/flex" target="_blank">Flex</a> theme by <a href="http://alexandrevicenzi.com" target="_blank">Alexandre Vicenzi</a>
+</p>    </footer>
+  </main>
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " A Hart's Eye View ",
+  "url" : "https://jameselliothart.github.io",
+  "image": "/images/me.jpeg",
+  "description": ""
+}
+</script>
+
+</body>
+</html>
