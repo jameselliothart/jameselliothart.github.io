@@ -48,10 +48,10 @@ SOCIAL = (('linkedin', 'https://www.linkedin.com/in/james-hart-3543664b/'),
 DEFAULT_PAGINATION = 10
 
 # Uncomment following line if you want document-relative URLs when developing
-#RELATIVE_URLS = True
+RELATIVE_URLS = True
 
 THEME = './themes/Flex'
 # THEME = 'notmyidea'
 
 COPYRIGHT_NAME = AUTHOR
-COPYRIGHT_YEAR = 2019
+COPYRIGHT_YEAR = 2020
