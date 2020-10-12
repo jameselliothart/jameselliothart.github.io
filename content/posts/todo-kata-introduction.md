@@ -57,11 +57,11 @@ Since I have always found tutorials a great way to learn some aspect of a langua
 ## Series Outline
 
 1. Intro (you are here)
-2. FSharp
-   1. [Part 1 - Done]({static}/todo-kata-fsharp-part-1)
-   2. [Part 2 - Todo]({static}/todo-kata-fsharp-part-2)
-   3. [Part 3 - SQLite]({static}/todo-kata-fsharp-part-3)
-3. Python
-   1. [Part 1 - Done]({static}/todo-kata-python-part-1)
-   2. [Part 2 - Todo]({static}/todo-kata-python-part-2)
-   3. [Part 3 - SQLite]({static}/todo-kata-python-part-3)
+2. F# Series
+    1. [Part 1 - Done]({static}/todo-kata-fsharp-part-1)
+    2. [Part 2 - Todo]({static}/todo-kata-fsharp-part-2)
+    3. [Part 3 - SQLite]({static}/todo-kata-fsharp-part-3)
+3. Python Series
+    1. [Part 1 - Done]({static}/todo-kata-python-part-1)
+    2. [Part 2 - Todo]({static}/todo-kata-python-part-2)
+    3. [Part 3 - SQLite]({static}/todo-kata-python-part-3)

@@ -1,10 +1,10 @@
-title: Todo Kata - FSharp Part 3
+title: Todo Kata - F# Part 3
 date: 10-07-20
 author: James Hart
 category: Tutorial
-tags: Tutorial, FSharp, Todo, Development, SQLite, Dapper, ORM, SQL
+tags: Tutorial, F#, Todo, Development, SQLite, Dapper, ORM, SQL
 
-Welcome to Part 3 of the FSharp Todo kata.
+Welcome to Part 3 of the F# Todo kata.
 In this final part, we will revisit the `done` application and modify it to work with a SQLite database instead of a text file.
 
 (Note: F# has a great feature called a [type provider](https://docs.microsoft.com/en-us/dotnet/fsharp/tutorials/type-providers/) which can give strongly typed compile-time access to a data source - including SQL databases.
@@ -13,9 +13,14 @@ However, the [SQLProvider](https://fsprojects.github.io/SQLProvider/) was surpri
 Series Outline
 
 1. [Intro]({static}/todo-kata-introduction)
-2. [Part 1 - Done]({static}/todo-kata-fsharp-part-1)
-3. [Part 2 - Todo]({static}/todo-kata-fsharp-part-2)
-4. [Part 3 - SQLite]({static}/todo-kata-fsharp-part-3) (you are here)
+2. F# Series
+    1. [Part 1 - Done]({static}/todo-kata-fsharp-part-1)
+    2. [Part 2 - Todo]({static}/todo-kata-fsharp-part-2)
+    3. [Part 3 - SQLite]({static}/todo-kata-fsharp-part-3) (you are here)
+3. Python Series
+    1. [Part 1 - Done]({static}/todo-kata-python-part-1)
+    2. [Part 2 - Todo]({static}/todo-kata-python-part-2)
+    3. [Part 3 - SQLite]({static}/todo-kata-python-part-3)
 
 Full source code is available [here](https://github.com/jameselliothart/FsTodo).
 
@@ -23,7 +28,7 @@ Full source code is available [here](https://github.com/jameselliothart/FsTodo).
 
 To connect to a SQLite database, we will need to add the "Microsoft.Data.SQLite" nuget package to the `Done` project.
 To simplify data access, we will use the micro-ORM (object-relational mapper) `Dapper`.
-There is an FSharp friendly wrapper for `Dapper` called "FSharp.Data.Dapper".
+There is an F# friendly wrapper for `Dapper` called "FSharp.Data.Dapper".
 
 ```shell
 dotnet add package FSharp.Data.Dapper
@@ -138,8 +143,8 @@ However, we would need to make some more (albeit minor) changes for this, so we 
 
 ## Series Wrap Up
 
-This completes the Todo kata for FSharp.
-We have seen a nice demonstration of the features for FSharp including some simple domain modeling, reading/writing text files, and even interacting with a SQL database.
+This completes the Todo kata for F#.
+We have seen a nice demonstration of the features for F# including some simple domain modeling, reading/writing text files, and even interacting with a SQL database.
 The next installment will cover a [Python](https://www.python.org/) implementation which will go a little faster, partly because of the nature of the language and partly because we will already be familiar with the application from this series.
 
 P.S. If you were wondering how to run the compiled application directly (instead of with `dotnet run`), you can find the executables in the `bin` directory:

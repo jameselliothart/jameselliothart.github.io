@@ -1,19 +1,24 @@
-title: Todo Kata - FSharp Part 1
+title: Todo Kata - F# Part 1
 date: 10-05-20
 author: James Hart
 category: Tutorial
-tags: Tutorial, FSharp, Todo, Development
+tags: Tutorial, F#, Todo, Development
 
-Welcome to Part 1 of the FSharp kata to implement to todo list manager discussed in the [introduction]({static}/todo-kata-introduction).
+Welcome to Part 1 of the F# kata to implement to todo list manager discussed in the [introduction]({static}/todo-kata-introduction).
 In this post, we will implement the `done` command.
 We start with `done` rather than `todo` because `todo` will actually depend on functionality in `done` to save completed items whereas `done` has no dependencies.
 
 Series Outline
 
 1. [Intro]({static}/todo-kata-introduction)
-2. [Part 1 - Done]({static}/todo-kata-fsharp-part-1) (you are here)
-3. [Part 2 - Todo]({static}/todo-kata-fsharp-part-2)
-4. [Part 3 - SQLite]({static}/todo-kata-fsharp-part-3)
+2. F# Series
+    1. [Part 1 - Done]({static}/todo-kata-fsharp-part-1) (you are here)
+    2. [Part 2 - Todo]({static}/todo-kata-fsharp-part-2)
+    3. [Part 3 - SQLite]({static}/todo-kata-fsharp-part-3)
+3. Python Series
+    1. [Part 1 - Done]({static}/todo-kata-python-part-1)
+    2. [Part 2 - Todo]({static}/todo-kata-python-part-2)
+    3. [Part 3 - SQLite]({static}/todo-kata-python-part-3)
 
 Full source code is available [here](https://github.com/jameselliothart/FsTodo).
 

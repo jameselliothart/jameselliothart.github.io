@@ -1,18 +1,23 @@
-title: Todo Kata - FSharp Part 2
+title: Todo Kata - F# Part 2
 date: 10-06-20
 author: James Hart
 category: Tutorial
-tags: Tutorial, FSharp, Todo, Development, Events
+tags: Tutorial, F#, Todo, Development, Events
 
-In Part 2 of the FSharp kata, we will implement the `todo` application.
+In Part 2 of the F# kata, we will implement the `todo` application.
 This will allow us to keep track of a todo list, and it will utilize the `done` functionality we created in the previous post to record the items we complete.
 
 Series Outline
 
 1. [Intro]({static}/todo-kata-introduction)
-2. [Part 1 - Done]({static}/todo-kata-fsharp-part-1)
-3. [Part 2 - Todo]({static}/todo-kata-fsharp-part-2) (you are here)
-4. [Part 3 - SQLite]({static}/todo-kata-fsharp-part-3)
+2. F# Series
+    1. [Part 1 - Done]({static}/todo-kata-fsharp-part-1)
+    2. [Part 2 - Todo]({static}/todo-kata-fsharp-part-2) (you are here)
+    3. [Part 3 - SQLite]({static}/todo-kata-fsharp-part-3)
+3. Python Series
+    1. [Part 1 - Done]({static}/todo-kata-python-part-1)
+    2. [Part 2 - Todo]({static}/todo-kata-python-part-2)
+    3. [Part 3 - SQLite]({static}/todo-kata-python-part-3)
 
 Full source code is available [here](https://github.com/jameselliothart/FsTodo).
 
@@ -337,4 +342,4 @@ dotnet run
 
 Be sure to check the todo.done.txt file to see the completed "my second todo" item appear!
 
-In the next and final part of the FSharp series, we will circle back and see what it takes to save completed items to a SQLite database instead of a text file.
+In the next and final part of the F# series, we will circle back and see what it takes to save completed items to a SQLite database instead of a text file.

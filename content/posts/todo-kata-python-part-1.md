@@ -171,6 +171,7 @@ It is useful to be familiar with how to do this anyway when the need arises to p
 The `parse` function is basically the equivalent of our explicitly extracting the `Option.Value` in the F# version - we do it to get rid of the `Optional` while understanding we should be sure the parse does not fail.
 You could see this as a drawback of using type hints in that we almost doubled the amount of parsing code just to have the types work out.
 With `try_parse` alone, we would still get a runtime exception if we tried to access the returned `CompletedItem`, so you could argue we are no better off having `parse` raise a runtime exception slightly earlier.
+
 However, having `try_parse` return an `Optional[done.CompletedItem]` gives it an *honest type signature*.
 Callers know that the parse may fail and return `None`, enabling them to respond accordingly at design time without having to peek at the definition, look at any documentation, or run any code.
 Without type hints, we may still assume that the parse could fail (hence the `try`), but what is the failure behavior?
