@@ -2,7 +2,7 @@ title: Todo Kata - Introduction
 date: 10-04-20
 author: James Hart
 category: Tutorial
-tags: Tutorial, FSharp, Todo, Development
+tags: Tutorial, F#, Todo, Development
 
 This post marks the introduction for a [code kata](https://en.wikipedia.org/wiki/Kata_(programming)) series in which we will develop a command-line todo list manager in a few different languages.
 Each kata will assume a working development environment (I will be working in [VS Code](https://code.visualstudio.com/) on Ubuntu 18.04) and basic familiarity with the syntax of the language involved.
