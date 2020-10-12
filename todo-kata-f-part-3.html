@@ -23,21 +23,21 @@
 
 
 <meta name="author" content="James Hart" />
-<meta name="description" content="Welcome to Part 3 of the FSharp Todo kata. In this final part, we will revisit the done application and modify it to work with a SQLite database instead of a text file. (Note: F# has a great feature called a type provider which can give strongly typed compile-time access …" />
-<meta name="keywords" content="Tutorial, FSharp, Todo, Development, SQLite, Dapper, ORM, SQL">
+<meta name="description" content="Welcome to Part 3 of the F# Todo kata. In this final part, we will revisit the done application and modify it to work with a SQLite database instead of a text file. (Note: F# has a great feature called a type provider which can give strongly typed compile-time access …" />
+<meta name="keywords" content="Tutorial, F#, Todo, Development, SQLite, Dapper, ORM, SQL">
 
 <meta property="og:site_name" content="A Hart's Eye View"/>
-<meta property="og:title" content="Todo Kata - FSharp Part 3"/>
-<meta property="og:description" content="Welcome to Part 3 of the FSharp Todo kata. In this final part, we will revisit the done application and modify it to work with a SQLite database instead of a text file. (Note: F# has a great feature called a type provider which can give strongly typed compile-time access …"/>
+<meta property="og:title" content="Todo Kata - F# Part 3"/>
+<meta property="og:description" content="Welcome to Part 3 of the F# Todo kata. In this final part, we will revisit the done application and modify it to work with a SQLite database instead of a text file. (Note: F# has a great feature called a type provider which can give strongly typed compile-time access …"/>
 <meta property="og:locale" content="en_US"/>
-<meta property="og:url" content="https://jameselliothart.github.io/todo-kata-fsharp-part-3.html"/>
+<meta property="og:url" content="https://jameselliothart.github.io/todo-kata-f-part-3.html"/>
 <meta property="og:type" content="article"/>
 <meta property="article:published_time" content="2020-10-07 00:00:00-05:00"/>
 <meta property="article:modified_time" content=""/>
 <meta property="article:author" content="https://jameselliothart.github.io/author/james-hart.html">
 <meta property="article:section" content="Tutorial"/>
 <meta property="article:tag" content="Tutorial"/>
-<meta property="article:tag" content="FSharp"/>
+<meta property="article:tag" content="F#"/>
 <meta property="article:tag" content="Todo"/>
 <meta property="article:tag" content="Development"/>
 <meta property="article:tag" content="SQLite"/>
@@ -46,7 +46,7 @@
 <meta property="article:tag" content="SQL"/>
 <meta property="og:image" content="/images/me.jpeg">
 
-  <title>A Hart's Eye View &ndash; Todo Kata - FSharp Part 3</title>
+  <title>A Hart's Eye View &ndash; Todo Kata - F# Part 3</title>
 
 </head>
 <body>
@@ -92,7 +92,7 @@
 <article class="single">
   <header>
       
-    <h1 id="todo-kata-fsharp-part-3">Todo Kata - FSharp Part 3</h1>
+    <h1 id="todo-kata-f-part-3">Todo Kata - F# Part 3</h1>
     <p>
           Posted on October 07, 2020 in <a href="https://jameselliothart.github.io/category/tutorial.html">Tutorial</a>
 
@@ -102,22 +102,31 @@
 
 
   <div>
-    <p>Welcome to Part 3 of the FSharp Todo kata.
+    <p>Welcome to Part 3 of the F# Todo kata.
 In this final part, we will revisit the <code>done</code> application and modify it to work with a SQLite database instead of a text file.</p>
 <p>(Note: F# has a great feature called a <a href="https://docs.microsoft.com/en-us/dotnet/fsharp/tutorials/type-providers/">type provider</a> which can give strongly typed compile-time access to a data source - including SQL databases.
 However, the <a href="https://fsprojects.github.io/SQLProvider/">SQLProvider</a> was surprisingly difficult to set up for SQLite, so we will opt for the lightweight <code>Dapper</code> ORM instead.)</p>
 <p>Series Outline</p>
 <ol>
 <li><a href="https://jameselliothart.github.io/todo-kata-introduction">Intro</a></li>
+<li>F# Series<ol>
 <li><a href="https://jameselliothart.github.io/todo-kata-fsharp-part-1">Part 1 - Done</a></li>
 <li><a href="https://jameselliothart.github.io/todo-kata-fsharp-part-2">Part 2 - Todo</a></li>
 <li><a href="https://jameselliothart.github.io/todo-kata-fsharp-part-3">Part 3 - SQLite</a> (you are here)</li>
+</ol>
+</li>
+<li>Python Series<ol>
+<li><a href="https://jameselliothart.github.io/todo-kata-python-part-1">Part 1 - Done</a></li>
+<li><a href="https://jameselliothart.github.io/todo-kata-python-part-2">Part 2 - Todo</a></li>
+<li><a href="https://jameselliothart.github.io/todo-kata-python-part-3">Part 3 - SQLite</a></li>
+</ol>
+</li>
 </ol>
 <p>Full source code is available <a href="https://github.com/jameselliothart/FsTodo">here</a>.</p>
 <h2>Nuget Packages</h2>
 <p>To connect to a SQLite database, we will need to add the "Microsoft.Data.SQLite" nuget package to the <code>Done</code> project.
 To simplify data access, we will use the micro-ORM (object-relational mapper) <code>Dapper</code>.
-There is an FSharp friendly wrapper for <code>Dapper</code> called "FSharp.Data.Dapper".</p>
+There is an F# friendly wrapper for <code>Dapper</code> called "FSharp.Data.Dapper".</p>
 <div class="highlight"><pre><span></span>dotnet add package FSharp.Data.Dapper
 dotnet add package Microsoft.Data.SQLite
 </pre></div>
@@ -219,8 +228,8 @@ This is a direct port of the file based approach we implemented originally.
 We could instead use a <code>where</code> clause to filter the rows returned for us - that would be one of the nice advantages of a SQL-based approach!
 However, we would need to make some more (albeit minor) changes for this, so we will leave it as an exercise as well.</p>
 <h2>Series Wrap Up</h2>
-<p>This completes the Todo kata for FSharp.
-We have seen a nice demonstration of the features for FSharp including some simple domain modeling, reading/writing text files, and even interacting with a SQL database.
+<p>This completes the Todo kata for F#.
+We have seen a nice demonstration of the features for F# including some simple domain modeling, reading/writing text files, and even interacting with a SQL database.
 The next installment will cover a <a href="https://www.python.org/">Python</a> implementation which will go a little faster, partly because of the nature of the language and partly because we will already be familiar with the application from this series.</p>
 <p>P.S. If you were wondering how to run the compiled application directly (instead of with <code>dotnet run</code>), you can find the executables in the <code>bin</code> directory:</p>
 <div class="highlight"><pre><span></span>./Done/bin/Debug/netcoreapp3.1/Done d <span class="m">0</span>
@@ -233,7 +242,7 @@ The next installment will cover a <a href="https://www.python.org/">Python</a> i
   <div class="tag-cloud">
     <p>
       <a href="https://jameselliothart.github.io/tag/tutorial.html">Tutorial</a>
-      <a href="https://jameselliothart.github.io/tag/fsharp.html">FSharp</a>
+      <a href="https://jameselliothart.github.io/tag/f.html">F#</a>
       <a href="https://jameselliothart.github.io/tag/todo.html">Todo</a>
       <a href="https://jameselliothart.github.io/tag/development.html">Development</a>
       <a href="https://jameselliothart.github.io/tag/sqlite.html">SQLite</a>

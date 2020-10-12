@@ -251,8 +251,8 @@ In Python 3.7+, there is an inverse function <a href="https://docs.python.org/3.
 It is useful to be familiar with how to do this anyway when the need arises to parse dates encountered in the wild.</p>
 <p>The <code>parse</code> function is basically the equivalent of our explicitly extracting the <code>Option.Value</code> in the F# version - we do it to get rid of the <code>Optional</code> while understanding we should be sure the parse does not fail.
 You could see this as a drawback of using type hints in that we almost doubled the amount of parsing code just to have the types work out.
-With <code>try_parse</code> alone, we would still get a runtime exception if we tried to access the returned <code>CompletedItem</code>, so you could argue we are no better off having <code>parse</code> raise a runtime exception slightly earlier.
-However, having <code>try_parse</code> return an <code>Optional[done.CompletedItem]</code> gives it an <em>honest type signature</em>.
+With <code>try_parse</code> alone, we would still get a runtime exception if we tried to access the returned <code>CompletedItem</code>, so you could argue we are no better off having <code>parse</code> raise a runtime exception slightly earlier.</p>
+<p>However, having <code>try_parse</code> return an <code>Optional[done.CompletedItem]</code> gives it an <em>honest type signature</em>.
 Callers know that the parse may fail and return <code>None</code>, enabling them to respond accordingly at design time without having to peek at the definition, look at any documentation, or run any code.
 Without type hints, we may still assume that the parse could fail (hence the <code>try</code>), but what is the failure behavior?
 Does it raise an exception (and if so, what?), return a <code>Tuple</code> of <code>(success_status, value)</code>, return <code>None</code>, something else?
