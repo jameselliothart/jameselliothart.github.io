@@ -5,20 +5,20 @@ category: Tutorial
 tags: Tutorial, Python, Todo, Development, mypy, click
 
 In this part of the **Todo** kata, we will cover the Python implementation.
-If you are new to the series, I would recommend reading the [intro]({static}/todo-kata-introduction) first.
+If you are new to the series, I would recommend reading the [intro](todo-kata-introduction) first.
 It should give sufficient background to be able to follow along even without being familiar with previous posts.
 
 Series Outline
 
-1. [Intro]({static}/todo-kata-introduction)
-2. FSharp Series
-    1. [Part 1 - Done]({static}/todo-kata-fsharp-part-1)
-    2. [Part 2 - Todo]({static}/todo-kata-fsharp-part-2)
-    3. [Part 3 - SQLite]({static}/todo-kata-fsharp-part-3)
+1. [Intro](todo-kata-introduction)
+2. F# Series
+    1. [Part 1 - Done](todo-kata-fsharp-part-1)
+    2. [Part 2 - Todo](todo-kata-fsharp-part-2)
+    3. [Part 3 - SQLite](todo-kata-fsharp-part-3)
 3. Python Series
-    1. [Part 1 - Done]({static}/todo-kata-python-part-1) (you are here)
-    2. [Part 2 - Todo]({static}/todo-kata-python-part-2)
-    3. [Part 3 - SQLite]({static}/todo-kata-python-part-3)
+    1. Part 1 - Done (you are here)
+    2. [Part 2 - Todo](todo-kata-python-part-2)
+    3. [Part 3 - SQLite](todo-kata-python-part-3)
 
 Full source code is available [here](https://github.com/jameselliothart/PyTodo).
 
@@ -128,7 +128,7 @@ It is also easy to forget to `strip()` the new lines when reading a file, but su
 
 ## done_file.py
 
-You may have noticed in [Part 1 of the FSharp series]({static}/todo-kata-fsharp-part-1) that we had domain functions (in domain.fs) related to parsing completed items from strings.
+You may have noticed in [Part 1 of the F# series](todo-kata-fsharp-part-1) that we had domain functions (in domain.fs) related to parsing completed items from strings.
 Since that logic is specific to file persistence, it really does not belong in the domain - we will correct that this time around.
 
 ```py

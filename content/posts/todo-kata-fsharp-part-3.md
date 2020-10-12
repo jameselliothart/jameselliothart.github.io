@@ -1,4 +1,4 @@
-title: Todo Kata - F# Part 3
+title: Todo Kata - FSharp Part 3
 date: 10-07-20
 author: James Hart
 category: Tutorial
@@ -12,15 +12,15 @@ However, the [SQLProvider](https://fsprojects.github.io/SQLProvider/) was surpri
 
 Series Outline
 
-1. [Intro]({static}/todo-kata-introduction)
+1. [Intro](todo-kata-introduction)
 2. F# Series
-    1. [Part 1 - Done]({static}/todo-kata-fsharp-part-1)
-    2. [Part 2 - Todo]({static}/todo-kata-fsharp-part-2)
-    3. [Part 3 - SQLite]({static}/todo-kata-fsharp-part-3) (you are here)
+    1. [Part 1 - Done](todo-kata-fsharp-part-1)
+    2. [Part 2 - Todo](todo-kata-fsharp-part-2)
+    3. Part 3 - SQLite (you are here)
 3. Python Series
-    1. [Part 1 - Done]({static}/todo-kata-python-part-1)
-    2. [Part 2 - Todo]({static}/todo-kata-python-part-2)
-    3. [Part 3 - SQLite]({static}/todo-kata-python-part-3)
+    1. [Part 1 - Done](todo-kata-python-part-1)
+    2. [Part 2 - Todo](todo-kata-python-part-2)
+    3. [Part 3 - SQLite](todo-kata-python-part-3)
 
 Full source code is available [here](https://github.com/jameselliothart/FsTodo).
 

@@ -8,7 +8,7 @@ modified: 05-22-20
 ## Welcome
 
 Welcome to the second post in the Maps of DevOps series!
-In [The First Way]({static}/maps-of-devops-the-first-way), we introduced the scenario of mailing letters to use as a stand-in for delivering software and discussed the necessity of performing our analysis from a system perspective.
+In [The First Way](maps-of-devops-the-first-way), we introduced the scenario of mailing letters to use as a stand-in for delivering software and discussed the necessity of performing our analysis from a system perspective.
 In doing so, we discovered that Single Piece Flow (SPF) was superior to batching because we could more quickly deliver value.
 
 Along the way, we also introduced the map of Known Territory (where we are when we know what we are doing) and alluded to the Unknown (where we are when we don't). In this post, we will discuss the important and ever-present mediator between them - Anomaly.

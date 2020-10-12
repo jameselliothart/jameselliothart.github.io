@@ -37,7 +37,7 @@ The commands do the following:
 
 We will implement this first by just saving to text files, but we will see that we can design the solution to be flexible enough to switch to saving completed items in a SQLite database with relative ease.
 The curious may read a little more about the motivation for this below.
-Otherwise, continue to the [first kata]({static}/todo-kata-fsharp-part-1) covering the [FSharp](https://fsharp.org/) implementation.
+Otherwise, continue to the [first kata](todo-kata-fsharp-part-1) covering the [F#](https://fsharp.org/) implementation.
 
 ## Motivation
 
@@ -58,10 +58,10 @@ Since I have always found tutorials a great way to learn some aspect of a langua
 
 1. Intro (you are here)
 2. F# Series
-    1. [Part 1 - Done]({static}/todo-kata-fsharp-part-1)
-    2. [Part 2 - Todo]({static}/todo-kata-fsharp-part-2)
-    3. [Part 3 - SQLite]({static}/todo-kata-fsharp-part-3)
+    1. [Part 1 - Done](todo-kata-fsharp-part-1)
+    2. [Part 2 - Todo](todo-kata-fsharp-part-2)
+    3. [Part 3 - SQLite](todo-kata-fsharp-part-3)
 3. Python Series
-    1. [Part 1 - Done]({static}/todo-kata-python-part-1)
-    2. [Part 2 - Todo]({static}/todo-kata-python-part-2)
-    3. [Part 3 - SQLite]({static}/todo-kata-python-part-3)
+    1. [Part 1 - Done](todo-kata-python-part-1)
+    2. [Part 2 - Todo](todo-kata-python-part-2)
+    3. [Part 3 - SQLite](todo-kata-python-part-3)
