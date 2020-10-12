@@ -35,7 +35,7 @@ $ python3 -m venv venv
 $ code .
 ```
 
-VS Code will automatically detect and activate the virtual environment which is a great convenience.
+VS Code will automatically detect and activate the virtual environment, but you can also manually run `source ./venv/bin/activate` on a *nix system or `.\venv\Scripts\activate` on Windows.
 To use [mypy](https://mypy.readthedocs.io/en/latest/) as the linter, we install it and configure the .vscode/settings.json.
 
 ```shell
