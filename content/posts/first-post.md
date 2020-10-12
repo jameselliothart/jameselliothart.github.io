@@ -1,4 +1,4 @@
-title: First Post on A Hart's Eye View
+title: First Post
 date: 10-22-19
 author: James Hart
 category: Announcements

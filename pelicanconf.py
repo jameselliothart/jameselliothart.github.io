@@ -3,7 +3,7 @@
 from __future__ import unicode_literals
 
 AUTHOR = 'James Hart'
-SITENAME = "A Hart's Eye View"
+SITENAME = "A Hart's View"
 SITEURL = 'http://localhost:8000'
 SITETITLE = SITENAME
 SITELOGO = '/images/me.jpeg'
