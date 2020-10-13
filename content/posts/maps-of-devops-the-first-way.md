@@ -33,15 +33,17 @@ We can keep the following possible translation in mind throughout:
 Where the "development" and "operations" teams can refer to those organizations within a company, to individual developers and operations engineers, or even to the multiple roles a single person can fill.
 Indeed, how the dynamics change with each of these interpretations is something else to keep in mind.
 
->People in systems do not do what the system says they are doing  
--The Functionary's Falsity, John Gall, *Systemantics: How Systems Work and Especially How They Fail*
+>People in systems do not do what the system says they are doing
+>
+>-The Functionary's Falsity, John Gall, *Systemantics: How Systems Work and Especially How They Fail*
 
 One person performing all of these tasks could reasonably be said to be sending letters (i.e. delivering valuable applications).
 However, once a system is set up and tasks split between people, there are only paper folders (developers writing code) and envelope sealers (operations team deploying binaries).
 It is now the system which is sending letters and not any individual within it.
 
->The function performed by a system is not operationally identical to the function of the same name performed by a person  
--The Operational Fallacy (long form), John Gall, *Systemantics*
+>The function performed by a system is not operationally identical to the function of the same name performed by a person
+>
+>-The Operational Fallacy (long form), John Gall, *Systemantics*
 
 In this light, it is entirely reasonable to imagine - as indeed does happen - that the system is in fact producing mounds of folded paper which either does not fit in or is more numerous than the given size or number of envelopes.
 Thus, a system operating under this structure may not be sending letters at all.
@@ -60,7 +62,7 @@ This is the landscape you inhabit when you know what you are doing:
 <img src="{static}/images/maps-of-devops-first/TheKnown.jpg" width="500">
 
 Why is it appropriate to call this a map?
-It is a map in the sense that it describes where you are, where you are going, and how to get there even though those "places" are not exactly physical.
+It is a map in the sense that it describes where you are, where you are going, and how to get there even though those "places" may not be physical.
 A mental map is no less real simply because it does not take up physical space or guide you to a physical address.
 Contrast this with Unknown (or Unexplored) Territory: you do not know where you are, what you are doing, or where you need to go (more on this later).
 
@@ -79,8 +81,9 @@ However, seen within the broader perspective of the organization as a whole, thi
 
 ![The First Way]({static}/images/maps-of-devops-first/TheFirstWay.png)
 
->Stop Starting. Start Finishing.  
--David J. Anderson
+>Stop Starting. Start Finishing.
+>
+>-David J. Anderson
 
 Applying this framework to our mailing letters scenario, we have:
 
