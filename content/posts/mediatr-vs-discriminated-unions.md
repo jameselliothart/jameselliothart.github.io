@@ -1,5 +1,5 @@
 title: MediatR vs Discriminated Unions
-date: 10-17-20
+date: 10-24-20
 author: James Hart
 category: Development
 tags: MediatR, .NET, C#, F#, Patterns, FunctionalProgramming
