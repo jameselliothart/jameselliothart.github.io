@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>A Hart's Eye View - Tutorial</title><link href="https://jameselliothart.github.io/" rel="alternate"></link><link href="https://jameselliothart.github.io/feeds/tutorial.atom.xml" rel="self"></link><id>https://jameselliothart.github.io/</id><updated>2020-10-11T00:00:00-05:00</updated><entry><title>Todo Kata - Python Part 1</title><link href="https://jameselliothart.github.io/todo-kata-python-part-1.html" rel="alternate"></link><published>2020-10-11T00:00:00-05:00</published><updated>2020-10-11T00:00:00-05:00</updated><author><name>James Hart</name></author><id>tag:jameselliothart.github.io,2020-10-11:/todo-kata-python-part-1.html</id><summary type="html">&lt;p&gt;In this part of the &lt;strong&gt;Todo&lt;/strong&gt; kata, we will cover the Python implementation.
+<feed xmlns="http://www.w3.org/2005/Atom"><title>A Hart's View - Tutorial</title><link href="https://jameselliothart.github.io/" rel="alternate"></link><link href="https://jameselliothart.github.io/feeds/tutorial.atom.xml" rel="self"></link><id>https://jameselliothart.github.io/</id><updated>2020-10-11T00:00:00-05:00</updated><entry><title>Todo Kata - Python Part 1</title><link href="https://jameselliothart.github.io/todo-kata-python-part-1.html" rel="alternate"></link><published>2020-10-11T00:00:00-05:00</published><updated>2020-10-11T00:00:00-05:00</updated><author><name>James Hart</name></author><id>tag:jameselliothart.github.io,2020-10-11:/todo-kata-python-part-1.html</id><summary type="html">&lt;p&gt;In this part of the &lt;strong&gt;Todo&lt;/strong&gt; kata, we will cover the Python implementation.
 If you are new to the series, I would recommend reading the &lt;a href="todo-kata-introduction"&gt;intro&lt;/a&gt; first.
 It should give sufficient background to be able to follow along even without being familiar with previous posts.&lt;/p&gt;
 &lt;p&gt;Series Outline&lt;/p&gt;
@@ -35,7 +35,7 @@ $ code .
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;VS Code will automatically detect and activate the virtual environment which is a great convenience.
+&lt;p&gt;VS Code will automatically detect and activate the virtual environment, but you can also manually run &lt;code&gt;source ./venv/bin/activate&lt;/code&gt; on a *nix system or &lt;code&gt;.\venv\Scripts\activate&lt;/code&gt; on Windows.
 To use &lt;a href="https://mypy.readthedocs.io/en/latest/"&gt;mypy&lt;/a&gt; as the linter, we install it and configure the .vscode/settings.json.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;venv&lt;span class="o"&gt;)&lt;/span&gt; $ python -m pip install mypy
 &lt;/pre&gt;&lt;/div&gt;

@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>A Hart's View - Development</title><link href="https://jameselliothart.github.io/" rel="alternate"></link><link href="https://jameselliothart.github.io/feeds/development.atom.xml" rel="self"></link><id>https://jameselliothart.github.io/</id><updated>2020-10-24T00:00:00-05:00</updated><entry><title>MediatR vs Discriminated Unions</title><link href="https://jameselliothart.github.io/mediatr-vs-discriminated-unions.html" rel="alternate"></link><published>2020-10-24T00:00:00-05:00</published><updated>2020-10-24T00:00:00-05:00</updated><author><name>James Hart</name></author><id>tag:jameselliothart.github.io,2020-10-24:/mediatr-vs-discriminated-unions.html</id><summary type="html">&lt;p&gt;In this post, I will compare and contrast what the &lt;a href="https://github.com/jbogard/MediatR"&gt;MediatR&lt;/a&gt; makes possible in C# with what we can achieve natively in F# with &lt;a href="https://docs.microsoft.com/en-us/dotnet/fsharp/language-reference/discriminated-unions"&gt;discriminated unions&lt;/a&gt;.
+This is not meant to be an exhaustive review of the features and capabilities of MediatR or what is possible with functional techniques, just …&lt;/p&gt;</summary><content type="html">&lt;p&gt;In this post, I will compare and contrast what the &lt;a href="https://github.com/jbogard/MediatR"&gt;MediatR&lt;/a&gt; makes possible in C# with what we can achieve natively in F# with &lt;a href="https://docs.microsoft.com/en-us/dotnet/fsharp/language-reference/discriminated-unions"&gt;discriminated unions&lt;/a&gt;.
+This is not meant to be an exhaustive review of the features and capabilities of MediatR or what is possible with functional techniques, just some musings on the advantages or differences between them.&lt;/p&gt;
+&lt;p&gt;The MediatR library is a &lt;a href="https://en.wikipedia.org/wiki/Mediator_pattern"&gt;mediator pattern&lt;/a&gt; implementation which allows us to dispatch commands via &lt;a href="https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/generics/"&gt;generics&lt;/a&gt; variance.
+In F#, we can achieve a similar result by defining a discriminated union comprising the commands or actions to which the application can respond and a handler function which dispatches to other functions based on that command.&lt;/p&gt;
+&lt;p&gt;Both of these techniques allow us to decouple business logic from infrastructure concerns such as parsing and validating incoming requests at the application boundary.
+As we will see, this can greatly increase both the testability and extensibility of the app.
+Our example will show this for a web API project.&lt;/p&gt;
+&lt;p&gt;However, this decoupling can be obfuscating as it becomes harder to follow the logical flow of the program.
+We will see that discriminated unions offer an advantage here by giving us more visibility into the behavior of the application at compile time.&lt;/p&gt;
+&lt;p&gt;Full source code is available &lt;a href="https://github.com/jameselliothart/MediatrVsDU"&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;h2&gt;MediatR&lt;/h2&gt;
+&lt;p&gt;First we'll explore the MediatR side.
+We create the project add the necessary nuget packages:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ mkdir MediatrVsDU
+$ &lt;span class="nb"&gt;cd&lt;/span&gt; MediatrVsDU
+$ dotnet new sln
+$ dotnet new webapi -n ExampleMediatR
+$ dotnet sln add ExampleMediatR/ExampleMediatR.fsproj
+$ &lt;span class="nb"&gt;cd&lt;/span&gt; ExampleMediatR
+$ dotnet add package MediatR
+$ dotnet add package MediatR.Extensions.Microsoft.DependencyInjection
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Then add MediatR to the configured services:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;using&lt;/span&gt; &lt;span class="nn"&gt;MediatR&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="c1"&gt;// ...&lt;/span&gt;
+        &lt;span class="k"&gt;public&lt;/span&gt; &lt;span class="k"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;ConfigureServices&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;IServiceCollection&lt;/span&gt; &lt;span class="n"&gt;services&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+        &lt;span class="p"&gt;{&lt;/span&gt;
+            &lt;span class="n"&gt;services&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;AddControllers&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+            &lt;span class="n"&gt;services&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;AddMediatR&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;typeof&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;Startup&lt;/span&gt;&lt;span class="p"&gt;));&lt;/span&gt;
+        &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Now we can define the first query which MediatR will handle.
+Under &lt;code&gt;Controllers&lt;/code&gt;, create &lt;code&gt;WeatherQuery.cs&lt;/code&gt; and &lt;code&gt;WeatherQueryHandler.cs&lt;/code&gt; with definitions below.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c1"&gt;// WeatherQuery.cs&lt;/span&gt;
+&lt;span class="k"&gt;using&lt;/span&gt; &lt;span class="nn"&gt;MediatR&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="k"&gt;namespace&lt;/span&gt; &lt;span class="nn"&gt;ExampleMediatR.Controllers&lt;/span&gt;
+&lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="k"&gt;public&lt;/span&gt; &lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;WeatherQuery&lt;/span&gt; &lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;IRequest&lt;/span&gt;&lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;WeatherForecast&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="k"&gt;public&lt;/span&gt; &lt;span class="kt"&gt;string&lt;/span&gt; &lt;span class="n"&gt;Day&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="k"&gt;get&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="k"&gt;set&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="p"&gt;}&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c1"&gt;// WeatherQueryHandler.cs&lt;/span&gt;
+&lt;span class="k"&gt;using&lt;/span&gt; &lt;span class="nn"&gt;System&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="k"&gt;using&lt;/span&gt; &lt;span class="nn"&gt;System.Threading&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="k"&gt;using&lt;/span&gt; &lt;span class="nn"&gt;System.Threading.Tasks&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="k"&gt;using&lt;/span&gt; &lt;span class="nn"&gt;MediatR&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+
+&lt;span class="k"&gt;namespace&lt;/span&gt; &lt;span class="nn"&gt;ExampleMediatR.Controllers&lt;/span&gt;
+&lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="k"&gt;public&lt;/span&gt; &lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;WeatherQueryHandler&lt;/span&gt; &lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;IRequestHandler&lt;/span&gt;&lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;WeatherQuery&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;WeatherForecast&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="k"&gt;public&lt;/span&gt; &lt;span class="n"&gt;Task&lt;/span&gt;&lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;WeatherForecast&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;Handle&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;WeatherQuery&lt;/span&gt; &lt;span class="n"&gt;request&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;CancellationToken&lt;/span&gt; &lt;span class="n"&gt;cancellationToken&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+        &lt;span class="p"&gt;{&lt;/span&gt;
+            &lt;span class="kt"&gt;var&lt;/span&gt; &lt;span class="n"&gt;rng&lt;/span&gt; &lt;span class="p"&gt;=&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="n"&gt;Random&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+            &lt;span class="kt"&gt;var&lt;/span&gt; &lt;span class="n"&gt;weather&lt;/span&gt; &lt;span class="p"&gt;=&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="n"&gt;WeatherForecast&lt;/span&gt;
+            &lt;span class="p"&gt;{&lt;/span&gt;
+                &lt;span class="n"&gt;Date&lt;/span&gt; &lt;span class="p"&gt;=&lt;/span&gt; &lt;span class="n"&gt;DateTime&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Now&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+                &lt;span class="n"&gt;TemperatureC&lt;/span&gt; &lt;span class="p"&gt;=&lt;/span&gt; &lt;span class="n"&gt;rng&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Next&lt;/span&gt;&lt;span class="p"&gt;(-&lt;/span&gt;&lt;span class="m"&gt;20&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="m"&gt;55&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;
+                &lt;span class="n"&gt;Summary&lt;/span&gt; &lt;span class="p"&gt;=&lt;/span&gt; &lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;Weather for {request.Day}&amp;quot;&lt;/span&gt;
+            &lt;span class="p"&gt;};&lt;/span&gt;
+            &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;Task&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;FromResult&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;weather&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+        &lt;span class="p"&gt;}&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;The &lt;code&gt;IRequest&lt;/code&gt; and &lt;code&gt;IRequestHandler&lt;/code&gt; interfaces come from MediatR and are how the library knows how to route commands.
+In this case, when MediatR receives a &lt;code&gt;WeatherQuery&lt;/code&gt;, it will look for a class which implements &lt;code&gt;IRequestHandler&amp;lt;WeatherQuery, WeatherForecast&amp;gt;&lt;/code&gt; - corresponding to the &lt;code&gt;WeatherQuery&lt;/code&gt; type and the expected response type &lt;code&gt;WeatherForecast&lt;/code&gt; configured for &lt;code&gt;WeatherQuery&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Now update &lt;code&gt;WeatherForecastController&lt;/code&gt; like the below:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;using&lt;/span&gt; &lt;span class="nn"&gt;MediatR&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="c1"&gt;// ...&lt;/span&gt;
+&lt;span class="na"&gt;    [ApiController]&lt;/span&gt;
+&lt;span class="na"&gt;    [Route(&amp;quot;[controller]&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;)]&lt;/span&gt;
+    &lt;span class="k"&gt;public&lt;/span&gt; &lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;WeatherForecastController&lt;/span&gt; &lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;ControllerBase&lt;/span&gt;
+    &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="k"&gt;private&lt;/span&gt; &lt;span class="k"&gt;readonly&lt;/span&gt; &lt;span class="n"&gt;IMediator&lt;/span&gt; &lt;span class="n"&gt;mediator&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+
+        &lt;span class="k"&gt;public&lt;/span&gt; &lt;span class="nf"&gt;WeatherForecastController&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;IMediator&lt;/span&gt; &lt;span class="n"&gt;mediator&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+        &lt;span class="p"&gt;{&lt;/span&gt;
+            &lt;span class="k"&gt;this&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;mediator&lt;/span&gt; &lt;span class="p"&gt;=&lt;/span&gt; &lt;span class="n"&gt;mediator&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+        &lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="na"&gt;        [HttpGet(&amp;quot;{day}&amp;quot;)]&lt;/span&gt;
+        &lt;span class="k"&gt;public&lt;/span&gt; &lt;span class="k"&gt;async&lt;/span&gt; &lt;span class="n"&gt;Task&lt;/span&gt;&lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;IActionResult&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;Get&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;string&lt;/span&gt; &lt;span class="n"&gt;day&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+        &lt;span class="p"&gt;{&lt;/span&gt;
+            &lt;span class="kt"&gt;var&lt;/span&gt; &lt;span class="n"&gt;query&lt;/span&gt; &lt;span class="p"&gt;=&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="n"&gt;WeatherQuery&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="n"&gt;Day&lt;/span&gt; &lt;span class="p"&gt;=&lt;/span&gt; &lt;span class="n"&gt;day&lt;/span&gt; &lt;span class="p"&gt;};&lt;/span&gt;
+            &lt;span class="n"&gt;WeatherForecast&lt;/span&gt; &lt;span class="n"&gt;result&lt;/span&gt; &lt;span class="p"&gt;=&lt;/span&gt; &lt;span class="k"&gt;await&lt;/span&gt; &lt;span class="n"&gt;mediator&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Send&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;query&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+            &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="nf"&gt;Ok&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;result&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+        &lt;span class="p"&gt;}&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Note the &lt;code&gt;[Route("[controller]")]&lt;/code&gt; attribute sets the route to the name of the class minus "Controller" - so &lt;code&gt;/WeatherForecast&lt;/code&gt; in this case.
+As an aside, you may want to avoid this tight coupling between the outer facing contract (the url route) and the internal class name, but I have left it consistent with the standard project template.&lt;/p&gt;
+&lt;p&gt;If we run the project and navigate to &lt;a href="https://localhost:5001/WeatherForecast/today"&gt;https://localhost:5001/WeatherForecast/today&lt;/a&gt;, we should get a response like the below:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;quot;date&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;2020-10-24T10:10:35.1037149-05:00&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;quot;temperatureC&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="mi"&gt;23&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;quot;temperatureF&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="mi"&gt;73&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;quot;summary&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;Weather for today&amp;quot;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;This setup allows the controller to be responsible only for creating the &lt;code&gt;WeatherQuery&lt;/code&gt; from the incoming request and returning the result - all the "heavy lifting" is done by the single line &lt;code&gt;WeatherForecast result = await mediator.Send(query);&lt;/code&gt;.
+Of course, there is little "heavy lifting" in this simple example, but imagine that the &lt;code&gt;WeatherQueryHandler&lt;/code&gt; had some complicated logic, e.g. retrieving records from a database or other service, processing them, and saving back to a database.&lt;/p&gt;
+&lt;p&gt;Being able to test and change that logic in isolation from the HTTP request concerns of the controller is a great benefit.
+I first saw this technique demonstrated in &lt;a href="https://github.com/vkhorikov"&gt;vkhorikov's&lt;/a&gt; &lt;a href="https://www.pluralsight.com/courses/cqrs-in-practice"&gt;Pluralsight Course&lt;/a&gt; (source code &lt;a href="https://github.com/vkhorikov/CqrsInPractice"&gt;here&lt;/a&gt;) and found it very useful in my projects to be able to unit test the logic of my applications without having to worry about the web server and HTTP concerns.&lt;/p&gt;
+&lt;p&gt;However, it is difficult to trace which handler is actually doing the work as MediatR dispatches in the background using reflection.
+We help with this a little by explicitly typing &lt;code&gt;WeatherForecast result&lt;/code&gt; as the use of &lt;code&gt;var&lt;/code&gt; would almost completely obfuscate the behavior.
+The real problem though is that we have no guarantee that a handler is actually implemented at all!&lt;/p&gt;
+&lt;p&gt;To see an example of this, define &lt;code&gt;BadQuery&lt;/code&gt; as below:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c1"&gt;// BadQuery.cs&lt;/span&gt;
+&lt;span class="k"&gt;using&lt;/span&gt; &lt;span class="nn"&gt;MediatR&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="k"&gt;namespace&lt;/span&gt; &lt;span class="nn"&gt;ExampleMediatR.Controllers&lt;/span&gt;
+&lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="k"&gt;public&lt;/span&gt; &lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;BadQuery&lt;/span&gt; &lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;IRequest&lt;/span&gt;&lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="kt"&gt;string&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="k"&gt;public&lt;/span&gt; &lt;span class="kt"&gt;string&lt;/span&gt; &lt;span class="n"&gt;Day&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="k"&gt;get&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="k"&gt;set&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="p"&gt;}&lt;/span&gt;
+        &lt;span class="k"&gt;public&lt;/span&gt; &lt;span class="kt"&gt;string&lt;/span&gt; &lt;span class="n"&gt;Bad&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="k"&gt;get&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="k"&gt;set&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="p"&gt;}&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Then add a route in the &lt;code&gt;WeatherForecastController&lt;/code&gt;:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="na"&gt;        [HttpGet(&amp;quot;{day}/{bad}&amp;quot;)]&lt;/span&gt;
+        &lt;span class="k"&gt;public&lt;/span&gt; &lt;span class="k"&gt;async&lt;/span&gt; &lt;span class="n"&gt;Task&lt;/span&gt;&lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;IActionResult&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;BadGet&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;string&lt;/span&gt; &lt;span class="n"&gt;day&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;string&lt;/span&gt; &lt;span class="n"&gt;bad&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+        &lt;span class="p"&gt;{&lt;/span&gt;
+            &lt;span class="kt"&gt;var&lt;/span&gt; &lt;span class="n"&gt;query&lt;/span&gt; &lt;span class="p"&gt;=&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="n"&gt;BadQuery&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="n"&gt;Day&lt;/span&gt; &lt;span class="p"&gt;=&lt;/span&gt; &lt;span class="n"&gt;day&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;Bad&lt;/span&gt; &lt;span class="p"&gt;=&lt;/span&gt; &lt;span class="n"&gt;bad&lt;/span&gt; &lt;span class="p"&gt;};&lt;/span&gt;
+            &lt;span class="kt"&gt;string&lt;/span&gt; &lt;span class="n"&gt;result&lt;/span&gt; &lt;span class="p"&gt;=&lt;/span&gt; &lt;span class="k"&gt;await&lt;/span&gt; &lt;span class="n"&gt;mediator&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Send&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;query&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+            &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="nf"&gt;Ok&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;result&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+        &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;If we run the project and navigate to &lt;a href="https://localhost:5001/WeatherForecast/today/bad"&gt;https://localhost:5001/WeatherForecast/today/bad&lt;/a&gt;, we get a nasty runtime exception:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;fail: Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware[1]
+     An unhandled exception has occurred while executing the request.
+System.InvalidOperationException: Handler was not found for request of type MediatR.IRequestHandler`2[ExampleMediatR.Controllers.BadQuery,System.String]. Register your handlers with the container. See the samples in GitHub for examples.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;We would need integration tests of the API itself to catch this behavior which is something we were trying to avoid in the first place.
+As the project grows, it could also be difficult to find which handler responds to particular requests (though naming conventions can help with this).&lt;/p&gt;
+&lt;p&gt;Are these simply trade-offs we have to accept?
+In the next section, we will see how we can get the same benefits while mitigating the drawbacks.&lt;/p&gt;
+&lt;h2&gt;Discriminated Unions&lt;/h2&gt;
+&lt;p&gt;Back at the root of our solution, we run the following commands to set up the F# project:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ dotnet new webapi -lang F# -n ExampleDU
+$ &lt;span class="nb"&gt;cd&lt;/span&gt; ExampleDU
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Add &lt;code&gt;Weather.fs&lt;/code&gt; and define it as below.
+Note the &lt;code&gt;[&amp;lt;AutoOpen&amp;gt;]&lt;/code&gt; attribute allows us to access the types and functions defined in the &lt;code&gt;Weather&lt;/code&gt; module as soon as we open the &lt;code&gt;ExampleDU&lt;/code&gt; namespace without having to qualify them.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;namespace&lt;/span&gt; &lt;span class="n"&gt;ExampleDU&lt;/span&gt;
+
+&lt;span class="k"&gt;open&lt;/span&gt; &lt;span class="nn"&gt;System&lt;/span&gt;
+&lt;span class="k"&gt;open&lt;/span&gt; &lt;span class="nn"&gt;System.Threading.Tasks&lt;/span&gt;
+
+&lt;span class="o"&gt;[&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;AutoOpen&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;]&lt;/span&gt;
+&lt;span class="k"&gt;module&lt;/span&gt; &lt;span class="nn"&gt;Weather&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt;
+
+    &lt;span class="k"&gt;type&lt;/span&gt; &lt;span class="nc"&gt;Query&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt;
+    &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;Weather&lt;/span&gt; &lt;span class="k"&gt;of&lt;/span&gt; &lt;span class="n"&gt;day&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;string&lt;/span&gt;
+
+    &lt;span class="k"&gt;let&lt;/span&gt; &lt;span class="nv"&gt;mediator&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;function&lt;/span&gt;
+        &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;Weather&lt;/span&gt; &lt;span class="n"&gt;d&lt;/span&gt; &lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;
+            &lt;span class="k"&gt;let&lt;/span&gt; &lt;span class="nv"&gt;rng&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;Random&lt;/span&gt;&lt;span class="bp"&gt;()&lt;/span&gt;
+            &lt;span class="o"&gt;{&lt;/span&gt;
+                &lt;span class="n"&gt;Date&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nn"&gt;DateTime&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Now&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt;
+                &lt;span class="n"&gt;TemperatureC&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;rng&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Next&lt;/span&gt;&lt;span class="o"&gt;(-&lt;/span&gt;&lt;span class="mi"&gt;20&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;55&lt;/span&gt;&lt;span class="o"&gt;);&lt;/span&gt;
+                &lt;span class="n"&gt;Summary&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;sprintf&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;Weather for %s&amp;quot;&lt;/span&gt; &lt;span class="n"&gt;d&lt;/span&gt;
+            &lt;span class="o"&gt;}&lt;/span&gt; &lt;span class="o"&gt;|&amp;gt;&lt;/span&gt; &lt;span class="nn"&gt;Task&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;FromResult&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Here we have defined the &lt;code&gt;Query&lt;/code&gt; discriminated union (of the single &lt;code&gt;Weather&lt;/code&gt; case for now - we will add to this later) and a &lt;code&gt;mediator&lt;/code&gt; function which implicitly takes the &lt;code&gt;Query&lt;/code&gt; type and dispatches behavior based on the case.
+For simplicity, the handler logic is within the &lt;code&gt;mediator&lt;/code&gt; function itself, but we could easily define a &lt;code&gt;weatherHandler&lt;/code&gt; function for the &lt;code&gt;mediator&lt;/code&gt; to call.
+This is essentially the equivalent of the &lt;code&gt;WeatherQuery&lt;/code&gt; and &lt;code&gt;WeatherQueryHandler&lt;/code&gt; we defined before.
+Already this is less code and requires no additional packages.&lt;/p&gt;
+&lt;p&gt;Now update the &lt;code&gt;WeatherForecastController&lt;/code&gt; as below:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="o"&gt;[&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;ApiController&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;]&lt;/span&gt;
+&lt;span class="o"&gt;[&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;Route&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;[controller]&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;)&amp;gt;]&lt;/span&gt;
+&lt;span class="k"&gt;type&lt;/span&gt; &lt;span class="nc"&gt;WeatherForecastController&lt;/span&gt; &lt;span class="bp"&gt;()&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt;
+    &lt;span class="k"&gt;inherit&lt;/span&gt; &lt;span class="n"&gt;ControllerBase&lt;/span&gt;&lt;span class="bp"&gt;()&lt;/span&gt;
+
+    &lt;span class="o"&gt;[&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;HttpGet&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;{day}&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;)&amp;gt;]&lt;/span&gt;
+    &lt;span class="k"&gt;member&lt;/span&gt; &lt;span class="n"&gt;this&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Get&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;day&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt;
+        &lt;span class="n"&gt;Weather&lt;/span&gt; &lt;span class="n"&gt;day&lt;/span&gt; &lt;span class="o"&gt;|&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;mediator&lt;/span&gt; &lt;span class="o"&gt;|&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;this&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Ok&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;This too is simpler since we no longer need to inject the mediator, and we can naturally compose a pipeline.
+Running the application and navigating to &lt;a href="https://localhost:5001/WeatherForecast/today"&gt;https://localhost:5001/WeatherForecast/today&lt;/a&gt;, the response is familiar:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;quot;result&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:{&lt;/span&gt;
+        &lt;span class="nt"&gt;&amp;quot;date&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;2020-10-24T11:13:49.6887379-05:00&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+        &lt;span class="nt"&gt;&amp;quot;temperatureC&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+        &lt;span class="nt"&gt;&amp;quot;summary&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;Weather for today&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+        &lt;span class="nt"&gt;&amp;quot;temperatureF&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="mi"&gt;33&lt;/span&gt;
+        &lt;span class="p"&gt;},&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;quot;id&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;quot;exception&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="kc"&gt;null&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;quot;status&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="mi"&gt;5&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;quot;isCanceled&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="kc"&gt;false&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;quot;isCompleted&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="kc"&gt;true&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;quot;isCompletedSuccessfully&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="kc"&gt;true&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;quot;creationOptions&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;quot;asyncState&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="kc"&gt;null&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;quot;isFaulted&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="kc"&gt;false&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Let's see what happens when we fail to handle a query as before.
+Update the &lt;code&gt;Query&lt;/code&gt; type with a &lt;code&gt;Bad&lt;/code&gt; case and add a route in the controller:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c1"&gt;// Weather.fs&lt;/span&gt;
+    &lt;span class="k"&gt;type&lt;/span&gt; &lt;span class="nc"&gt;Query&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt;
+    &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;Weather&lt;/span&gt; &lt;span class="k"&gt;of&lt;/span&gt; &lt;span class="n"&gt;day&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;string&lt;/span&gt;
+    &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;Bad&lt;/span&gt; &lt;span class="k"&gt;of&lt;/span&gt; &lt;span class="n"&gt;day&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;string&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;bad&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;string&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c1"&gt;// WeatherForecastController.fs&lt;/span&gt;
+    &lt;span class="o"&gt;[&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;HttpGet&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;{day}/{bad}&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;)&amp;gt;]&lt;/span&gt;
+    &lt;span class="k"&gt;member&lt;/span&gt; &lt;span class="n"&gt;this&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;BadGet&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;day&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="n"&gt;bad&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt;
+        &lt;span class="n"&gt;Bad&lt;/span&gt; &lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;day&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="n"&gt;bad&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt; &lt;span class="o"&gt;|&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;mediator&lt;/span&gt; &lt;span class="o"&gt;|&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;this&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Ok&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Now both in the editor and when we build the project, we get a helpful warning like the below:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;/home/james/source/repos/MediatrVsDU/ExampleDU/Weather.fs(13,20): warning FS0025: Incomplete pattern matches on this expression. For example, the value `'Bad &amp;gt;(&lt;em&gt;, &lt;/em&gt;)' may indicate a case not covered by the pattern(s). [/home/james/source/repos/MediatrVsDU/ExampleDU/ExampleDU.fsproj]&lt;/p&gt;
+&lt;p&gt;1 Warning(s)&lt;/p&gt;
+&lt;p&gt;0 Error(s)&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Since F# is able to check at compile time that all cases of a discriminated union are accounted for, it is very easy to tell what we missed and where to fix it.
+Not only that, but having a defined &lt;code&gt;mediator&lt;/code&gt; function allows us to quickly identify how a particular request is handled rather than having to rely on naming conventions or looking at type signatures.&lt;/p&gt;
+&lt;p&gt;Of course, if we ignore this warning and run the application anyway, navigating to &lt;a href="https://localhost:5001/WeatherForecast/today/bad"&gt;https://localhost:5001/WeatherForecast/today/bad&lt;/a&gt; will produce a runtime error as before:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;fail: Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware[1]
+     An unhandled exception has occurred while executing the request.
+Microsoft.FSharp.Core.MatchFailureException: The match cases were incomplete&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2&gt;Conclusion&lt;/h2&gt;
+&lt;p&gt;In this post, we saw two different techniques within the .NET ecosystem of isolating business logic from infrastructure concerns such as HTTP requests and responses and briefly discussed the benefits of doing so.
+In the C# world, the MediatR library accomplishes this with a little setup but can leave us open to surprises at runtime and obfuscate the logical flow of our application.
+We then saw that we can mitigate these issues in F# by leveraging discriminated unions to get better compile time feedback.&lt;/p&gt;
+&lt;p&gt;Of course, if you are already using one language for a particular project, you will likely not be able to switch to the other.
+Still, I hope this information can help to inform the language choice on your next project (which may not be far away if you have a &lt;a href="https://microservices.io/"&gt;microservice&lt;/a&gt; architecture) or give ideas about how to leverage this pattern within an existing .NET project.&lt;/p&gt;</content><category term="Development"></category><category term="MediatR"></category><category term=".NET"></category><category term="C#"></category><category term="F#"></category><category term="Patterns"></category><category term="FunctionalProgramming"></category></entry></feed>

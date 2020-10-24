@@ -16,7 +16,7 @@
   <link rel="stylesheet" type="text/css" href="https://jameselliothart.github.io/theme/font-awesome/css/font-awesome.min.css">
 
 
-    <link href="https://jameselliothart.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="A Hart's Eye View Atom">
+    <link href="https://jameselliothart.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="A Hart's View Atom">
 
 
 
@@ -26,14 +26,14 @@
 <meta name="description" content="Welcome Welcome to the third and final post in the Maps of DevOps series! In The First Way: Systems Thinking we used a mock scenario of mailing letters to demonstrate the importance of completing a finished product (sealed and mailed letters) over accumulating inventory (folded paper). We used this as …" />
 <meta name="keywords" content="DevOps, MapsOfMeaning, TheThreeWays, TheThirdWayOfDevOps, ContinuousLearning">
 
-<meta property="og:site_name" content="A Hart's Eye View"/>
+<meta property="og:site_name" content="A Hart's View"/>
 <meta property="og:title" content="Maps of DevOps: The Third Way"/>
 <meta property="og:description" content="Welcome Welcome to the third and final post in the Maps of DevOps series! In The First Way: Systems Thinking we used a mock scenario of mailing letters to demonstrate the importance of completing a finished product (sealed and mailed letters) over accumulating inventory (folded paper). We used this as …"/>
 <meta property="og:locale" content="en_US"/>
-<meta property="og:url" content="https://jameselliothart.github.io/maps-of-devops-the-third-way.html"/>
+<meta property="og:url" content="https://jameselliothart.github.io/drafts/maps-of-devops-the-third-way.html"/>
 <meta property="og:type" content="article"/>
 <meta property="article:published_time" content="2020-05-29 00:00:00-05:00"/>
-<meta property="article:modified_time" content=""/>
+<meta property="article:modified_time" content="2020-10-12 00:00:00-05:00"/>
 <meta property="article:author" content="https://jameselliothart.github.io/author/james-hart.html">
 <meta property="article:section" content="DevOps"/>
 <meta property="article:tag" content="DevOps"/>
@@ -43,16 +43,16 @@
 <meta property="article:tag" content="ContinuousLearning"/>
 <meta property="og:image" content="/images/me.jpeg">
 
-  <title>A Hart's Eye View &ndash; Maps of DevOps: The Third Way</title>
+  <title>A Hart's View &ndash; Maps of DevOps: The Third Way</title>
 
 </head>
 <body>
   <aside>
     <div>
       <a href="https://jameselliothart.github.io">
-        <img src="/images/me.jpeg" alt="A Hart's Eye View" title="A Hart's Eye View">
+        <img src="/images/me.jpeg" alt="A Hart's View" title="A Hart's View">
       </a>
-      <h1><a href="https://jameselliothart.github.io">A Hart's Eye View</a></h1>
+      <h1><a href="https://jameselliothart.github.io">A Hart's View</a></h1>
 
 
       <nav>
@@ -94,6 +94,7 @@
           Posted on May 29, 2020 in <a href="https://jameselliothart.github.io/category/devops.html">DevOps</a>
 
           </br>
+            Updated: October 12, 2020
     </p>
   </header>
 
@@ -102,22 +103,46 @@
     <h2>Welcome</h2>
 <p>Welcome to the third and final post in the Maps of DevOps series!
 In <a href="maps-of-devops-the-first-way">The First Way: Systems Thinking</a> we used a mock scenario of mailing letters to demonstrate the importance of completing a finished product (sealed and mailed letters) over accumulating inventory (folded paper).
-We used this as an analogy for a Development organization delivering working software to production rather than letting it sit undeployed, and this inherently meant that the strict boundary between coding applications (development) and deploying applications (operations) needed to be broken down.
-This focus on creating value worked well when we knew what we were doing (when we were in Known Territory), but in <a href="maps-of-devops-the-second-way">The Second Way: Amplify Feedback Loops</a> we found it was insufficient once Anomaly appeared and cast us into the Unknown, aka Chaos.
-To handle this, we needed to be able to proactively gather and respond to information about the validity of our assumptions and the effects of our efforts.</p>
+We used this as an analogy for a Development organization delivering working software to production rather than letting it sit undeployed, and this necessarily meant that the strict boundary between programming applications (development) and deploying applications (operations) needed to be broken down.</p>
+<p>This focus on creating value worked well when we knew what we were doing (in Known Territory), but in <a href="maps-of-devops-the-second-way">The Second Way: Amplify Feedback Loops</a> we found it was insufficient once Anomaly appeared and we were consumed by Chaos in the Unknown.
+To mitigate this, we needed to be able to proactively gather and respond to information about the validity of our assumptions and the effects of our efforts.</p>
 <h2>A Return to the Beginning</h2>
-<p>We noted in The First Way that the Development and Operations organizations are composed of smaller units just as the business was composed of Dev and Ops.</p>
-<p>Now let us expand our scenario to a full-scale business enterprise: instead of one Folder, there is a team of Folders reporting to a team lead with each department composed of many teams, some middle managers, and department heads.
-As a large organization is not created <em>ex nihilo</em> but evolves from a small one, one can imagine the natural expansion a real business would undergo to reach this rather generic org structure.</p>
-<p>At the same time one can also imagine that as our enterprise grows, the department heads, managers, and even team leads get further away from the day-to-day work done by the Folders.
-This is a necessary shift but also creates a dilemma: even if we know <em>what</em> has to happen to improve department efficiency, <em>how</em> do we implement
-From this thought experiment, it is obvious that any improvement in the efficiency of a department must have a corresponding improvement in the efficiency in its teams and ultimately the individuals within it.
-It is necessary for higher levels of management to operate at higher levels of abstraction to be able to focus on the broader company or even (maybe especially) industry trends.
+<p>We noted in the post on The First Way that the Development and Operations organizations are composed of smaller units just as the business is composed of Dev and Ops.
+We used that observation to analyze the business as if it were composed of just those atomic units of Paper Folder and Letter Mailer.
+To complete our analysis, we must return to that view of a full-scale enterprise with teams of Folders reporting up through various layers of management.</p>
+<p>As we look up through these layers, those responsible for managing and directing work get further away from the work itself.
+This shift is necessary so that higher levels of management can operate at higher levels of abstraction.
+Their focus is on the broader company or even (maybe especially) industry trends and direction.
+However, the business can become unhealthy if information - the lifeblood of any system - stops flowing between levels of the organization.</p>
+<blockquote>
+<p>A system is no better than its sensory organs</p>
+<p>-John Gall, <em>Systemantics</em></p>
+</blockquote>
+<p>In the same way that industry trends will leave a business behind if it fails to update its strategy, the internal processes the business follows will become outdated and inefficient if it does not maintain them.
+Our world falls apart without constant diligence.</p>
+<p>Managers have access to insight across a greater cross-section of the company or even of the industry.
+And have influence over a greater amount of budget to allocate when necessary.
+On the subject of budget, what would be even better is to give everyone some budget of time to improve.
+This allows everyone to experiment and make micro-improvements while taking some pressure off management.
+The alternative only creates the friction of micro-management and is inefficient for both parties.</p>
+<p>Even better is to allocate time for everyone to be able to improve whatever piece of the process over which they have influence.</p>
+<p>It is clear from this that any improvement in efficiency within or between the organizations must come from improvements in the workflows of the individuals involved.
+As obvious as this may be, the higher levels of management with the most influence on whether and what investments are made to that end often have the least natural visibility into <em>where</em> those investments should be made.
+It becomes difficult if not impossible to improve a process as we lose sight of what the process actually is.
+This is the reason for the authors' insistence in <em>Leading the Transformation</em> that executives "walk the floor" to see day-to-day operations first-hand.</p>
+<p>Often those operating in a particular workflow will already have ideas for improvement but even if not, they will at least have the most intimate knowledge of where the bottlenecks are.
+With this information in hand, manager are better able to perform their role of removing barriers to allow people to work on improving what they can or to use their greater experience to offer solutions to the newly articulated problems.
+Some changes will be out of scope for any one individual or team to implement, and this again is where managers can take the initiative to drive those changes armed with the knowledge that it will be a worthy investment.</p>
+<p>Time is money.
+Where to invest time to improve - maybe even money for commercial tooling or consulting.
+There are various points of friction along the path from idea to product.
+People doing the work will already have an idea of many of them and likely have ideas to lessen.
+Or they may not, but if no one else knows the process, there is no chance of improvement.
+Each person has a discretionary budget - even if it is only discretionary time - which can be used for improvements to existing processes.</p>
+<p>From this thought experiment, it is obvious that any improvement in the efficiency of a department must have a corresponding improvement in the efficiency in its teams and ultimately the individuals within it.
 This allows them to know what direction the company or industry are going, what budgetary constraints are in place, etc.
 However, this disconnect also means that any action they take on their own is necessarily painted with a broad brush and lacks the necessary details to be effective.
-It is through communication between the different levels of the organization that the details from lower levels are able to keep higher levels up to date with the day-to-day functioning of the organization's processes and the higher levels are able to keep lower levels informed about the company direction so that their efforts can be focused in the right place.
-Lower levels have a limited circle of influence to affect change.
-Circle of influence vs circle of concern - differences between the levels of an organization.</p>
+It is through communication between the different levels of the organization that the details from lower levels are able to keep higher levels up to date with the day-to-day functioning of the organization's processes and the higher levels are able to keep lower levels informed about the company direction so that their efforts can be focused in the right place.</p>
 <p>What is not obvious is how to bring about such an organizational change.
 Many organizations find themselves plagued by inefficiencies and recognize they need to improve but do not have the insight to know where to begin, these inefficiencies having been the result of slow decay over time.
 Suddenly, the idea to "do Agile" and "implement DevOps"
@@ -132,7 +157,7 @@ Gather their ideas for improvement, but this is also a chance for more senior le
 <h2>The Third Way: Continuous Learning</h2>
 <p><img alt="The Third Way" src="https://jameselliothart.github.io/images/maps-of-devops-third/TheThirdWay.png"></p>
 <p>What we derive from this is that the fractal nature of the original map means that the first two ways (Systems Thinking and Amplify Feedback Loops) must be applied down the whole chain.
-What is true at one level of analysis (business) is true at all others (department and individual).
+What is true at one level of analysis (enterprise) is true at all others (department and individual).
 That is to say, each individual should try to improve their own workflow and gather feedback on what is working and what is not.
 If everyone does just a little and shares it, it doesn't take long for those gains to compound.
 What does it look like for an individual to embody Systems Thinking?
@@ -144,22 +169,20 @@ Share that knowledge with others.
 See if it works for them, what suggestions they have, what they've done.
 The Third Way is the recognition that if this happens at every level, a culture of continuous learning and improvement has developed.
 This can't be mandated from the top down, it must be encouraged from the ground up.</p>
-<blockquote>
-<p>A system is no better than its sensory organs
--John Gall, <em>Systemantics</em></p>
-</blockquote>
 <p>Ultimately, the sensory organs of an organization are the people living and working in it.
 Thus each individual should be encouraged to make their own hypotheses, run experiments, and share the outcomes with others.</p>
 <p>Internal wiki pages such as can be created with <a href="https://www.atlassian.com/software/confluence">Confluence</a> and <a href="https://products.office.com/en-us/sharepoint/collaboration">SharePoint</a>, collaboration apps like <a href="https://slack.com/">Slack</a> and <a href="https://products.office.com/en-us/microsoft-teams/group-chat-software">Microsoft Teams</a>, and source code open to the company all help to facilitate this.</p>
 <p>That said, not every change can be driven at the individual level - this is the important role that leadership serves in having a broader perspective.
-However, that perspective must be kept healthy and up-to-date.
-This is the reason for the authors' insistence in <em>Leading the Transformation</em> that executives "walk the floor" to see day-to-day operations first-hand.</p>
+However, that perspective must be kept healthy and up-to-date.</p>
 <p>Without constant effort, systems fall apart of their own accord.
 This is the unavoidable and continual march of entropic decay.</p>
 <blockquote>
 <p>Improving daily work is even more important than doing daily work
 -Gene Kim, <em>The Phoenix Project</em></p>
 </blockquote>
+<h2>How To Use This Info</h2>
+<h3>Tools of the Trade</h3>
+<h3>Spotlight</h3>
 <h2>References</h2>
 <ol>
 <li>Leading the Transformation: Applying Agile and DevOps Principles at Scale, Gary Gruver, Tommy Mouser, Gene Kim (2015), IT Revolution Press (BOOK) - <a href="https://www.amazon.com/Leading-Transformation-Applying-DevOps-Principles/dp/1942788010">https://www.amazon.com/Leading-Transformation-Applying-DevOps-Principles/dp/1942788010</a></li>
@@ -197,7 +220,7 @@ This is the unavoidable and continual march of entropic decay.</p>
 {
   "@context" : "http://schema.org",
   "@type" : "Blog",
-  "name": " A Hart's Eye View ",
+  "name": " A Hart's View ",
   "url" : "https://jameselliothart.github.io",
   "image": "/images/me.jpeg",
   "description": ""
