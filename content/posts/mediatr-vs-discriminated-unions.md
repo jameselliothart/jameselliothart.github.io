@@ -22,7 +22,7 @@ Full source code is available [here](https://github.com/jameselliothart/MediatrV
 ## MediatR
 
 First we'll explore the MediatR side.
-We create the project add the necessary nuget packages:
+We create the project and add the necessary nuget packages:
 
 ```shell
 $ mkdir MediatrVsDU
