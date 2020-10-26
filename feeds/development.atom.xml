@@ -12,7 +12,7 @@ We will see that discriminated unions offer an advantage here by giving us more 
 &lt;p&gt;Full source code is available &lt;a href="https://github.com/jameselliothart/MediatrVsDU"&gt;here&lt;/a&gt;.&lt;/p&gt;
 &lt;h2&gt;MediatR&lt;/h2&gt;
 &lt;p&gt;First we'll explore the MediatR side.
-We create the project add the necessary nuget packages:&lt;/p&gt;
+We create the project and add the necessary nuget packages:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ mkdir MediatrVsDU
 $ &lt;span class="nb"&gt;cd&lt;/span&gt; MediatrVsDU
 $ dotnet new sln
