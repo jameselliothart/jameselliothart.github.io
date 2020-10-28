@@ -307,4 +307,4 @@ We can run the program with commands like this:
 ## Wrapping Up
 
 That wraps up the Python implementation of `done`.
-Next we will cover `todo` and get a small look at reactive programming with `RxPy`.
+Next we will cover `todo` and get a small look at reactive programming with [RxPY](https://github.com/ReactiveX/RxPY).
