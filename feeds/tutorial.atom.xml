@@ -1,5 +1,170 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>A Hart's View - Tutorial</title><link href="https://jameselliothart.github.io/" rel="alternate"></link><link href="https://jameselliothart.github.io/feeds/tutorial.atom.xml" rel="self"></link><id>https://jameselliothart.github.io/</id><updated>2020-10-28T00:00:00-05:00</updated><entry><title>Todo Kata - Python Part 2</title><link href="https://jameselliothart.github.io/todo-kata-python-part-2.html" rel="alternate"></link><published>2020-10-28T00:00:00-05:00</published><updated>2020-10-28T00:00:00-05:00</updated><author><name>James Hart</name></author><id>tag:jameselliothart.github.io,2020-10-28:/todo-kata-python-part-2.html</id><summary type="html">&lt;p&gt;In Part 2 of the Python kata, we will implement the &lt;code&gt;todo&lt;/code&gt; application.
+<feed xmlns="http://www.w3.org/2005/Atom"><title>A Hart's View - Tutorial</title><link href="https://jameselliothart.github.io/" rel="alternate"></link><link href="https://jameselliothart.github.io/feeds/tutorial.atom.xml" rel="self"></link><id>https://jameselliothart.github.io/</id><updated>2020-10-30T00:00:00-05:00</updated><entry><title>Todo Kata - Python Part 3</title><link href="https://jameselliothart.github.io/todo-kata-python-part-3.html" rel="alternate"></link><published>2020-10-30T00:00:00-05:00</published><updated>2020-10-30T00:00:00-05:00</updated><author><name>James Hart</name></author><id>tag:jameselliothart.github.io,2020-10-30:/todo-kata-python-part-3.html</id><summary type="html">&lt;p&gt;Welcome to Part 3 of the Python Todo kata.
+In this final part, we will revisit the &lt;code&gt;done&lt;/code&gt; application and modify it to work with a SQLite database instead of a text file.&lt;/p&gt;
+&lt;p&gt;We will see that Python makes this very easy with its built-in integration with SQLite in the …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Welcome to Part 3 of the Python Todo kata.
+In this final part, we will revisit the &lt;code&gt;done&lt;/code&gt; application and modify it to work with a SQLite database instead of a text file.&lt;/p&gt;
+&lt;p&gt;We will see that Python makes this very easy with its built-in integration with SQLite in the standard library.
+In creating this post, I found the following resources very useful:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;This &lt;a href="https://www.digitalocean.com/community/tutorials/how-to-use-the-sqlite3-module-in-python-3"&gt;Digital Ocean&lt;/a&gt; tutorial (as an aside, I have been pleasantly surprised by the high quality of several Digital Ocean community tutorials given it is actually a cloud platform)&lt;/li&gt;
+&lt;li&gt;The &lt;a href="https://docs.python.org/3.6/library/sqlite3.html#sqlite3-controlling-transactions"&gt;Python docs&lt;/a&gt; covering SQLite transactions&lt;/li&gt;
+&lt;li&gt;This &lt;a href="https://stackoverflow.com/a/1830499"&gt;StackOverflow&lt;/a&gt; answer showing how to retrieve a Python &lt;code&gt;datetime&lt;/code&gt; object from SQLite rather than a string (SQLite &lt;a href="https://www.sqlite.org/datatype3.html"&gt;has no datetime datatype&lt;/a&gt; as other databases do)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Series Outline&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;a href="todo-kata-introduction"&gt;Intro&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;F# Series&lt;ol&gt;
+&lt;li&gt;&lt;a href="todo-kata-fsharp-part-1"&gt;Part 1 - Done&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="todo-kata-fsharp-part-2"&gt;Part 2 - Todo&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="todo-kata-fsharp-part-3"&gt;Part 3 - SQLite&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;Python Series&lt;ol&gt;
+&lt;li&gt;&lt;a href="todo-kata-python-part-1"&gt;Part 1 - Done&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="todo-kata-python-part-2"&gt;Part 2 - Todo&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Part 3 - SQLite (you are here)&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Full source code is available &lt;a href="https://github.com/jameselliothart/PyTodo"&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;h2&gt;done_db.py&lt;/h2&gt;
+&lt;p&gt;The SQLite implementation will live in the &lt;code&gt;done_db.py&lt;/code&gt; file.
+We will start with the imports we'll need and by defining the path to the database file.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;os&lt;/span&gt;
+&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;done_domain&lt;/span&gt; &lt;span class="k"&gt;as&lt;/span&gt; &lt;span class="nn"&gt;done&lt;/span&gt;
+&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;sqlite3&lt;/span&gt;
+&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;datetime&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;datetime&lt;/span&gt;
+&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;typing&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;List&lt;/span&gt;
+&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;contextlib&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;contextmanager&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;closing&lt;/span&gt;
+
+&lt;span class="n"&gt;PATH&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;done.db&amp;#39;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;The first function we will define, &lt;code&gt;_cursor&lt;/code&gt;, will be a context manager for our connection to the database:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="nd"&gt;@contextmanager&lt;/span&gt;
+&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;_cursor&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;db_path&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="nb"&gt;str&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+    &lt;span class="k"&gt;with&lt;/span&gt; &lt;span class="n"&gt;closing&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;sqlite3&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;connect&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;db_path&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;isolation_level&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="kc"&gt;None&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;detect_types&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;sqlite3&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;PARSE_DECLTYPES&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt; &lt;span class="k"&gt;as&lt;/span&gt; &lt;span class="n"&gt;connection&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+        &lt;span class="k"&gt;with&lt;/span&gt; &lt;span class="n"&gt;closing&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;connection&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;cursor&lt;/span&gt;&lt;span class="p"&gt;())&lt;/span&gt; &lt;span class="k"&gt;as&lt;/span&gt; &lt;span class="n"&gt;cursor&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+            &lt;span class="k"&gt;yield&lt;/span&gt; &lt;span class="n"&gt;cursor&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;This looks pretty ugly, but the good news is that we will never have to worry about these details again as we use &lt;code&gt;_cursor&lt;/code&gt; to interact with the database in our other functions.
+Technically we could avoid creating the &lt;code&gt;cursor&lt;/code&gt; object because SQLite will implicitly create it for us via &lt;a href="https://docs.python.org/3/library/sqlite3.html#using-shortcut-methods"&gt;shortcut methods&lt;/a&gt;.
+However, we may as well be explicit since we are encapsulating all the implementation details here anyway.&lt;/p&gt;
+&lt;p&gt;To explain some of those details:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://docs.python.org/3.6/library/contextlib.html#contextlib.closing"&gt;&lt;code&gt;closing&lt;/code&gt;&lt;/a&gt; creates a context manager which calls &lt;code&gt;close()&lt;/code&gt; for the underlying object as cleanup&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;isolation_level=None&lt;/code&gt; configures the connection to autocommit mode (a discussion of database transactions is out of scope, but you can read more &lt;a href="https://docs.python.org/3/library/sqlite3.html#controlling-transactions"&gt;here&lt;/a&gt;)&lt;/li&gt;
+&lt;li&gt;The &lt;code&gt;detect_types&lt;/code&gt; argument is half of the answer to being able to automatically retrieve &lt;code&gt;datetime&lt;/code&gt; objects (the other half is using a &lt;code&gt;TIMESTAMP&lt;/code&gt; datatype which we will see below)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;We will define one more helper function to initialize the database before we get to the persistence logic:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;_initialize_db&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;db_path&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="nb"&gt;str&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+    &lt;span class="k"&gt;with&lt;/span&gt; &lt;span class="n"&gt;_cursor&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;db_path&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="k"&gt;as&lt;/span&gt; &lt;span class="n"&gt;cursor&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+        &lt;span class="n"&gt;cursor&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;execute&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&amp;quot;&amp;quot;&lt;/span&gt;
+&lt;span class="s2"&gt;            CREATE TABLE IF NOT EXISTS CompletedItems (&lt;/span&gt;
+&lt;span class="s2"&gt;                Id INTEGER PRIMARY KEY,&lt;/span&gt;
+&lt;span class="s2"&gt;                CompletedOn TIMESTAMP,&lt;/span&gt;
+&lt;span class="s2"&gt;                Item VARCHAR(255)&lt;/span&gt;
+&lt;span class="s2"&gt;                )&amp;quot;&amp;quot;&amp;quot;&lt;/span&gt;
+            &lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Here we use the &lt;code&gt;_cursor&lt;/code&gt; context manager we just defined to create the &lt;code&gt;CompletedItems&lt;/code&gt; table to hold our completed items (notice SQLite has a nice syntax for creating a table if it does not exist).
+The &lt;code&gt;TIMESTAMP&lt;/code&gt; datatype declaration for the &lt;code&gt;CompletedOn&lt;/code&gt; column is not part of the SQLite API but allows Python to translate it into &lt;code&gt;datetime&lt;/code&gt; objects when the connection uses the &lt;code&gt;detect_types&lt;/code&gt; specification we saw earlier.&lt;/p&gt;
+&lt;p&gt;Next we will define the &lt;code&gt;save&lt;/code&gt; and &lt;code&gt;get&lt;/code&gt; functions which we will swap in for the &lt;code&gt;done_file&lt;/code&gt; functions.
+Here is &lt;code&gt;save&lt;/code&gt;:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;save&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;db_path&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="nb"&gt;str&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;completed_items&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;List&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;done&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;CompletedItem&lt;/span&gt;&lt;span class="p"&gt;]):&lt;/span&gt;
+    &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="ow"&gt;not&lt;/span&gt; &lt;span class="n"&gt;os&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;path&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;exists&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;PATH&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt; &lt;span class="n"&gt;_initialize_db&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;PATH&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="k"&gt;with&lt;/span&gt; &lt;span class="n"&gt;_cursor&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;db_path&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="k"&gt;as&lt;/span&gt; &lt;span class="n"&gt;cursor&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+        &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;completed_item&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="n"&gt;completed_items&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+            &lt;span class="n"&gt;cursor&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;execute&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;
+                &lt;span class="s2"&gt;&amp;quot;INSERT INTO CompletedItems (CompletedOn, Item) VALUES (?, ?)&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+                &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;completed_item&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;completed_on&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;completed_item&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;item&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+                &lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;First we check if the database file exists and initialize if not.
+Then we insert our completed item using parameter substitution (the &lt;code&gt;?&lt;/code&gt;) - this is a best practice for parametrized SQL to avoid &lt;a href="https://owasp.org/www-community/attacks/SQL_Injection"&gt;SQL injection&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;We finish off the file with the definition for &lt;code&gt;get&lt;/code&gt;:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;get&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;db_path&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="nb"&gt;str&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;completed_since&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;datetime&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;List&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;done&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;CompletedItem&lt;/span&gt;&lt;span class="p"&gt;]:&lt;/span&gt;
+    &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="ow"&gt;not&lt;/span&gt; &lt;span class="n"&gt;os&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;path&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;exists&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;PATH&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt; &lt;span class="n"&gt;_initialize_db&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;PATH&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="k"&gt;with&lt;/span&gt; &lt;span class="n"&gt;_cursor&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;db_path&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="k"&gt;as&lt;/span&gt; &lt;span class="n"&gt;cursor&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+        &lt;span class="n"&gt;rows&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;cursor&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;execute&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;
+            &lt;span class="s2"&gt;&amp;quot;SELECT Item, CompletedOn from CompletedItems WHERE CompletedOn &amp;gt; ?&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+            &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;completed_since&lt;/span&gt;&lt;span class="p"&gt;,)&lt;/span&gt;
+            &lt;span class="p"&gt;)&lt;/span&gt;
+        &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;done&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;CompletedItem&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;row&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;row&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="n"&gt;rows&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;fetchall&lt;/span&gt;&lt;span class="p"&gt;()]&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;We again ensure the database exists and use parameter substitution in our query.
+The &lt;code&gt;*row&lt;/code&gt; expansion allows us to construct &lt;code&gt;CompletedItem&lt;/code&gt;s from the &lt;code&gt;Item&lt;/code&gt; and &lt;code&gt;CompletedOn&lt;/code&gt; values returned in the &lt;code&gt;row&lt;/code&gt;.
+(As an aside, the &lt;code&gt;sqlite3.Row&lt;/code&gt; class &lt;a href="https://docs.python.org/3/library/sqlite3.html#accessing-columns-by-name-instead-of-by-index"&gt;enables&lt;/a&gt; accessing columns by name instead of by index though we do not need that here.)&lt;/p&gt;
+&lt;p&gt;Now all that is left to do is to update &lt;code&gt;done&lt;/code&gt; to use our newly defined &lt;code&gt;save&lt;/code&gt; and &lt;code&gt;get&lt;/code&gt; rather than the ones from &lt;code&gt;done_file&lt;/code&gt;.&lt;/p&gt;
+&lt;h2&gt;done.py&lt;/h2&gt;
+&lt;p&gt;In &lt;code&gt;done.py&lt;/code&gt;, we add an import for &lt;code&gt;done_db&lt;/code&gt; and switch out the &lt;code&gt;save&lt;/code&gt; and &lt;code&gt;get&lt;/code&gt; functions:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;done_db&lt;/span&gt;
+
+&lt;span class="c1"&gt;# save = partial(done_file.save, done_file.PATH)&lt;/span&gt;
+&lt;span class="c1"&gt;# get = partial(done_file.get, done_file.PATH)&lt;/span&gt;
+
+&lt;span class="n"&gt;save&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;partial&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;done_db&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;save&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;done_db&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;PATH&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;get&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;partial&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;done_db&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;get&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;done_db&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;PATH&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;That's it!
+No other updates are required for &lt;code&gt;done&lt;/code&gt; and &lt;code&gt;todo&lt;/code&gt; to use our SQLite persistence logic for completed items.
+The ease with which we made this change provides some validation of our loosely coupled application design.&lt;/p&gt;
+&lt;h2&gt;Demonstration&lt;/h2&gt;
+&lt;p&gt;We can now run either the &lt;code&gt;python done.py&lt;/code&gt; or &lt;code&gt;python todo.py&lt;/code&gt; commands to log a completed item, and they will be saved to the done.db database.
+To see this better in VS Code, the &lt;code&gt;alexcvzz.vscode-sqlite&lt;/code&gt; extension allows us to query the database directly.
+Here are the results for me:&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Id&lt;/th&gt;
+&lt;th&gt;CompletedOn&lt;/th&gt;
+&lt;th&gt;Item&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;1&lt;/td&gt;
+&lt;td&gt;2020-10-10 10:33:03.696278&lt;/td&gt;
+&lt;td&gt;done db&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;2&lt;/td&gt;
+&lt;td&gt;2020-10-10 10:52:26.556313&lt;/td&gt;
+&lt;td&gt;add a todo&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;3&lt;/td&gt;
+&lt;td&gt;2020-10-29 18:48:52.621930&lt;/td&gt;
+&lt;td&gt;complete sqlite&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;And of course, we can query for these items via &lt;code&gt;python done.py&lt;/code&gt; as well:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ python &lt;span class="k"&gt;done&lt;/span&gt;.py d &lt;span class="m"&gt;0&lt;/span&gt;
+&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="m"&gt;2020&lt;/span&gt;-10-29T18:48:52.621930&lt;span class="o"&gt;]&lt;/span&gt; &lt;span class="nb"&gt;complete&lt;/span&gt; sqlite
+$ python &lt;span class="k"&gt;done&lt;/span&gt;.py w &lt;span class="m"&gt;3&lt;/span&gt;
+&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="m"&gt;2020&lt;/span&gt;-10-10T10:33:03.696278&lt;span class="o"&gt;]&lt;/span&gt; &lt;span class="k"&gt;done&lt;/span&gt; db
+&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="m"&gt;2020&lt;/span&gt;-10-10T10:52:26.556313&lt;span class="o"&gt;]&lt;/span&gt; add a todo
+&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="m"&gt;2020&lt;/span&gt;-10-29T18:48:52.621930&lt;span class="o"&gt;]&lt;/span&gt; &lt;span class="nb"&gt;complete&lt;/span&gt; sqlite
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;Wrapping Up&lt;/h2&gt;
+&lt;p&gt;That concludes the Python series of the Todo kata!
+In this series, we saw the ease with which we can work with both text files and SQLite databases in Python using just the standard library.
+Additionally, we were able to get some experience with static typing via &lt;code&gt;mypy&lt;/code&gt;, creating command-line interfaces with &lt;code&gt;click&lt;/code&gt;, and even some reactive programming with &lt;code&gt;RxPY&lt;/code&gt;.
+Of course, there is much more we could have covered about any of these topics, but I think this gives a good starting point for diving deeper and creating more complex applications.&lt;/p&gt;</content><category term="Tutorial"></category><category term="Tutorial"></category><category term="Python"></category><category term="Todo"></category><category term="Development"></category><category term="SQLite"></category></entry><entry><title>Todo Kata - Python Part 2</title><link href="https://jameselliothart.github.io/todo-kata-python-part-2.html" rel="alternate"></link><published>2020-10-28T00:00:00-05:00</published><updated>2020-10-28T00:00:00-05:00</updated><author><name>James Hart</name></author><id>tag:jameselliothart.github.io,2020-10-28:/todo-kata-python-part-2.html</id><summary type="html">&lt;p&gt;In Part 2 of the Python kata, we will implement the &lt;code&gt;todo&lt;/code&gt; application.
 This will allow us to keep track of a todo list, and it will utilize the &lt;code&gt;done&lt;/code&gt; functionality we created in the previous post to record the items we complete.&lt;/p&gt;
 &lt;p&gt;Series Outline&lt;/p&gt;
 &lt;ol&gt;
