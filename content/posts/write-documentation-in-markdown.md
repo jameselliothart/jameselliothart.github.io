@@ -3,6 +3,7 @@ date: 11-01-20
 author: James Hart
 category: Productivity
 tags: Markdown, Pandoc, Tips, Productivity, Documentation
+modified: 11-06-20
 
 I think the dictum ["working software over comprehensive documentation"](https://agilemanifesto.org/) is very much undervalued in the enterprise.
 However, there are times when documentation is quite necessary, and the methods we have for creating and maintaining it seem underdeveloped compared to our patterns for software.
@@ -57,6 +58,7 @@ The [documentation](https://pandoc.org/demos.html) has an extensive list of demo
 ## Summary
 
 1. Write documents in [Markdown](https://www.markdownguide.org/getting-started/)
+   1. Pro-tip: write each sentence on its own line to make diffs more effective
 2. [Version control](https://git-scm.com/) them
 3. Convert as needed with [pandoc](https://pandoc.org/)
 4. Profit
