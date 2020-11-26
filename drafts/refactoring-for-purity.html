@@ -1,0 +1,205 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="" />
+
+  <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro|Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="https://jameselliothart.github.io/theme/stylesheet/style.min.css">
+
+  <link rel="stylesheet" type="text/css" href="https://jameselliothart.github.io/theme/pygments/github.min.css">
+  <link rel="stylesheet" type="text/css" href="https://jameselliothart.github.io/theme/font-awesome/css/font-awesome.min.css">
+
+
+    <link href="https://jameselliothart.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="A Hart's View Atom">
+
+
+
+
+
+<meta name="author" content="James Hart" />
+<meta name="description" content="Worse, what if the class is reading from and writing to databases which are difficult to replicate locally? source Say you have a class like this: from pathlib import Path class Greeter(): def __init__(self, path): self._path = Path(path) def get_greetings(self): path = self._path.joinpath(&#39;greetings.txt&#39;) return …" />
+<meta name="keywords" content="Development, Opinion, Refactoring, FunctionalProgramming, Python">
+
+<meta property="og:site_name" content="A Hart's View"/>
+<meta property="og:title" content="Refactoring for Purity"/>
+<meta property="og:description" content="Worse, what if the class is reading from and writing to databases which are difficult to replicate locally? source Say you have a class like this: from pathlib import Path class Greeter(): def __init__(self, path): self._path = Path(path) def get_greetings(self): path = self._path.joinpath(&#39;greetings.txt&#39;) return …"/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:url" content="https://jameselliothart.github.io/drafts/refactoring-for-purity.html"/>
+<meta property="og:type" content="article"/>
+<meta property="article:published_time" content="2020-11-18 00:00:00-06:00"/>
+<meta property="article:modified_time" content=""/>
+<meta property="article:author" content="https://jameselliothart.github.io/author/james-hart.html">
+<meta property="article:section" content="Development"/>
+<meta property="article:tag" content="Development"/>
+<meta property="article:tag" content="Opinion"/>
+<meta property="article:tag" content="Refactoring"/>
+<meta property="article:tag" content="FunctionalProgramming"/>
+<meta property="article:tag" content="Python"/>
+<meta property="og:image" content="/images/me.jpeg">
+
+  <title>A Hart's View &ndash; Refactoring for Purity</title>
+
+</head>
+<body>
+  <aside>
+    <div>
+      <a href="https://jameselliothart.github.io">
+        <img src="/images/me.jpeg" alt="A Hart's View" title="A Hart's View">
+      </a>
+      <h1><a href="https://jameselliothart.github.io">A Hart's View</a></h1>
+
+
+      <nav>
+        <ul class="list">
+          <li><a href="https://jameselliothart.github.io/pages/about.html#about">About</a></li>
+
+        </ul>
+      </nav>
+
+      <ul class="social">
+        <li><a class="sc-linkedin" href="https://www.linkedin.com/in/james-hart-3543664b/" target="_blank"><i class="fa fa-linkedin"></i></a></li>
+        <li><a class="sc-github" href="https://github.com/jameselliothart/" target="_blank"><i class="fa fa-github"></i></a></li>
+        <li><a class="sc-rss" href="/feeds/all.atom.xml" target="_blank"><i class="fa fa-rss"></i></a></li>
+      </ul>
+    </div>
+
+
+  </aside>
+  <main>
+
+    <nav>
+      <a href="https://jameselliothart.github.io">    Home
+</a>
+
+      <a href="/archives.html">Archives</a>
+      <a href="/categories.html">Categories</a>
+      <a href="/tags.html">Tags</a>
+
+      <a href="https://jameselliothart.github.io/feeds/all.atom.xml">    Atom
+</a>
+
+    </nav>
+
+<article class="single">
+  <header>
+      
+    <h1 id="refactoring-for-purity">Refactoring for Purity</h1>
+    <p>
+          Posted on November 18, 2020 in <a href="https://jameselliothart.github.io/category/development.html">Development</a>
+
+          </br>
+    </p>
+  </header>
+
+
+  <div>
+    <p>Worse, what if the class is reading from and writing to databases which are difficult to replicate locally?</p>
+<p><a href="https://github.com/jameselliothart/blog-code/tree/master/RefactoringForPurity">source</a></p>
+<p>Say you have a class like this:</p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+
+<span class="k">class</span> <span class="nc">Greeter</span><span class="p">():</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">get_greetings</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_path</span><span class="o">.</span><span class="n">joinpath</span><span class="p">(</span><span class="s1">&#39;greetings.txt&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">path</span><span class="o">.</span><span class="n">read_text</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">planet_greetings</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{greeting}</span><span class="s1"> earth!&#39;</span> <span class="k">for</span> <span class="n">greeting</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_greetings</span><span class="p">()]</span>  <span class="c1"># imagine this is complex logic</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_path</span><span class="o">.</span><span class="n">joinpath</span><span class="p">(</span><span class="s1">&#39;planet_greetings.txt&#39;</span><span class="p">)</span>
+        <span class="n">path</span><span class="o">.</span><span class="n">write_text</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">planet_greetings</span><span class="p">))</span>
+</pre></div>
+
+
+<p>There is a change in the requirement for the greeting - the <code>planet_greetings =</code> line in <code>run</code> - and no unit tests exist.
+Imagining this line as a stand-in for some complex business logic, we need to test this change thoroughly and preferably with an automated unit test.
+Imagine also that the class is reading from and writing to databases which we cannot replicate locally instead of interacting with local files.</p>
+<p>The code as currently structured will be difficult to test to say the least.
+We could <a href="https://www.geeksforgeeks.org/monkey-patching-in-python-dynamic-behavior/">monkey patch</a> <code>get_greetings</code> to return some hard-coded values, but we would still need to inspect the result of <code>run</code> - the updated file or database - to see the result of our greeting logic.
+Suppose we instead make this small refactoring:</p>
+<div class="highlight"><pre><span></span>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">greetings</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_greetings</span><span class="p">()</span>
+        <span class="n">planet_greetings</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{greeting}</span><span class="s1"> earth!&#39;</span> <span class="k">for</span> <span class="n">greeting</span> <span class="ow">in</span> <span class="n">greetings</span><span class="p">]</span>  <span class="c1"># imagine this is complex logic</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_path</span><span class="o">.</span><span class="n">joinpath</span><span class="p">(</span><span class="s1">&#39;planet_greetings.txt&#39;</span><span class="p">)</span>
+        <span class="n">path</span><span class="o">.</span><span class="n">write_text</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">planet_greetings</span><span class="p">))</span>
+</pre></div>
+
+
+<p>Now it is clear that the (complex) logic for <code>planet_greetings</code> is a <a href="https://en.wikipedia.org/wiki/Pure_function">pure function</a>.
+This makes it easy to move into its own method:</p>
+<div class="highlight"><pre><span></span>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">greet_planet</span><span class="p">(</span><span class="n">greetings</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">[</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{greeting}</span><span class="s1"> earth!&#39;</span> <span class="k">for</span> <span class="n">greeting</span> <span class="ow">in</span> <span class="n">greetings</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">greetings</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_greetings</span><span class="p">()</span>
+        <span class="n">planet_greetings</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">greet_planet</span><span class="p">(</span><span class="n">greetings</span><span class="p">)</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_path</span><span class="o">.</span><span class="n">joinpath</span><span class="p">(</span><span class="s1">&#39;planet_greetings.txt&#39;</span><span class="p">)</span>
+        <span class="n">path</span><span class="o">.</span><span class="n">write_text</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">planet_greetings</span><span class="p">))</span>
+</pre></div>
+
+
+<p>For our purposes, this would be enough.
+The business logic encapsulated in a pure function is now easy to unit test, so we can be more confident in our changes.
+For the sake of illustration, let's go one step further:</p>
+<div class="highlight"><pre><span></span>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">greetings</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_greetings</span><span class="p">()</span>  <span class="c1"># impure</span>
+        <span class="n">planet_greetings</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">greet_planet</span><span class="p">(</span><span class="n">greetings</span><span class="p">)</span>  <span class="c1"># pure</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">save_greetings</span><span class="p">(</span><span class="n">planet_greetings</span><span class="p">)</span>  <span class="c1"># impure</span>
+
+    <span class="k">def</span> <span class="nf">save_greetings</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">greetings</span><span class="p">):</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_path</span><span class="o">.</span><span class="n">joinpath</span><span class="p">(</span><span class="s1">&#39;planet_greetings.txt&#39;</span><span class="p">)</span>
+        <span class="n">path</span><span class="o">.</span><span class="n">write_text</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">greetings</span><span class="p">))</span>
+</pre></div>
+
+
+<p>Now we can see that the <code>run</code> method is an example of an <a href="https://blog.ploeh.dk/2020/03/02/impureim-sandwich/">impureim sandwich</a>.
+In production code, it may not be as easy to see and the refactoring may not be as clean, but it is surprisingly often possible to apply this.</p>
+<p>FLIP MATTRESS</p>
+  </div>
+  <div class="tag-cloud">
+    <p>
+      <a href="https://jameselliothart.github.io/tag/development.html">Development</a>
+      <a href="https://jameselliothart.github.io/tag/opinion.html">Opinion</a>
+      <a href="https://jameselliothart.github.io/tag/refactoring.html">Refactoring</a>
+      <a href="https://jameselliothart.github.io/tag/functionalprogramming.html">FunctionalProgramming</a>
+      <a href="https://jameselliothart.github.io/tag/python.html">Python</a>
+    </p>
+  </div>
+
+
+
+
+
+</article>
+
+    <footer>
+<p>&copy; James Hart 2020</p>
+<p>    Powered by <a href="http://getpelican.com" target="_blank">Pelican</a> - <a href="https://github.com/alexandrevicenzi/flex" target="_blank">Flex</a> theme by <a href="http://alexandrevicenzi.com" target="_blank">Alexandre Vicenzi</a>
+</p>    </footer>
+  </main>
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " A Hart's View ",
+  "url" : "https://jameselliothart.github.io",
+  "image": "/images/me.jpeg",
+  "description": ""
+}
+</script>
+
+</body>
+</html>
