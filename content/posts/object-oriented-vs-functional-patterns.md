@@ -1,18 +1,21 @@
 title: Object Oriented vs Functional Patterns
-date: 10-31-20
+date: 11-18-20
 author: James Hart
 category: Development
 tags: Development, Opinion, Patterns, C#, F#, Python
 status: draft
 
-There is a strange antagonism between object-oriented and functional programming paradigms.
-The image below from Scott Wlaschin's excellent [talk](https://www.youtube.com/watch?v=E8I19uA-wGY) is often used.
+There is a sometimes strange antagonism between object-oriented and functional programming paradigms with regard to "design patterns."
+I have seen the meme below bandied about by FPers to express something like there
+The image below from Scott Wlaschin's excellent [Functional programming design patterns](https://www.youtube.com/watch?v=E8I19uA-wGY) talk is often used.
 I saw the meme before watching the talk (or even knowing the talk existed), and in the context of the talk it is actually a joke.
 It doesn't actually address the question.
 You could make the same image and replace "Functions" for "Objects" and claim victory - there are no OO patterns, just objects.
 I often see it taken out of context in a way that obscures rather than reveals an insight.
 
 The more subtle point is that these patterns or principles are much easier to implement - or even trivial - in a functional paradigm.
+
+[Source code](https://github.com/jameselliothart/blog-code/tree/master/OOvsFP)
 
 
 <img src="{static}/images/oo-vs-fp-patterns/patterns.gif" width="500">
