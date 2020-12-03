@@ -2,7 +2,7 @@ title: Refactoring for Purity
 date: 11-18-20
 author: James Hart
 category: Development
-tags: Development, Opinion, Refactoring, FunctionalProgramming, Python
+tags: Development, Refactoring, FunctionalProgramming, Python
 status: draft
 
 Worse, what if the class is reading from and writing to databases which are difficult to replicate locally?

@@ -2,7 +2,7 @@ title: Object Oriented vs Functional Patterns
 date: 11-18-20
 author: James Hart
 category: Development
-tags: Development, Opinion, Patterns, C#, F#, Python
+tags: Development, Patterns, C#, F#, Python
 status: draft
 
 There is a sometimes strange antagonism between object-oriented and functional programming paradigms with regard to "design patterns."
