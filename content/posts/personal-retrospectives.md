@@ -20,7 +20,7 @@ The other key tool is a simple to-do list manager like [pstodo](https://github.c
 
 ## Summary
 
-1. Carve out time at the end of each week to have a personal retrospective and write down:
+1. Carve out time at the end of each week to have a personal retrospective and log:
     - What went well
     - Areas to improve
 2. Reference your retrospectives log when writing self-evaluations
